@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens.
+   Transcribed from aws-student-builder-group-design/tokens/*.css. Names are kept
+   byte-identical to the source so the two can be diffed. `@theme` is used rather
+   than importing the source CSS because `:root { --navy-900 }` would define a
+   variable but no `bg-navy-900` utility.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Wipe Tailwind's stock palette. `bg-blue-500` then fails to compile, which
+     is the point — the brand cannot leak in by autocomplete. */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-navy-900: #06175d;
+  --color-navy-700: #0c2178;
+  --color-slate-900: #161d26;
+  --color-slate-800: #1d2530;
+  --color-slate-700: #252f3e;
+  --color-slate-600: #3a4454;
+  /* 3.09:1 on slate-900 — hairlines, rules and >=24px text only, never body copy. */
+  --color-slate-400: #656873;
+  --color-slate-200: #aab0bb;
+  --color-off-white: #f4f5f7;
+  --color-border-light: #e2e5ea;
+
+  --color-orange: #ff9900;
+  --color-orange-700: #cc7a00;
+  --color-sky: #42b4ff;
+  --color-green: #01e582;
+  --color-purple: #ad5cff;
+
+  --font-body:
+    var(--font-amazon-ember), -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display:
+    var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --text-display-xl: clamp(2.5rem, 8vw, 6.5rem);
+  --text-display-xl--line-height: 1.04;
+  --text-display-lg: clamp(2rem, 4vw, 2.5rem);
+  --text-display-lg--line-height: 1.15;
+  --text-display-md: 1.75rem;
+  --text-display-md--line-height: 1.15;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.55;
+  --text-body: 1rem;
+  --text-body--line-height: 1.55;
+  --text-small: 0.8125rem;
+  --text-small--line-height: 1.5;
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.08em;
+
+  --tracking-mono-caps: 0.08em;
+
+  /* Spacing is deliberately not redefined: Tailwind's default 0.25rem step
+     already reproduces the 4/8/12/16/24/32/48/64/96 scale exactly, and staying
+     in rem keeps it responsive to the user's font size. */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  --shadow-card: 0 1px 2px rgb(6 10 20 / 0.4), 0 8px 24px rgb(6 10 20 / 0.35);
+
+  --grid-cell: 80px;
+  --grid-line: rgb(101 104 115 / 0.28);
+  --grid-line-light: rgb(22 29 38 / 0.1);
+}
+
+/* ---------------------------------------------------------------------------
+   The one sanctioned background texture.
+--------------------------------------------------------------------------- */
+@utility grid-motif {
+  background-color: var(--color-slate-900);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+}
+
+@utility grid-motif-light {
+  background-color: var(--color-off-white);
+  background-image:
+    linear-gradient(var(--grid-line-light) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-light) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+}
+
+/* The `//` is drawn by CSS so it never reaches the accessibility tree. */
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--text-eyebrow);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-mono-caps);
+  text-transform: uppercase;
+  color: var(--color-slate-200);
+
+  &::before {
+    content: "// ";
+    color: var(--color-orange);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* clears the sticky header when jumping to an anchor */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-slate-900);
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: var(--text-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sky);
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+
+  ::selection {
+    background: var(--color-orange);
+    color: var(--color-navy-900);
+  }
+
+  /* Digits in the countdown and timetable must not reflow as they tick. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll-reveal rest states.
+
+   These live in CSS, not JS, so there is never a frame of fully-visible content
+   before GSAP runs. They are gated on `html[data-js]`, which a blocking inline
+   script in the document head sets: if JavaScript is off, or the motion chunk
+   fails to load, the attribute never lands and everything renders visible.
+   Content stuck at opacity 0 because a bundle 404'd is what this prevents.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js] [data-reveal],
+  html[data-js] [data-reveal-group] > * {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  html[data-js] [data-hero-step] {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  html[data-js] [data-hero-cell] {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Print. People print conference programmes and pin them to a wall, so the
+   timetable is forced back to its wide form on paper regardless of page width.
+--------------------------------------------------------------------------- */
+@media print {
+  /* Reveals never run on paper — force everything visible. */
+  [data-reveal],
+  [data-reveal-group] > *,
+  [data-hero-step],
+  [data-hero-cell] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .grid-motif,
+  .grid-motif-light {
+    background-image: none;
+    background-color: #fff;
+  }
+
+  /* Navigation, calls to action and the hero field are noise on paper. */
+  header[class*="fixed"],
+  canvas,
+  a[href^="http"][class*="bg-orange"] {
+    display: none !important;
+  }
+
+  /* The mobile list and the wide table swap roles: paper is wide. */
+  .lg\:hidden {
+    display: none !important;
+  }
+  .hidden.lg\:block {
+    display: block !important;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    position: static !important;
+    border: 1px solid #999 !important;
+    color: #000 !important;
+  }
+
+  tr,
+  td,
+  th {
+    break-inside: avoid;
+  }
+}

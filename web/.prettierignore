@@ -1,0 +1,4 @@
+.next
+node_modules
+src/components/brand/pixel-icons.ts
+src/components/brand/sbg-tile-paths.ts

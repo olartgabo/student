@@ -1,0 +1,17 @@
+# Node
+node_modules/
+
+# Next.js
+web/.next/
+web/out/
+web/next-env.d.ts
+
+# Build & tooling
+*.tsbuildinfo
+.vercel
+
+# Env
+.env*
+
+# OS
+.DS_Store

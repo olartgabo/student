@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Event Deck" description="AWS Student Builder Group slide deck — title, agenda, stat, quote and closing slides" -->
+<helmet><script src="./ds-base.js"></script></helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+<section data-label="Title" style="position:relative;width:1920px;height:1080px;background:#161D26;background-image:linear-gradient(rgba(101,104,115,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(101,104,115,.28) 1px,transparent 1px);background-size:80px 80px;display:flex;flex-direction:column;justify-content:center;padding:0 140px;box-sizing:border-box;font-family:'JetBrains Mono',monospace;color:#fff">
+<span style="font-size:20px;letter-spacing:0.1em;text-transform:uppercase;color:#42B4FF;margin-bottom:28px">// AWS Student Builder Group — UPB Cochabamba</span>
+<h1 style="margin:0;font-size:104px;font-weight:500;line-height:1.04;max-width:1400px">Student Community Day</h1>
+<p style="margin:28px 0 0;font-family:'Amazon Ember',sans-serif;font-weight:300;font-size:26px;color:#AAB0BB;max-width:900px">La comunidad tecnológica universitaria se encuentra aquí.</p>
+<div style="position:absolute;left:140px;bottom:64px;display:flex;align-items:center;gap:16px">
+<img src="../../assets/icons/sbg-chip-mark.svg" style="width:28px;height:28px;filter:invert(63%) sepia(84%) saturate(1000%) hue-rotate(1deg)" alt="">
+<span style="font-size:16px;letter-spacing:0.04em">AWS Student Builder Group</span>
+</div>
+</section>
+
+<section data-label="Agenda" style="position:relative;width:1920px;height:1080px;background:#161D26;display:flex;flex-direction:column;justify-content:center;padding:0 140px;box-sizing:border-box;font-family:'JetBrains Mono',monospace;color:#fff">
+<span style="font-size:18px;letter-spacing:0.1em;text-transform:uppercase;color:#656873;margin-bottom:40px">Agenda</span>
+<div style="display:flex;flex-direction:column;gap:0">
+<div style="display:flex;align-items:baseline;gap:40px;padding:28px 0;border-bottom:1px solid #3A4454"><span style="color:#FF9900;font-size:22px;width:60px">01</span><span style="font-size:34px;font-weight:500">Welcome &amp; community update</span></div>
+<div style="display:flex;align-items:baseline;gap:40px;padding:28px 0;border-bottom:1px solid #3A4454"><span style="color:#42B4FF;font-size:22px;width:60px">02</span><span style="font-size:34px;font-weight:500">Build session: hands-on with AWS</span></div>
+<div style="display:flex;align-items:baseline;gap:40px;padding:28px 0;border-bottom:1px solid #3A4454"><span style="color:#01E582;font-size:22px;width:60px">03</span><span style="font-size:34px;font-weight:500">Lightning talks from student builders</span></div>
+<div style="display:flex;align-items:baseline;gap:40px;padding:28px 0"><span style="color:#AD5CFF;font-size:22px;width:60px">04</span><span style="font-size:34px;font-weight:500">Networking &amp; next steps</span></div>
+</div>
+</section>
+
+<section data-label="Stat" style="position:relative;width:1920px;height:1080px;background:#06175D;display:flex;flex-direction:column;justify-content:center;padding:0 140px;box-sizing:border-box;font-family:'JetBrains Mono',monospace;color:#fff">
+<span style="font-size:288px;font-weight:500;line-height:1">200+</span>
+<span style="font-size:34px;font-weight:500;margin-top:8px">student builders in the community</span>
+<p style="margin:28px 0 0;font-family:'Amazon Ember',sans-serif;font-weight:300;font-size:22px;color:#AAB0BB;max-width:780px">Growing every semester through workshops, talks and hackathons at UPB.</p>
+</section>
+
+<section data-label="Quote" style="position:relative;width:1920px;height:1080px;background:#161D26;display:flex;flex-direction:column;justify-content:center;padding:0 180px;box-sizing:border-box;font-family:'Amazon Ember',sans-serif;color:#fff">
+<span style="font-family:'JetBrains Mono',monospace;font-size:80px;color:#FF9900;line-height:1">&ldquo;</span>
+<p style="margin:0;font-size:44px;font-weight:300;line-height:1.35;max-width:1400px">Sigamos desarrollando el talento que transformará nuestro país.</p>
+<span style="margin-top:32px;font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:0.06em;color:#656873;text-transform:uppercase">AWS Student Builder Group — UPB</span>
+</section>
+
+<section data-label="Closing" style="position:relative;width:1920px;height:1080px;background:#01E582;display:flex;flex-direction:column;justify-content:center;padding:0 140px;box-sizing:border-box;font-family:'JetBrains Mono',monospace;color:#0C1420">
+<h1 style="margin:0;font-size:104px;font-weight:500">Thank you</h1>
+<div style="position:absolute;left:140px;bottom:64px;display:flex;align-items:center;gap:16px">
+<img src="../../assets/icons/sbg-chip-mark.svg" style="width:26px;height:26px" alt="">
+<span style="font-size:16px;letter-spacing:0.04em">AWS Student Builder Group</span>
+</div>
+</section>
+
+</x-import>
+</x-dc>
+</body>
+</html>

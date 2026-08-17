@@ -1,0 +1,17 @@
+:root{
+--font-body:"Amazon Ember",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+--font-display:"JetBrains Mono","IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+--weight-light:300;
+--weight-medium:500;
+--text-display-xl:clamp(40px,6vw,72px);
+--text-display-lg:40px;
+--text-display-md:28px;
+--text-eyebrow:13px;
+--text-body-lg:18px;
+--text-body:16px;
+--text-small:13px;
+--lh-tight:1.05; /* @kind other */
+--lh-heading:1.15; /* @kind other */
+--lh-body:1.55; /* @kind other */
+--ls-mono-caps:0.08em;
+}
