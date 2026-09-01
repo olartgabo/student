@@ -5,7 +5,7 @@ export const event: EventInfo = {
   edition: "Cochabamba 2026",
   slug: "SC-DAY // 001",
   tagline: "La comunidad tecnológica universitaria se encuentra aquí.",
-  dateISO: "2026-10-03",
+  dateISO: "2026-10-10",
   startTime: "09:00",
   endTime: "18:00",
   timeZone: "America/La_Paz",
@@ -31,8 +31,8 @@ export const eventStartISO = `${event.dateISO}T${event.startTime}:00${event.utcO
 export const eventEndISO = `${event.dateISO}T${event.endTime}:00${event.utcOffset}`;
 
 export const eventDateLabel = {
-  day: "03",
+  day: "10",
   month: "Octubre",
   year: "2026",
-  long: "3 de octubre de 2026",
+  long: "10 de octubre de 2026",
 } as const;

@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Repository design references, not application source.
+    "aws-student-builder-group-design/**",
+    "Resources/**",
   ]),
 ]);
 

@@ -7,23 +7,23 @@ Cochabamba — **3 October 2026, 09:00–18:00**. Registration links out to
 ```
 aws-student-builder-group-design/   brand system (tokens, guidelines, reference art)
 Resources/                          raw logo and icon SVGs
-web/                                the Next.js site
+src/                                 the Next.js site source
 ```
 
 ## Running it
 
 ```bash
-cd web
 npm install
 npm run dev      # http://localhost:3000
 npm run check    # typecheck + lint + tests + production build
 ```
 
-Deploy target is Vercel with the root directory set to `web`.
+Deploy the repository root (for example, configure AWS Amplify with the default
+root directory).
 
 ## Editing content
 
-Everything an organiser needs to change lives in `web/src/content/` as typed
+Everything an organiser needs to change lives in `src/content/` as typed
 TypeScript. `tsc` validates it at build time, and `npm run test` asserts the
 structural rules the type system can't express (no duplicate track in a block, no
 workshop spanning across a break, no overlapping times).
