@@ -19,11 +19,11 @@ export const event: EventInfo = {
   utcOffset: "-04:00",
   registrationUrl: "https://luma.com/r65j1ukn",
   /**
-   * PENDIENTE: confirmar el slug real de Sessionize antes de publicar. El resto
-   * del sitio ya trata esta URL como destino de primera clase (nav, hero, bloque
-   * de registro y footer), así que corregirla aquí la corrige en todas partes.
+   * Convocatoria de speakers. El resto del sitio la trata como destino de primera
+   * clase (nav, hero, bloque de registro, agenda y footer) leyendo siempre este
+   * campo, así que cambiarla aquí la cambia en todas partes.
    */
-  speakersUrl: "https://sessionize.com/student-community-day-cochabamba-2026/",
+  speakersUrl: "https://sessionize.com/aws-student-community-day-cochabamba-bolivia",
   price: "Gratis",
   venue: {
     name: "Universidad Privada Boliviana",
