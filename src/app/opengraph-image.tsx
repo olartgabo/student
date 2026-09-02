@@ -5,6 +5,7 @@ import { ImageResponse } from "next/og";
 
 import { event, eventDateLabel } from "@/content/event";
 
+export const dynamic = "force-static";
 export const alt = `AWS ${event.name} ${event.edition}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
