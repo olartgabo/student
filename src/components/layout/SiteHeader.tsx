@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { BrandLockup } from "@/components/brand/BrandLockup";
 import { Button } from "@/components/ui/Button";
 import { event } from "@/content/event";
-import { navLinks } from "@/content/nav";
+import { navLinks, speakerCta } from "@/content/nav";
 import { cn } from "@/lib/cn";
 
 import { Container } from "./Container";
@@ -37,7 +37,7 @@ export function SiteHeader() {
           </a>
 
           <nav aria-label="Principal" className="hidden lg:block">
-            <ul className="flex items-center gap-7">
+            <ul className="flex items-center gap-5 xl:gap-7">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
@@ -52,6 +52,14 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <Button
+              href={speakerCta.href}
+              variant="ghost"
+              size="sm"
+              className="max-lg:hidden"
+            >
+              {speakerCta.shortLabel} <span aria-hidden>↗</span>
+            </Button>
             <Button href={event.registrationUrl} size="sm" className="max-sm:hidden">
               Regístrate
             </Button>
@@ -86,9 +94,12 @@ export function SiteHeader() {
                 </a>
               </li>
             ))}
-            <li className="py-3">
+            <li className="flex flex-wrap gap-3 py-3">
               <Button href={event.registrationUrl} size="sm">
                 Regístrate
+              </Button>
+              <Button href={speakerCta.href} variant="secondary" size="sm">
+                {speakerCta.shortLabel} <span aria-hidden>↗</span>
               </Button>
             </li>
           </ul>

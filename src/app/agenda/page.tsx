@@ -7,10 +7,22 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { event, eventDateLabel } from "@/content/event";
+import { speakerCta } from "@/content/nav";
+
+const description =
+  `Programa completo del ${eventDateLabel.long}: tres tracks y dos laboratorios en ` +
+  `paralelo, de ${event.startTime} a ${event.endTime} en ${event.venue.shortName} ${event.venue.city}.`;
 
 export const metadata: Metadata = {
   title: "Agenda",
-  description: `Programa completo del ${eventDateLabel.long}: tres tracks y dos laboratorios en paralelo, de ${event.startTime} a ${event.endTime}.`,
+  description,
+  alternates: { canonical: "/agenda" },
+  openGraph: {
+    type: "website",
+    url: "/agenda",
+    title: `Agenda — AWS ${event.name} ${event.edition}`,
+    description,
+  },
 };
 
 export default function AgendaPage() {
@@ -26,11 +38,16 @@ export default function AgendaPage() {
             </h1>
             <p className="text-body-lg mt-4 max-w-2xl text-slate-200">
               {eventDateLabel.long} · {event.startTime}–{event.endTime} ·{" "}
-              {event.venue.shortName} {event.venue.city}. Los títulos de sesión se
-              publican a medida que se confirman los speakers.
+              {event.venue.shortName} {event.venue.city}. El registro abre a las 08:00.
+              Los títulos de sesión se publican a medida que se confirman los speakers.
             </p>
-            <div className="mt-8">
-              <Button href={event.registrationUrl}>Inscríbete gratis</Button>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button href={event.registrationUrl}>
+                Inscríbete gratis <span aria-hidden>↗</span>
+              </Button>
+              <Button href={speakerCta.href} variant="secondary">
+                {speakerCta.label} <span aria-hidden>↗</span>
+              </Button>
             </div>
           </Container>
         </div>

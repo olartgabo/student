@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
+
 import { Container } from "@/components/layout/Container";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+
+export const metadata: Metadata = {
+  title: "Página no encontrada",
+  // A 404 already tells a crawler not to index; saying so in the head keeps the
+  // page out of an answer engine that reached it from a stale link anyway.
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (

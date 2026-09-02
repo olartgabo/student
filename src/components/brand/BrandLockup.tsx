@@ -16,7 +16,7 @@ export function BrandLockup({ className, size = "md" }: BrandLockupProps) {
     <span className={cn("flex items-center gap-3", className)}>
       <PixelIcon
         name="chip"
-        className={cn("text-orange", size === "sm" ? "w-6" : "w-8")}
+        className={cn("text-orange", size === "sm" ? "size-6" : "size-8")}
       />
       <span
         className={cn(

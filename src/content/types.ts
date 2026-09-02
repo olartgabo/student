@@ -138,6 +138,12 @@ export interface SponsorTier {
   name: string;
   /** "Eres el evento", "Máxima visibilidad", … */
   tagline: string;
+  /**
+   * One factual sentence on what the tier actually buys, for the deck card and
+   * the homepage summary. Reads as value, not as adjectives — every claim in it
+   * has to be traceable to a line in `benefits`.
+   */
+  summary: string;
   code: string;
   priceUsd: number;
   accent: FillAccent;
@@ -188,6 +194,11 @@ export interface EventInfo {
   /** Bolivia does not observe DST, so this is safe to hardcode. */
   utcOffset: "-04:00";
   registrationUrl: string;
+  /**
+   * Sessionize call for speakers. First-class, not a footnote: almost every
+   * session is still `tba`, and proposals are what fill them.
+   */
+  speakersUrl: string;
   price: string;
   venue: Venue;
   contactEmail: string;

@@ -11,6 +11,7 @@ export function SbgTile({ className, title }: SbgTileProps) {
     <svg
       viewBox={SBG_TILE_VIEWBOX}
       className={className}
+      preserveAspectRatio="xMidYMid meet"
       fill="none"
       role={title ? "img" : undefined}
       aria-hidden={title ? undefined : true}

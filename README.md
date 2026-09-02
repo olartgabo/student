@@ -1,7 +1,7 @@
 # AWS Student Community Day · Cochabamba 2026
 
 Website for the AWS Student Community Day at Universidad Privada Boliviana,
-Cochabamba — **3 October 2026, 09:00–18:00**. Registration links out to
+Cochabamba — **10 October 2026, 09:00–18:00**. Registration links out to
 [Luma](https://luma.com/r65j1ukn).
 
 ```
@@ -28,15 +28,15 @@ TypeScript. `tsc` validates it at build time, and `npm run test` asserts the
 structural rules the type system can't express (no duplicate track in a block, no
 workshop spanning across a break, no overlapping times).
 
-| File | Holds |
-|---|---|
-| `event.ts` | Date, venue, Luma URL, contact addresses |
-| `agenda.ts` | The full-day programme |
-| `tracks.ts` | The three tracks and two workshop rooms |
-| `speakers.ts` | Speaker bios (empty until confirmed) |
+| File          | Holds                                          |
+| ------------- | ---------------------------------------------- |
+| `event.ts`    | Date, venue, Luma URL, contact addresses       |
+| `agenda.ts`   | The full-day programme                         |
+| `tracks.ts`   | The three tracks and two workshop rooms        |
+| `speakers.ts` | Speaker bios (empty until confirmed)           |
 | `sponsors.ts` | The four sponsorship tiers and confirmed logos |
-| `team.ts` | Organising team (empty until confirmed) |
-| `faq.ts` | Frequently asked questions |
+| `team.ts`     | Organising team (empty until confirmed)        |
+| `faq.ts`      | Frequently asked questions                     |
 
 ### Announcing a session
 

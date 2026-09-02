@@ -13,6 +13,8 @@ export const sponsorTiers = [
     id: "host",
     name: "Host",
     tagline: "Eres el evento",
+    summary:
+      "Tu marca en el nombre del evento y 45 minutos de keynote en el escenario principal. Un solo cupo por edición.",
     code: "01",
     priceUsd: 1000,
     accent: "orange",
@@ -36,6 +38,8 @@ export const sponsorTiers = [
     id: "platinum",
     name: "Platinum",
     tagline: "Máxima visibilidad",
+    summary:
+      "Lightning talk de 15 minutos, stand propio y logo destacado en escenario, web y material impreso.",
     code: "02",
     priceUsd: 800,
     accent: "sky",
@@ -56,6 +60,8 @@ export const sponsorTiers = [
     id: "gold",
     name: "Gold",
     tagline: "Presencia activa",
+    summary:
+      "Mesa en la zona de networking durante todo el día, más publicación de vacantes en las redes del evento.",
     code: "03",
     priceUsd: 500,
     accent: "green",
@@ -75,6 +81,8 @@ export const sponsorTiers = [
     id: "silver",
     name: "Silver",
     tagline: "Apoya la comunidad",
+    summary:
+      "La forma más directa de sostener un evento gratuito: logo en la web, mención en escenario y dos pases.",
     code: "04",
     priceUsd: 300,
     accent: "purple",

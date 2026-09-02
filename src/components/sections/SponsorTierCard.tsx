@@ -1,18 +1,25 @@
 import { accentFill } from "@/components/ui/accent";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { event } from "@/content/event";
+import { event, eventDateLabel } from "@/content/event";
 import type { SponsorTier } from "@/content/types";
 import { cn } from "@/lib/cn";
 
+/**
+ * A pre-filled enquiry rather than a bare address: the reply we need back is the
+ * company, a contact and a phone number, so the draft asks for exactly those and
+ * nothing else. Keep it short — anything longer gets deleted before it is read.
+ */
 function mailto(tier: SponsorTier) {
   const subject = `Patrocinio ${tier.name} — ${event.name} ${event.edition}`;
   const body = [
-    `Hola, nos interesa el paquete ${tier.name} (USD ${tier.priceUsd}).`,
+    `Hola, nos interesa el paquete ${tier.name} (USD ${tier.priceUsd}) para el ${eventDateLabel.long}.`,
     "",
     "Empresa:",
     "Contacto:",
     "Teléfono:",
+    "",
+    "Consultas o ajustes al paquete:",
   ].join("\n");
   return `mailto:${event.sponsorshipEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
@@ -56,7 +63,12 @@ export function SponsorTierCard({ tier }: { tier: SponsorTier }) {
         <span className="text-small text-slate-200">por edición</span>
       </p>
 
-      <ul className="mt-8 flex-1 space-y-3">
+      <p className="text-small mt-4 text-slate-200">{tier.summary}</p>
+
+      <p className="font-display text-small tracking-mono-caps mt-8 text-slate-200 uppercase">
+        Incluye
+      </p>
+      <ul className="mt-3 flex-1 space-y-3">
         {tier.benefits.map((benefit) => (
           <li key={benefit} className="text-small flex gap-3 text-slate-200">
             <span

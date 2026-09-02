@@ -30,7 +30,7 @@ export function Tracks() {
               </span>
               <PixelIcon
                 name={track.icon}
-                className={cn("w-10", accentText[track.accent])}
+                className={cn("size-10", accentText[track.accent])}
               />
             </div>
 
@@ -53,7 +53,7 @@ export function Tracks() {
           <article key={track.id} className="flex items-start gap-5 bg-slate-800 p-8">
             <PixelIcon
               name={track.icon}
-              className={cn("mt-1 w-8 shrink-0", accentText[track.accent])}
+              className={cn("mt-1 size-8 shrink-0", accentText[track.accent])}
             />
             <div>
               <h3 className="font-display text-body tracking-mono-caps text-white uppercase">

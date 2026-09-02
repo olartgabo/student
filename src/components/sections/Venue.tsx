@@ -10,7 +10,7 @@ export function Venue() {
     <Section id="sede" eyebrow="Sede" title="Dónde y cuándo">
       <div className="grid gap-px border border-slate-600 bg-slate-600 lg:grid-cols-2">
         <div className="bg-slate-900 p-8 md:p-10" data-reveal>
-          <PixelIcon name="pin" className="text-purple w-8" />
+          <PixelIcon name="pin" className="text-purple size-8" />
           <h3 className="font-display text-display-md mt-6 text-white">{venue.name}</h3>
           <address className="text-body-lg mt-3 space-y-1 text-slate-200 not-italic">
             {venue.addressLines.map((line) => (
@@ -30,7 +30,7 @@ export function Venue() {
         </div>
 
         <div className="bg-slate-900 p-8 md:p-10" data-reveal>
-          <PixelIcon name="calendar" className="text-sky w-8" />
+          <PixelIcon name="calendar" className="text-sky size-8" />
           <p className="font-display text-display-md mt-6 text-white">
             {eventDateLabel.long}
           </p>

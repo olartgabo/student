@@ -4,6 +4,7 @@ import { accentFill } from "@/components/ui/accent";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { event, eventDateLabel } from "@/content/event";
+import { speakerCta } from "@/content/nav";
 import type { FillAccent } from "@/content/types";
 import { cn } from "@/lib/cn";
 
@@ -23,6 +24,12 @@ import { HeroIntro } from "./HeroIntro";
  */
 const HERO_ACCENT: FillAccent = "sky";
 
+/*
+ * Six of the seven nav sections, placed by hand on the lattice. `#equipo` is not
+ * among them on purpose: the Team section removes itself while the roster is
+ * empty, and a cell pointing at a section that does not render is a dead link.
+ * `site-qa.test.ts` asserts that.
+ */
 const navCells: ReadonlyArray<{
   code: string;
   label: string;
@@ -34,7 +41,7 @@ const navCells: ReadonlyArray<{
   { code: "02", label: "Agenda", href: "#agenda", column: 3, row: 2 },
   { code: "03", label: "Sede", href: "#sede", column: 5, row: 2 },
   { code: "04", label: "Patrocinio", href: "#patrocinio", column: 1, row: 4 },
-  { code: "05", label: "Equipo", href: "#equipo", column: 3, row: 4 },
+  { code: "05", label: "Speakers", href: "#speakers", column: 3, row: 4 },
   { code: "06", label: "FAQ", href: "#faq", column: 5, row: 4 },
 ];
 
@@ -110,7 +117,7 @@ function MetaBox({
 }) {
   return (
     <div className="flex items-center gap-4 border border-slate-600 px-5 py-4">
-      <PixelIcon name={icon} className="text-sky w-6 shrink-0" />
+      <PixelIcon name={icon} className="text-sky size-6 shrink-0" />
       <div className="font-display text-small tracking-mono-caps text-white uppercase">
         {children}
       </div>
@@ -228,6 +235,9 @@ export function Hero() {
             <Button href="/agenda" variant="secondary" size="lg">
               Ver la agenda
             </Button>
+            <Button href={speakerCta.href} variant="secondary" size="lg">
+              {speakerCta.label} <span aria-hidden>↗</span>
+            </Button>
           </div>
 
           <div data-hero-step className="mt-10">
@@ -257,7 +267,10 @@ export function Hero() {
 
       <div className="relative border-t border-slate-600">
         <Container>
-          <p className="font-display tracking-mono-caps flex flex-wrap items-center gap-x-6 gap-y-2 py-4 text-[0.6875rem] text-slate-200 uppercase">
+          <p
+            data-hero-step
+            className="font-display tracking-mono-caps flex flex-wrap items-center gap-x-6 gap-y-2 py-4 text-[0.6875rem] text-slate-200 uppercase"
+          >
             <span>{event.slug}</span>
             <span className="text-white">Build · Connect · Grow</span>
             <span>
