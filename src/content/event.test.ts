@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { event, eventDateLabel, eventEndISO, eventStartISO, siteUrl } from "./event";
 import { navLinks, speakerCta } from "./nav";
-import { sponsorTiers } from "./sponsors";
+import { sponsorComparisonRows, sponsorTiers } from "./sponsors";
 
 const MONTHS_ES = [
   "enero",
@@ -103,6 +103,15 @@ describe("sponsor tiers", () => {
     for (const tier of sponsorTiers) {
       expect(tier.summary.length).toBeGreaterThan(0);
       expect(tier.benefits.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("compares every tier in every decision row", () => {
+    const tierIds = sponsorTiers.map((tier) => tier.id).sort();
+
+    for (const row of sponsorComparisonRows) {
+      expect(Object.keys(row.values).sort()).toEqual(tierIds);
+      expect(Object.values(row.values).every((value) => value.length > 0)).toBe(true);
     }
   });
 });

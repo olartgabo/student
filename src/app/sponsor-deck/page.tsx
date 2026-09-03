@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 import { Container } from "@/components/layout/Container";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { SponsorTierCard } from "@/components/sections/SponsorTierCard";
+import { SponsorMotion } from "@/components/motion/SponsorMotion";
+import { SponsorComparison } from "@/components/sections/SponsorComparison";
 import { Button } from "@/components/ui/Button";
-import { Callout } from "@/components/ui/Callout";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { communityPhotos, communityPhotoSource } from "@/content/community";
 import { event, eventDateLabel } from "@/content/event";
 import { sponsorTiers } from "@/content/sponsors";
 
@@ -30,131 +32,198 @@ export const metadata: Metadata = {
   },
 };
 
-const reach = [
-  { value: "300+", label: "Asistentes esperados" },
-  { value: "05", label: "Salas simultáneas" },
-  { value: "09h", label: "De evento" },
-  { value: "03", label: "Tracks técnicos" },
+const sponsorFacts = [
+  { label: "Audiencia esperada", value: "300+" },
+  { label: "Presencia de marca", value: "08–18 h" },
+  { label: "Espacios simultáneos", value: "5 salas" },
+  { label: "Sede", value: event.venue.city },
 ] as const;
 
-/**
- * Why a company sponsors this, in three claims that can each be checked against
- * the agenda or the tier benefits. No projections beyond the attendance estimate,
- * which is labelled as an estimate wherever it appears.
- */
-const valueProps = [
+const sponsorValueProps = [
   {
-    code: "A",
-    title: "Una audiencia técnica en formación",
-    body: `Estudiantes y profesionales tempranos de ${event.venue.city}: exactamente el perfil que las empresas de la región tardan meses en encontrar. El evento es gratuito para ellos, y eso es lo que llena las salas.`,
+    title: "Escenario",
+    body: "Platinum incluye un lightning talk de 15 minutos. Host suma una keynote de 45 minutos y presencia principal en la comunicación.",
   },
   {
-    code: "B",
-    title: "Un día entero de presencia, no un logo en una slide",
-    body: "La Community Expo abre a las 08:00 con el registro y sigue durante los breaks y el almuerzo. Desde Gold hay mesa propia en la zona de networking; desde Platinum, stand y escenario.",
+    title: "Expo y networking",
+    body: "Desde Gold hay espacio propio en la zona de networking. Platinum y Host agregan stand, video e invitaciones al Techmixer.",
   },
   {
-    code: "C",
-    title: "Una vía directa de contratación",
-    body: "Los paquetes desde Gold incluyen publicación de vacantes en las redes del evento, y desde Platinum también en la web. Las invitaciones al Techmixer suman conversaciones fuera del escenario.",
+    title: "Talento",
+    body: "Los paquetes Gold, Platinum y Host incluyen publicación de vacantes para conectar con estudiantes y perfiles técnicos tempranos.",
   },
 ] as const;
+
+const heroPhoto = communityPhotos[0];
 
 export default function SponsorDeckPage() {
   return (
     <>
       <SiteHeader />
       <main id="contenido" className="pt-18">
-        <div className="grid-motif border-b border-slate-600 py-16 md:py-20">
-          <Container>
-            <Eyebrow>Patrocinio</Eyebrow>
-            <h1 className="font-display text-display-lg mt-4 max-w-3xl text-white">
-              Paquetes de patrocinio 2026
-            </h1>
-            <p className="text-body-lg mt-4 max-w-2xl text-slate-200">
-              {event.name} {event.edition} es un evento gratuito, organizado por
-              estudiantes, el {eventDateLabel.long} en {event.venue.name}. Los paquetes de
-              patrocinio son lo que lo hace posible — y lo que pone tu marca frente a la
-              próxima generación técnica de {event.venue.city}.
-            </p>
+        <SponsorMotion />
+        <section
+          id="inicio"
+          aria-labelledby="sponsor-title"
+          className="grid-motif scroll-mt-18 border-b border-slate-600"
+        >
+          <Container className="py-14 md:py-20">
+            <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+              <div data-sponsor-hero-copy>
+                <Eyebrow>Patrocinio 2026</Eyebrow>
+                <h1
+                  id="sponsor-title"
+                  className="font-display mt-5 text-[clamp(2.5rem,5vw,4.75rem)] leading-[1.04] text-white"
+                >
+                  Patrocina Student Community Day Bolivia
+                </h1>
+                <p className="text-body-lg mt-6 max-w-xl text-slate-200">
+                  Un día para conectar tu marca con estudiantes, builders y comunidades
+                  técnicas el {eventDateLabel.long} en {event.venue.name}.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button href="#paquetes" size="lg">
+                    Comparar paquetes
+                  </Button>
+                  <Button
+                    href={`mailto:${event.sponsorshipEmail}`}
+                    variant="secondary"
+                    size="lg"
+                  >
+                    Hablar con el equipo
+                  </Button>
+                </div>
+              </div>
 
-            <dl
-              className="mt-12 grid max-w-3xl grid-cols-2 gap-px border border-slate-600 bg-slate-600 sm:grid-cols-4"
-              data-reveal-group
-            >
-              {reach.map((item) => (
-                <div key={item.label} className="bg-slate-900 p-5">
-                  <dt className="sr-only">{item.label}</dt>
-                  <dd>
-                    <span className="font-display text-display-md block text-white">
-                      {item.value}
-                    </span>
-                    <span
-                      aria-hidden
-                      className="font-display tracking-mono-caps mt-1 block text-[0.6875rem] text-slate-200 uppercase"
-                    >
-                      {item.label}
-                    </span>
-                  </dd>
+              <figure
+                className="border border-slate-600 bg-slate-800 p-2"
+                data-sponsor-hero-photo
+              >
+                <Image
+                  src={heroPhoto.src}
+                  alt={heroPhoto.alt}
+                  width={heroPhoto.width}
+                  height={heroPhoto.height}
+                  sizes="(min-width: 1024px) 55vw, 100vw"
+                  priority
+                  className="aspect-[3/2] w-full object-cover"
+                />
+                <figcaption className="text-small flex flex-wrap justify-between gap-2 px-2 pt-3 pb-1 text-slate-200">
+                  <span>AWS Community Day Bolivia 2025 · Cochabamba</span>
+                  <a
+                    href={communityPhotoSource.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white underline underline-offset-4"
+                  >
+                    Ver fuente
+                  </a>
+                </figcaption>
+              </figure>
+            </div>
+
+            <dl className="mt-12 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-slate-600 pt-6 sm:grid-cols-4">
+              {sponsorFacts.map((fact) => (
+                <div key={fact.label} data-sponsor-fact>
+                  <dt className="text-small text-slate-200">{fact.label}</dt>
+                  <dd className="font-display mt-1 text-xl text-white">{fact.value}</dd>
                 </div>
               ))}
             </dl>
           </Container>
-        </div>
+        </section>
 
-        <Container className="py-16 md:py-20">
-          <h2 className="font-display text-display-lg max-w-2xl text-white" data-reveal>
-            Qué compra realmente un patrocinio
-          </h2>
-          <div
-            className="mt-10 grid gap-px border border-slate-600 bg-slate-600 md:grid-cols-3"
-            data-reveal-group
-          >
-            {valueProps.map((prop) => (
-              <section key={prop.code} className="bg-slate-900 p-8">
-                <span className="font-display tracking-mono-caps text-orange text-[0.6875rem] uppercase">
-                  {prop.code}
-                </span>
-                <h3 className="font-display text-body tracking-mono-caps mt-4 text-white uppercase">
-                  {prop.title}
+        <section
+          aria-labelledby="sponsor-value-title"
+          className="grid-motif-light border-b border-slate-600/20 py-16 text-slate-900 md:py-20"
+        >
+          <Container>
+            <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+              <div data-reveal>
+                <Eyebrow className="text-slate-600">Presencia concreta</Eyebrow>
+                <h2
+                  id="sponsor-value-title"
+                  className="font-display text-display-lg text-navy-900 mt-4"
+                >
+                  Qué obtiene tu empresa
+                </h2>
+              </div>
+              <p className="text-body-lg max-w-2xl text-slate-600" data-reveal>
+                Cada beneficio corresponde a un momento visible del evento: escenario,
+                conversaciones cara a cara y acceso a una comunidad técnica en formación.
+              </p>
+            </div>
+
+            <div
+              className="border-border-light md:divide-border-light mt-12 grid border-y md:grid-cols-3 md:divide-x"
+              data-reveal-group
+            >
+              {sponsorValueProps.map((item) => (
+                <article
+                  key={item.title}
+                  className="border-border-light py-7 max-md:not-last:border-b md:border-0 md:px-7 md:first:pl-0 md:last:pr-0"
+                >
+                  <h3 className="font-display text-navy-900 text-xl">{item.title}</h3>
+                  <p className="mt-3 text-slate-600">{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </Container>
+        </section>
+
+        <section
+          id="paquetes"
+          aria-labelledby="packages-title"
+          className="scroll-mt-22 bg-slate-900 py-16 md:py-24"
+        >
+          <Container>
+            <header className="mb-10 max-w-2xl" data-reveal>
+              <Eyebrow>Comparación</Eyebrow>
+              <h2
+                id="packages-title"
+                className="font-display text-display-lg mt-4 text-white"
+              >
+                Elegí el nivel de presencia
+              </h2>
+              <p className="text-body-lg mt-4 text-slate-200">
+                Compará inversión, escenario, espacio de expo, acceso al Techmixer y
+                pases. Abrí el detalle para ver la lista completa de cada nivel.
+              </p>
+            </header>
+
+            <div data-reveal>
+              <SponsorComparison />
+            </div>
+
+            <div
+              className="bg-navy-900 mt-12 flex flex-col gap-6 p-7 md:flex-row md:items-center md:justify-between md:p-10"
+              data-reveal
+            >
+              <div>
+                <h3 className="font-display text-display-md text-white">
+                  ¿Necesitás un paquete a medida?
                 </h3>
-                <p className="text-small mt-3 text-slate-200">{prop.body}</p>
-              </section>
-            ))}
-          </div>
-
-          <h2
-            id="paquetes"
-            className="font-display text-display-lg mt-20 max-w-2xl scroll-mt-22 text-white"
-            data-reveal
-          >
-            Los {sponsorTiers.length} paquetes
-          </h2>
-          <div
-            className="mt-10 grid gap-6 lg:grid-cols-2 xl:grid-cols-4"
-            data-reveal-group
-          >
-            {sponsorTiers.map((tier) => (
-              <SponsorTierCard key={tier.id} tier={tier} />
-            ))}
-          </div>
-
-          <Callout tone="info" title="Antes de reservar" className="mt-12 max-w-3xl">
-            Los precios son por edición y están expresados en dólares estadounidenses.
-            Todos los paquetes incluyen logo en la web y mención en el escenario
-            principal. Si ninguno encaja con lo que buscás, escribinos a{" "}
-            <a href={`mailto:${event.sponsorshipEmail}`} className="text-sky underline">
-              {event.sponsorshipEmail}
-            </a>{" "}
-            y lo armamos a medida.
-          </Callout>
-
-          <div className="mt-12" data-reveal>
-            <Button href={`mailto:${event.sponsorshipEmail}`}>
-              Hablar con el equipo
-            </Button>
-          </div>
-        </Container>
+                <p className="mt-2 max-w-2xl text-slate-200">
+                  Contanos qué objetivo tiene tu empresa y armamos una combinación de
+                  presencia, contenido y networking.
+                </p>
+                <a
+                  href={`mailto:${event.sponsorshipEmail}`}
+                  className="mt-3 inline-block text-white underline underline-offset-4"
+                >
+                  {event.sponsorshipEmail}
+                </a>
+              </div>
+              <Button
+                href={`mailto:${event.sponsorshipEmail}`}
+                size="lg"
+                className="shrink-0"
+              >
+                Escribir al equipo
+              </Button>
+            </div>
+          </Container>
+        </section>
       </main>
       <SiteFooter />
     </>

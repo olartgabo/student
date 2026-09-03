@@ -151,35 +151,20 @@
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Scroll-reveal rest states.
-
-   These live in CSS, not JS, so there is never a frame of fully-visible content
-   before GSAP runs. They are gated on `html[data-js]`, which a blocking inline
-   script in the document head sets: if JavaScript is off, or the motion chunk
-   fails to load, the attribute never lands and everything renders visible.
-   Content stuck at opacity 0 because a bundle 404'd is what this prevents.
---------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: no-preference) {
-  html[data-js] [data-reveal],
-  html[data-js] [data-reveal-group] > * {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  html[data-js] [data-hero-step] {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-
-  html[data-js] [data-hero-cell] {
-    opacity: 0;
-  }
-}
+/* Scroll reveals remain visible in CSS and are progressively enhanced by the
+   motion components after the client is ready. */
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
@@ -191,8 +176,7 @@
   /* Reveals never run on paper — force everything visible. */
   [data-reveal],
   [data-reveal-group] > *,
-  [data-hero-step],
-  [data-hero-cell] {
+  [data-hero-step] {
     opacity: 1 !important;
     transform: none !important;
   }

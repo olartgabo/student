@@ -1,49 +1,13 @@
 import { PixelIcon } from "@/components/brand/PixelIcon";
 import { Container } from "@/components/layout/Container";
-import { accentFill } from "@/components/ui/accent";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { event, eventDateLabel } from "@/content/event";
 import { speakerCta } from "@/content/nav";
-import type { FillAccent } from "@/content/types";
-import { cn } from "@/lib/cn";
 
 import { Countdown } from "./Countdown";
 import { HeroField } from "./HeroField";
 import { HeroIntro } from "./HeroIntro";
-
-/**
- * The six solid cells double as the page's secondary navigation, so the most
- * distinctive thing on the page also does a job. Laid out on the same 80px module
- * as the lattice, anchored right so the two line up.
- *
- * One accent, not three. The reference art fills its numbered cells in a single
- * colour, and the brand rule is that accents are used one at a time on a surface —
- * three saturated fills side by side is exactly the look this design avoids. Track
- * colours still differentiate, but further down where they carry meaning.
- */
-const HERO_ACCENT: FillAccent = "sky";
-
-/*
- * Six of the seven nav sections, placed by hand on the lattice. `#equipo` is not
- * among them on purpose: the Team section removes itself while the roster is
- * empty, and a cell pointing at a section that does not render is a dead link.
- * `site-qa.test.ts` asserts that.
- */
-const navCells: ReadonlyArray<{
-  code: string;
-  label: string;
-  href: string;
-  column: number;
-  row: number;
-}> = [
-  { code: "01", label: "Tracks", href: "#tracks", column: 1, row: 2 },
-  { code: "02", label: "Agenda", href: "#agenda", column: 3, row: 2 },
-  { code: "03", label: "Sede", href: "#sede", column: 5, row: 2 },
-  { code: "04", label: "Patrocinio", href: "#patrocinio", column: 1, row: 4 },
-  { code: "05", label: "Speakers", href: "#speakers", column: 3, row: 4 },
-  { code: "06", label: "FAQ", href: "#faq", column: 5, row: 4 },
-];
 
 const communityLinks = [
   {
@@ -134,50 +98,10 @@ export function Hero() {
       <HeroIntro />
       <HeroField className="pointer-events-none absolute inset-0 -z-10 h-full w-full" />
 
-      <div className="absolute top-24 right-0 left-0 z-10 hidden lg:block">
-        <Container>
-          <CommunityLinks />
-        </Container>
-      </div>
-
-      {/* The signature cells. Hidden below lg, where they reappear inline as a
-          static block under the call to action. */}
-      <nav
-        aria-label="Secciones"
-        className="pointer-events-none absolute top-0 right-0 bottom-0 hidden lg:grid"
-        style={{
-          gridTemplateColumns: "repeat(6, 80px)",
-          gridAutoRows: "80px",
-          width: "480px",
-        }}
-      >
-        {navCells.map((cell) => (
-          <a
-            key={cell.code}
-            href={cell.href}
-            data-hero-cell
-            style={{ gridColumn: cell.column, gridRow: cell.row }}
-            className={cn(
-              "pointer-events-auto flex items-start justify-start p-3",
-              "border border-transparent transition-colors duration-150",
-              "font-display text-body hover:border-white",
-              accentFill[HERO_ACCENT],
-            )}
-          >
-            <span aria-hidden>{cell.code}</span>
-            <span className="sr-only">{cell.label}</span>
-          </a>
-        ))}
-      </nav>
-
       <Container className="relative flex min-h-svh flex-col justify-center py-28">
-        <div className="max-w-3xl lg:max-w-[36rem] xl:max-w-3xl">
+        <div className="max-w-3xl">
           <div data-hero-step>
             <Eyebrow>AWS Student Builder Group — UPB Cochabamba</Eyebrow>
-          </div>
-
-          <div data-hero-step className="mt-5 lg:hidden">
-            <CommunityLinks />
           </div>
 
           <h1 className="font-display text-display-xl mt-6 uppercase">
@@ -188,7 +112,7 @@ export function Hero() {
               Community
             </span>
             <span data-hero-step className="block">
-              Day
+              Day Bolivia
             </span>
           </h1>
 
@@ -243,40 +167,24 @@ export function Hero() {
           <div data-hero-step className="mt-10">
             <Countdown />
           </div>
-
-          {/* Mobile stand-in for the cell field. */}
-          <nav
-            aria-label="Secciones"
-            className="mt-12 grid grid-cols-3 gap-px border border-slate-600 lg:hidden"
-          >
-            {navCells.map((cell) => (
-              <a
-                key={cell.code}
-                href={cell.href}
-                className="font-display text-small flex flex-col gap-1 bg-slate-800 p-4"
-              >
-                <span className={cn("w-fit px-1", accentFill[HERO_ACCENT])}>
-                  {cell.code}
-                </span>
-                <span className="text-slate-200">{cell.label}</span>
-              </a>
-            ))}
-          </nav>
         </div>
       </Container>
 
       <div className="relative border-t border-slate-600">
         <Container>
-          <p
-            data-hero-step
-            className="font-display tracking-mono-caps flex flex-wrap items-center gap-x-6 gap-y-2 py-4 text-[0.6875rem] text-slate-200 uppercase"
-          >
-            <span>{event.slug}</span>
-            <span className="text-white">Build · Connect · Grow</span>
-            <span>
-              {event.venue.city} / {event.venue.country}
-            </span>
-          </p>
+          <div className="flex flex-col gap-4 py-4 lg:flex-row lg:items-center lg:justify-between">
+            <p
+              data-hero-step
+              className="font-display tracking-mono-caps flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.6875rem] text-slate-200 uppercase"
+            >
+              <span>{event.slug}</span>
+              <span className="text-white">Build · Connect · Grow</span>
+              <span>
+                {event.venue.city} / {event.venue.country}
+              </span>
+            </p>
+            <CommunityLinks className="shrink-0" />
+          </div>
         </Container>
       </div>
     </header>

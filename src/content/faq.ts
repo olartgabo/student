@@ -67,16 +67,8 @@ export const faq = [
     id: "speaker",
     question: "¿Cómo propongo una charla?",
     answer: [
-      `La convocatoria de speakers está abierta en Sessionize: `,
+      "La convocatoria de speakers está abierta en Sessionize.",
       "Los bloques son de 40 minutos, en cualquiera de los tres tracks o en los laboratorios prácticos. Se aceptan propuestas desde nivel introductorio y no hace falta haber hablado antes en un evento.",
-    ],
-  },
-  {
-    id: "patrocinio",
-    question: "¿Cómo puede patrocinar mi empresa?",
-    answer: [
-      `Hay cuatro paquetes, de USD 300 a USD 1000, detallados en la página de patrocinio. Para reservar uno o armar algo a medida, escribinos a .`,
-      "El evento es gratuito para los asistentes justamente porque hay empresas que lo sostienen.",
     ],
   },
   {

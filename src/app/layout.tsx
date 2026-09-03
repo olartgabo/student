@@ -145,27 +145,8 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // suppressHydrationWarning covers the `data-js` attribute the head script
-    // below adds before React hydrates. It applies to this element only.
-    <html
-      lang="es"
-      className={`${amazonEmber.variable} ${jetbrainsMono.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="es" className={`${amazonEmber.variable} ${jetbrainsMono.variable}`}>
       <head>
-        {/*
-          Gates the scroll-reveal rest states in globals.css. If JavaScript is off
-          or the motion chunk fails to load, this never lands and every section
-          renders at full opacity instead of staying invisible forever.
-
-          A data attribute rather than a class: React owns `className` on <html>,
-          so mutating it here would trip a hydration mismatch.
-        */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.dataset.js="1"`,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

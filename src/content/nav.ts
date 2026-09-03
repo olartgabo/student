@@ -13,7 +13,6 @@ export const navLinks: readonly NavLink[] = [
   { href: "#agenda", label: "Agenda" },
   { href: "#speakers", label: "Speakers" },
   { href: "#sede", label: "Sede" },
-  { href: "#patrocinio", label: "Patrocinio" },
   { href: "#faq", label: "FAQ" },
 ];
 

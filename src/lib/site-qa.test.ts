@@ -115,12 +115,11 @@ describe("images and icons", () => {
 });
 
 describe("responsive safety", () => {
-  it("keeps fixed pixel widths out of everything but the hero lattice", () => {
-    // A hardcoded px width is the usual cause of horizontal overflow at 375px.
-    // The hero's 480px cell field is the one exception: it is `hidden lg:grid`.
+  it("keeps fixed pixel widths out of page layouts", () => {
+    // Hardcoded page widths are a common source of horizontal overflow at 375px.
     const offenders = files
       .filter((f) => /width:\s*"\d+px"/.test(f.text))
       .map((f) => f.path);
-    expect(offenders).toEqual(["components/sections/Hero.tsx"]);
+    expect(offenders).toEqual([]);
   });
 });

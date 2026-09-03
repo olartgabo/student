@@ -51,12 +51,7 @@ export function RegisterCta() {
             </div>
           </div>
 
-          {/* The nav's "Speakers" entry lands here. */}
-          <div
-            id="speakers"
-            className="flex scroll-mt-22 flex-col bg-slate-800 p-8 md:p-10"
-            data-reveal
-          >
+          <div className="flex flex-col bg-slate-800 p-8 md:p-10" data-reveal>
             <p className="font-display text-small tracking-mono-caps text-sky uppercase">
               02 // Presentar
             </p>

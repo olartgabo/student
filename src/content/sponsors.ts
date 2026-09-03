@@ -96,6 +96,61 @@ export const sponsorTiers = [
   },
 ] as const satisfies readonly SponsorTier[];
 
+/**
+ * The short, aligned criteria a company needs to compare packages. Detailed
+ * wording remains in each tier's benefits and is shown on demand on small screens.
+ */
+export const sponsorComparisonRows = [
+  {
+    label: "Escenario",
+    values: {
+      silver: "Mención principal",
+      gold: "Mención principal",
+      platinum: "Lightning talk · 15 min",
+      host: "Keynote · 45 min",
+    },
+  },
+  {
+    label: "Expo",
+    values: {
+      silver: "—",
+      gold: "Mesa de networking",
+      platinum: "Stand · 2 m · 2 mesas",
+      host: "Stand preferente · 3 m · 2 mesas",
+    },
+  },
+  {
+    label: "Vacantes",
+    values: {
+      silver: "—",
+      gold: "Redes del evento",
+      platinum: "Web del evento",
+      host: "Web y redes",
+    },
+  },
+  {
+    label: "Techmixer",
+    values: {
+      silver: "—",
+      gold: "3 invitaciones",
+      platinum: "5 invitaciones",
+      host: "10 invitaciones",
+    },
+  },
+  {
+    label: "Pases",
+    values: {
+      silver: "2 pases",
+      gold: "5 pases",
+      platinum: "10 pases",
+      host: "20 pases",
+    },
+  },
+] as const satisfies readonly {
+  label: string;
+  values: Record<SponsorTier["id"], string>;
+}[];
+
 export const confirmedSponsors: readonly Sponsor[] = sponsorTiers.flatMap(
   (tier) => tier.sponsors,
 );
