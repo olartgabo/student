@@ -5,7 +5,7 @@ import type { EventInfo } from "./types";
  * sitemap, robots.txt and the JSON-LD graph — resolves from here, so the origin
  * is stated once and can never drift between them.
  */
-export const siteUrl = "https://scday.upb.bo";
+export const siteUrl = "https://bolivia.studentcommunity.day";
 
 export const event: EventInfo = {
   name: "Student Community Day",

@@ -13,7 +13,7 @@ export function About() {
       id="evento"
       eyebrow="El evento"
       title="Qué es un Student Community Day"
-      intro="Un día gratuito, liderado por estudiantes y respaldado por AWS. Charlas técnicas, laboratorios prácticos y la comunidad de Cochabamba en un mismo lugar."
+      intro="La primera edición de Student Community Day en Bolivia: un día gratuito, liderado por estudiantes y respaldado por AWS en Cochabamba."
     >
       <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:gap-20">
         <div className="text-body-lg max-w-2xl space-y-5 text-slate-200" data-reveal>

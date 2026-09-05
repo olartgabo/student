@@ -1,58 +1,51 @@
 import type { Sponsor, SponsorTier } from "./types";
 
-/**
- * Tiers as supplied by the organisers. Several benefit lines arrived truncated in
- * the brief and were completed to read as full sentences — check the wording
- * before this goes to a prospect.
- *
- * `sponsors: []` means the tier is still open; a tier renders as available until
- * a logo is added here.
- */
+/** The public sponsorship offer. Keep every line aligned with the sponsor deck. */
 export const sponsorTiers = [
   {
     id: "host",
     name: "Host",
-    tagline: "Eres el evento",
+    tagline: "Presencia principal",
     summary:
-      "Tu marca en el nombre del evento y 45 minutos de keynote en el escenario principal. Un solo cupo por edición.",
+      "La presencia más amplia en escenario, feria de talento, talleres y comunicación previa al evento.",
     code: "01",
     priceUsd: 1000,
     accent: "orange",
-    slots: 1,
+    slots: 2,
     featured: true,
     benefits: [
-      "Co-branding en el nombre y en toda la comunicación del evento",
-      "Keynote de 45 minutos en el escenario principal",
-      "Logo principal en web, backdrop del escenario y material impreso",
-      "Stand preferente — 3 m · 2 mesas",
-      "Video promocional de 2 minutos proyectado en el escenario",
-      "Material de marca en las bolsas de los asistentes",
-      "Techmixer — 10 invitaciones",
-      "Publicación de vacantes en la web y las redes del evento",
-      "Mención especial y detallada en escenario",
-      "20 pases de acceso completo",
+      "Logo en gigantografía de bienvenida, kit, roll-ups, credenciales y lanyards",
+      "Logo en la web oficial, 3 publicaciones dedicadas y video promocional de 2 minutos",
+      "Mención especial en escenario y en las 4 sesiones virtuales previas",
+      "Stand preferente de 3 m con 2 mesas y hasta 8 encargados",
+      "Vacantes y prácticas en web y redes; espacio en la feria de talento",
+      "CVs de candidatos que autoricen compartirlos y lista de contactos con consentimiento",
+      "Charla técnica de 30 minutos, taller hands-on co-dictado y reto de marca",
+      "Nombre de una sala o taller, kit de capacitación AWS e informe de métricas",
+      "Prioridad de renovación del mismo nivel en 2027",
     ],
     sponsors: [],
   },
   {
     id: "platinum",
     name: "Platinum",
-    tagline: "Máxima visibilidad",
+    tagline: "Activación de talento",
     summary:
-      "Lightning talk de 15 minutos, stand propio y logo destacado en escenario, web y material impreso.",
+      "Combina presencia de marca, stand preferente, feria de talento y una activación técnica propia.",
     code: "02",
     priceUsd: 800,
     accent: "sky",
+    slots: 4,
+    featured: false,
     benefits: [
-      "Logo destacado en web, escenario y material impreso",
-      "Lightning talk de 15 minutos en el escenario principal",
-      "Stand — 2 m · 2 mesas",
-      "Video promocional de 45 segundos en el escenario",
-      "Material de marca en las bolsas de los asistentes",
-      "Techmixer — 5 invitaciones",
-      "Publicación de vacantes en la web del evento",
-      "Mención especial en escenario",
-      "10 pases de acceso completo",
+      "Logo en gigantografía de bienvenida, kit, roll-ups y web oficial",
+      "2 publicaciones dedicadas, video promocional de 45 segundos y menciones virtuales previas",
+      "Mención especial en escenario principal",
+      "Stand preferente de 2 m con 2 mesas y hasta 5 encargados",
+      "Vacantes y prácticas en web y redes; espacio en la feria de talento",
+      "CVs de candidatos que autoricen compartirlos y lista de contactos con consentimiento",
+      "Taller hands-on co-dictado, reto de marca y kit de capacitación AWS",
+      "Informe de métricas de marca y prioridad de renovación en 2027",
     ],
     sponsors: [],
   },
@@ -61,19 +54,18 @@ export const sponsorTiers = [
     name: "Gold",
     tagline: "Presencia activa",
     summary:
-      "Mesa en la zona de networking durante todo el día, más publicación de vacantes en las redes del evento.",
+      "Una presencia visible durante el evento, con espacio para conversar y reclutar talento.",
     code: "03",
     priceUsd: 500,
     accent: "green",
+    slots: 6,
+    featured: false,
     benefits: [
-      "Logo en el website y en los materiales del evento",
-      "Mesa en la zona de networking",
-      "Material de marca en las bolsas de los asistentes",
-      "Techmixer — 3 invitaciones",
-      "Publicación de vacantes en las redes del evento",
-      "Post dedicado en las redes del evento",
-      "Mención en el escenario principal",
-      "5 pases de acceso completo",
+      "Logo en gigantografía de bienvenida, kit, roll-ups y web oficial",
+      "Mención en escenario, una publicación dedicada y menciones virtuales previas",
+      "Stand de 1 m con una mesa y hasta 2 encargados",
+      "Vacantes y prácticas en web y redes; espacio en la feria de talento",
+      "Informe de métricas de marca hasta 15 días después del evento",
     ],
     sponsors: [],
   },
@@ -82,68 +74,65 @@ export const sponsorTiers = [
     name: "Silver",
     tagline: "Apoya la comunidad",
     summary:
-      "La forma más directa de sostener un evento gratuito: logo en la web, mención en escenario y dos pases.",
+      "Una forma directa de apoyar un evento gratuito y mantener tu marca presente en sus puntos clave.",
     code: "04",
     priceUsd: 300,
     accent: "purple",
+    slots: undefined,
+    featured: false,
     benefits: [
-      "Logo en el website del evento",
+      "Logo en gigantografía de bienvenida, kit y web oficial",
       "Mención en el escenario principal",
-      "Mención en redes sociales",
-      "2 pases de acceso completo",
     ],
     sponsors: [],
   },
 ] as const satisfies readonly SponsorTier[];
 
-/**
- * The short, aligned criteria a company needs to compare packages. Detailed
- * wording remains in each tier's benefits and is shown on demand on small screens.
- */
+/** The short criteria companies compare before opening a package's full detail. */
 export const sponsorComparisonRows = [
   {
-    label: "Escenario",
+    label: "Escenario y contenido",
     values: {
-      silver: "Mención principal",
-      gold: "Mención principal",
-      platinum: "Lightning talk · 15 min",
-      host: "Keynote · 45 min",
+      silver: "Mención en escenario",
+      gold: "Mención + sesiones virtuales",
+      platinum: "Mención especial + taller",
+      host: "Mención especial + charla y taller",
     },
   },
   {
-    label: "Expo",
+    label: "Feria de talento",
     values: {
       silver: "—",
-      gold: "Mesa de networking",
-      platinum: "Stand · 2 m · 2 mesas",
-      host: "Stand preferente · 3 m · 2 mesas",
+      gold: "Stand de 1 m",
+      platinum: "Stand preferente de 2 m",
+      host: "Stand preferente de 3 m",
     },
   },
   {
-    label: "Vacantes",
+    label: "Reclutamiento",
     values: {
       silver: "—",
-      gold: "Redes del evento",
-      platinum: "Web del evento",
-      host: "Web y redes",
+      gold: "Vacantes y prácticas",
+      platinum: "Vacantes + candidatos con consentimiento",
+      host: "Vacantes + candidatos con consentimiento",
     },
   },
   {
-    label: "Techmixer",
+    label: "Comunicación",
+    values: {
+      silver: "Logo en web, kit y bienvenida",
+      gold: "Logo + 1 publicación",
+      platinum: "Logo + 2 publicaciones y video",
+      host: "Logo + 3 publicaciones y video",
+    },
+  },
+  {
+    label: "Informe post-evento",
     values: {
       silver: "—",
-      gold: "3 invitaciones",
-      platinum: "5 invitaciones",
-      host: "10 invitaciones",
-    },
-  },
-  {
-    label: "Pases",
-    values: {
-      silver: "2 pases",
-      gold: "5 pases",
-      platinum: "10 pases",
-      host: "20 pases",
+      gold: "Sí, hasta 15 días después",
+      platinum: "Sí, hasta 15 días después",
+      host: "Sí, hasta 15 días después",
     },
   },
 ] as const satisfies readonly {
