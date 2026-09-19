@@ -1,8 +1,25 @@
 import { describe, expect, it } from "vitest";
 
 import { event, eventDateLabel, eventEndISO, eventStartISO, siteUrl } from "./event";
+import { locales } from "@/lib/i18n";
+
 import { navLinks, speakerCta } from "./nav";
 import { sponsorComparisonRows, sponsorTiers } from "./sponsors";
+
+const MONTHS_EN = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+] as const;
 
 const MONTHS_ES = [
   "enero",
@@ -21,6 +38,7 @@ const MONTHS_ES = [
 
 const [year = "", month = "", day = ""] = event.dateISO.split("-");
 const monthName = MONTHS_ES[Number(month) - 1] ?? "";
+const monthNameEn = MONTHS_EN[Number(month) - 1] ?? "";
 const dayNumber = String(Number(day));
 
 /**
@@ -30,13 +48,23 @@ const dayNumber = String(Number(day));
  */
 describe("event date", () => {
   it("keeps every written label in step with dateISO", () => {
-    expect(eventDateLabel.year).toBe(year);
-    expect(eventDateLabel.day).toBe(day);
-    expect(eventDateLabel.month.toLowerCase()).toBe(monthName);
-    expect(eventDateLabel.long).toBe(`${dayNumber} de ${monthName} de ${year}`);
-    expect(eventDateLabel.short).toBe(
+    const es = eventDateLabel.es;
+    expect(es.year).toBe(year);
+    expect(es.day).toBe(day);
+    expect(es.month.toLowerCase()).toBe(monthName);
+    expect(es.long).toBe(`${dayNumber} de ${monthName} de ${year}`);
+    expect(es.short).toBe(
       `${dayNumber} ${monthName.slice(0, 1).toUpperCase()}${monthName.slice(1, 3)}`,
     );
+  });
+
+  it("keeps the English labels in step with dateISO", () => {
+    const en = eventDateLabel.en;
+    expect(en.year).toBe(year);
+    expect(en.day).toBe(day);
+    expect(en.month).toBe(monthNameEn);
+    expect(en.long).toBe(`${monthNameEn} ${dayNumber}, ${year}`);
+    expect(en.short).toBe(`${monthNameEn.slice(0, 3)} ${dayNumber}`);
   });
 
   it("opens before it closes, on the same day, at the venue's offset", () => {
@@ -84,7 +112,9 @@ describe("outbound URLs", () => {
 describe("navigation", () => {
   it("has no duplicate targets or labels", () => {
     expect(new Set(navLinks.map((l) => l.href)).size).toBe(navLinks.length);
-    expect(new Set(navLinks.map((l) => l.label)).size).toBe(navLinks.length);
+    for (const locale of locales) {
+      expect(new Set(navLinks.map((l) => l.label[locale])).size).toBe(navLinks.length);
+    }
   });
 
   it("uses in-page anchors, so the header nav never leaves the page", () => {
@@ -101,8 +131,12 @@ describe("sponsor tiers", () => {
   it("give every tier a value summary and a unique code", () => {
     expect(new Set(sponsorTiers.map((t) => t.code)).size).toBe(sponsorTiers.length);
     for (const tier of sponsorTiers) {
-      expect(tier.summary.length).toBeGreaterThan(0);
-      expect(tier.benefits.length).toBeGreaterThan(0);
+      for (const locale of locales) {
+        expect(tier.summary[locale].length).toBeGreaterThan(0);
+        expect(tier.benefits[locale].length).toBeGreaterThan(0);
+      }
+      // A benefit added in one language only would quietly drop from the other.
+      expect(tier.benefits.en.length).toBe(tier.benefits.es.length);
     }
   });
 
@@ -111,7 +145,9 @@ describe("sponsor tiers", () => {
 
     for (const row of sponsorComparisonRows) {
       expect(Object.keys(row.values).sort()).toEqual(tierIds);
-      expect(Object.values(row.values).every((value) => value.length > 0)).toBe(true);
+      for (const value of Object.values(row.values)) {
+        for (const locale of locales) expect(value[locale].length).toBeGreaterThan(0);
+      }
     }
   });
 });

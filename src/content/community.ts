@@ -9,23 +9,41 @@ export const communityPhotos = [
     src: "/images/community-day-bolivia/audience-2025.jpg",
     width: 1000,
     height: 667,
-    alt: "Auditorio lleno en AWS Community Day Bolivia, con asistentes levantando las manos y una bandera boliviana entre el público",
-    caption: "La comunidad reunida en Cochabamba",
+    alt: {
+      es: "Auditorio lleno en AWS Community Day Bolivia, con asistentes levantando las manos y una bandera boliviana entre el público",
+      en: "A full auditorium at AWS Community Day Bolivia, with attendees raising their hands and a Bolivian flag in the crowd",
+    },
+    caption: {
+      es: "La comunidad reunida en Cochabamba",
+      en: "The community together in Cochabamba",
+    },
   },
   {
     id: "workshop",
     src: "/images/community-day-bolivia/workshop-2025.jpg",
     width: 1000,
     height: 667,
-    alt: "Participantes trabajando en grupos durante un taller de AWS Community Day Bolivia",
-    caption: "Talleres y aprendizaje práctico",
+    alt: {
+      es: "Participantes trabajando en grupos durante un taller de AWS Community Day Bolivia",
+      en: "Participants working in groups during an AWS Community Day Bolivia workshop",
+    },
+    caption: {
+      es: "Talleres y aprendizaje práctico",
+      en: "Workshops and hands-on learning",
+    },
   },
   {
     id: "speaker",
     src: "/images/community-day-bolivia/speaker-2025.jpg",
     width: 1000,
     height: 667,
-    alt: "Una speaker presenta ante el público de AWS Community Day Bolivia",
-    caption: "Conocimiento compartido desde el escenario",
+    alt: {
+      es: "Una speaker presenta ante el público de AWS Community Day Bolivia",
+      en: "A speaker presents to the audience at AWS Community Day Bolivia",
+    },
+    caption: {
+      es: "Conocimiento compartido desde el escenario",
+      en: "Knowledge shared from the stage",
+    },
   },
 ] as const;

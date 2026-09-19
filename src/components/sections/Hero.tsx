@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { event, eventDateLabel } from "@/content/event";
 import { speakerCta } from "@/content/nav";
+import { localePath, type Locale } from "@/lib/i18n";
 
 import { Countdown } from "./Countdown";
 import { HeroField } from "./HeroField";
@@ -12,23 +13,39 @@ import { HeroIntro } from "./HeroIntro";
 const communityLinks = [
   {
     href: "https://www.instagram.com/aws_sbg_bolivia/",
-    label: "AWS SBG Bolivia en Instagram",
-    shortLabel: "SBG Bolivia",
+    shortLabel: { es: "SBG Bolivia", en: "SBG Bolivia" },
     platform: "instagram",
   },
   {
     href: "https://www.instagram.com/aws_upb_cbba/",
-    label: "AWS UPB Cochabamba en Instagram",
-    shortLabel: "UPB Cbba",
+    shortLabel: { es: "UPB Cbba", en: "UPB Cbba" },
     platform: "instagram",
   },
   {
     href: "https://chat.whatsapp.com/E3JGbxrbDYaICTwRpIN1Jz?s=cl&p=a&mlu=4",
-    label: "Comunidad de WhatsApp",
-    shortLabel: "Comunidad WhatsApp",
+    shortLabel: { es: "Comunidad WhatsApp", en: "WhatsApp community" },
     platform: "whatsapp",
   },
 ] as const;
+
+const copy = {
+  es: {
+    community: "Comunidad",
+    lumaEyebrow: "Luma // inscripciones abiertas",
+    reserve: "Reserva tu lugar",
+    admission: "Entrada gratuita · cupos limitados",
+    register: "Registrarme en Luma",
+    agenda: "Ver la agenda",
+  },
+  en: {
+    community: "Community",
+    lumaEyebrow: "Luma // registration open",
+    reserve: "Save your spot",
+    admission: "Free admission · limited seats",
+    register: "Register on Luma",
+    agenda: "See the agenda",
+  },
+} as const;
 
 function CommunityIcon({
   platform,
@@ -50,9 +67,9 @@ function CommunityIcon({
   );
 }
 
-function CommunityLinks({ className }: { className?: string }) {
+function CommunityLinks({ locale, className }: { locale: Locale; className?: string }) {
   return (
-    <nav aria-label="Comunidad" className={className}>
+    <nav aria-label={copy[locale].community} className={className}>
       <ul className="flex flex-wrap items-center gap-x-5 gap-y-3">
         {communityLinks.map((link) => (
           <li key={link.href}>
@@ -63,7 +80,7 @@ function CommunityLinks({ className }: { className?: string }) {
               className="font-display text-small tracking-mono-caps hover:border-sky inline-flex items-center gap-2 border-b border-slate-600 pb-1 text-slate-200 uppercase transition-colors hover:text-white"
             >
               <CommunityIcon platform={link.platform} />
-              <span>{link.shortLabel}</span>
+              <span>{link.shortLabel[locale]}</span>
             </a>
           </li>
         ))}
@@ -89,7 +106,10 @@ function MetaBox({
   );
 }
 
-export function Hero() {
+export function Hero({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+  const date = eventDateLabel[locale];
+
   return (
     <header
       id="inicio"
@@ -117,13 +137,13 @@ export function Hero() {
           </h1>
 
           <p data-hero-step className="text-body-lg mt-6 max-w-xl text-slate-200">
-            {event.tagline}
+            {event.tagline[locale]}
           </p>
 
           <div data-hero-step className="mt-10 grid gap-px sm:grid-cols-2 sm:gap-4">
             <MetaBox icon="calendar">
-              <span className="text-display-md text-sky mr-2">{eventDateLabel.day}</span>
-              {eventDateLabel.month} {eventDateLabel.year}
+              <span className="text-display-md text-sky mr-2">{date.day}</span>
+              {date.month} {date.year}
             </MetaBox>
             <MetaBox icon="pin">
               {event.venue.shortName} · {event.venue.city}
@@ -138,34 +158,32 @@ export function Hero() {
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="font-display text-small tracking-mono-caps text-sky uppercase">
-                  Luma // inscripciones abiertas
+                  {t.lumaEyebrow}
                 </p>
-                <p className="font-display text-display-md mt-2 uppercase">
-                  Reserva tu lugar
-                </p>
-                <p className="mt-1 text-slate-200">Entrada gratuita · cupos limitados</p>
+                <p className="font-display text-display-md mt-2 uppercase">{t.reserve}</p>
+                <p className="mt-1 text-slate-200">{t.admission}</p>
               </div>
               <Button
                 href={event.registrationUrl}
                 size="lg"
                 className="w-full shrink-0 sm:w-auto"
               >
-                Registrarme en Luma <span aria-hidden>↗</span>
+                {t.register} <span aria-hidden>↗</span>
               </Button>
             </div>
           </div>
 
           <div data-hero-step className="mt-4 flex flex-wrap items-center gap-4">
-            <Button href="/agenda" variant="secondary" size="lg">
-              Ver la agenda
+            <Button href={localePath(locale, "/agenda")} variant="secondary" size="lg">
+              {t.agenda}
             </Button>
             <Button href={speakerCta.href} variant="secondary" size="lg">
-              {speakerCta.label} <span aria-hidden>↗</span>
+              {speakerCta.label[locale]} <span aria-hidden>↗</span>
             </Button>
           </div>
 
           <div data-hero-step className="mt-10">
-            <Countdown />
+            <Countdown locale={locale} />
           </div>
         </div>
       </Container>
@@ -183,7 +201,7 @@ export function Hero() {
                 {event.venue.city} / {event.venue.country}
               </span>
             </p>
-            <CommunityLinks className="shrink-0" />
+            <CommunityLinks locale={locale} className="shrink-0" />
           </div>
         </Container>
       </div>

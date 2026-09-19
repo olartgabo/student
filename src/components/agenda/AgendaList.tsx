@@ -3,6 +3,7 @@ import { getTrack } from "@/content/tracks";
 import type { AgendaBlock, TrackId } from "@/content/types";
 import { formatRange } from "@/lib/agenda";
 import { cn } from "@/lib/cn";
+import type { Locale } from "@/lib/i18n";
 
 import { PlenaryRow } from "./PlenaryRow";
 import { SessionCell } from "./SessionCell";
@@ -17,9 +18,11 @@ import { SessionCell } from "./SessionCell";
 export function AgendaList({
   blocks,
   activeTrack,
+  locale,
 }: {
   blocks: readonly AgendaBlock[];
   activeTrack: TrackId | null;
+  locale: Locale;
 }) {
   return (
     <ol className="border-t border-slate-600">
@@ -41,14 +44,14 @@ export function AgendaList({
               </span>
               {block.kind === "parallel" && block.label ? (
                 <span className="truncate text-[0.6875rem] text-slate-200">
-                  {block.label}
+                  {block.label[locale]}
                 </span>
               ) : null}
             </h3>
 
             {block.kind === "plenary" ? (
               <div className="border-b border-slate-600 p-4">
-                <PlenaryRow block={block} />
+                <PlenaryRow block={block} locale={locale} />
               </div>
             ) : (
               <ul>
@@ -65,9 +68,9 @@ export function AgendaList({
                       />
                       <div className="min-w-0 flex-1">
                         <p className="font-display tracking-mono-caps mb-2 text-[0.6875rem] text-slate-200 uppercase">
-                          {track.shortName}
+                          {track.shortName[locale]}
                         </p>
-                        <SessionCell session={session} />
+                        <SessionCell session={session} locale={locale} />
                       </div>
                     </li>
                   );

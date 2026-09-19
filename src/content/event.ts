@@ -1,3 +1,5 @@
+import type { Locale } from "@/lib/i18n";
+
 import type { EventInfo } from "./types";
 
 /**
@@ -11,7 +13,10 @@ export const event: EventInfo = {
   name: "Student Community Day",
   edition: "Cochabamba 2026",
   slug: "SC-DAY // 001",
-  tagline: "La comunidad tecnológica universitaria se encuentra aquí.",
+  tagline: {
+    es: "La comunidad tecnológica universitaria se encuentra aquí.",
+    en: "Where Bolivia's university tech community meets.",
+  },
   dateISO: "2026-10-10",
   startTime: "09:00",
   endTime: "18:00",
@@ -24,7 +29,7 @@ export const event: EventInfo = {
    * campo, así que cambiarla aquí la cambia en todas partes.
    */
   speakersUrl: "https://sessionize.com/aws-student-community-day-cochabamba-bolivia",
-  price: "Gratis",
+  price: { es: "Gratis", en: "Free" },
   venue: {
     name: "Universidad Privada Boliviana",
     shortName: "UPB",
@@ -45,15 +50,27 @@ export const eventEndISO = `${event.dateISO}T${event.endTime}:00${event.utcOffse
 
 /**
  * The date in the forms the copy actually needs. Written out rather than
- * formatted at runtime so the month is the Spanish the brand uses and never the
+ * formatted at runtime so the month is the wording the brand uses and never the
  * server locale's — `event.test.ts` asserts every field against `dateISO`, which
  * is what keeps a stale month label from surviving in a page title again.
  */
 export const eventDateLabel = {
-  day: "10",
-  month: "Octubre",
-  year: "2026",
-  /** Compact form for page titles and social cards. */
-  short: "10 Oct",
-  long: "10 de octubre de 2026",
-} as const;
+  es: {
+    day: "10",
+    month: "Octubre",
+    year: "2026",
+    /** Compact form for page titles and social cards. */
+    short: "10 Oct",
+    long: "10 de octubre de 2026",
+  },
+  en: {
+    day: "10",
+    month: "October",
+    year: "2026",
+    short: "Oct 10",
+    long: "October 10, 2026",
+  },
+} as const satisfies Record<
+  Locale,
+  Record<"day" | "month" | "year" | "short" | "long", string>
+>;

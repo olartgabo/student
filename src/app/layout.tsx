@@ -11,6 +11,7 @@ import {
 import { faq } from "@/content/faq";
 import { tracks } from "@/content/tracks";
 import { amazonEmber, jetbrainsMono } from "@/lib/fonts";
+import { languageAlternates } from "@/lib/i18n";
 
 import "./globals.css";
 
@@ -23,18 +24,18 @@ const title = `AWS ${event.name} ${event.edition}`;
  */
 const description =
   `Evento gratuito de un día en la ${event.venue.name}, ${event.venue.city}, el ` +
-  `${eventDateLabel.long}. Tres tracks —IA, Cloud y Ciberseguridad— y dos laboratorios prácticos en paralelo.`;
+  `${eventDateLabel.es.long}. Tres tracks —IA, Cloud y Ciberseguridad— y dos laboratorios prácticos en paralelo.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${title} — ${eventDateLabel.short} · Gratis`,
+    default: `${title} — ${eventDateLabel.es.short} · Gratis`,
     template: `%s — AWS ${event.name} ${event.edition}`,
   },
   description,
   applicationName: title,
   // Every route sets its own; the root declares the home page's.
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", languages: languageAlternates("/") },
   keywords: [
     "AWS Student Community Day",
     "AWS Student Community Day Bolivia",
@@ -54,12 +55,12 @@ export const metadata: Metadata = {
     locale: "es_BO",
     url: "/",
     siteName: title,
-    title: `${title} — ${eventDateLabel.short} · Cochabamba · Gratis`,
+    title: `${title} — ${eventDateLabel.es.short} · Cochabamba · Gratis`,
     description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${title} — ${eventDateLabel.short} · Cochabamba · Gratis`,
+    title: `${title} — ${eventDateLabel.es.short} · Cochabamba · Gratis`,
     description,
   },
   robots: {
@@ -98,8 +99,8 @@ const eventSchema = {
   inLanguage: "es",
   isAccessibleForFree: true,
   image: [`${siteUrl}/opengraph-image`],
-  keywords: tracks.map((track) => track.name).join(", "),
-  about: tracks.map((track) => ({ "@type": "Thing", name: track.name })),
+  keywords: tracks.map((track) => track.name.es).join(", "),
+  about: tracks.map((track) => ({ "@type": "Thing", name: track.name.es })),
   location: {
     "@type": "Place",
     name: event.venue.name,
@@ -131,7 +132,7 @@ const eventSchema = {
 const faqSchema = {
   "@type": "FAQPage",
   "@id": `${siteUrl}/#faq`,
-  mainEntity: faq.map((item) => ({
+  mainEntity: faq.es.map((item) => ({
     "@type": "Question",
     name: item.question,
     acceptedAnswer: { "@type": "Answer", text: item.answer.join(" ") },
@@ -153,12 +154,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <a
-          href="#contenido"
-          className="focus:bg-orange focus:font-display focus:text-small focus:text-navy-900 sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:px-4 focus:py-2"
-        >
-          Saltar al contenido
-        </a>
         <MotionRoot />
         {children}
       </body>

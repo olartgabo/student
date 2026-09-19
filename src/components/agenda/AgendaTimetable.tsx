@@ -7,6 +7,7 @@ import { agenda } from "@/content/agenda";
 import { tracks } from "@/content/tracks";
 import type { TrackId } from "@/content/types";
 import { deriveAgendaGrid } from "@/lib/agenda";
+import type { Locale } from "@/lib/i18n";
 
 import { AgendaList } from "./AgendaList";
 import { AgendaTable } from "./AgendaTable";
@@ -21,7 +22,13 @@ import { AgendaTable } from "./AgendaTable";
  * unlike a `useMediaQuery` swap it needs no SSR guess and cannot flash the wrong
  * layout or mismatch on hydration.
  */
-export function AgendaTimetable() {
+const copy = {
+  es: { filter: "Filtrar", all: "Todo" },
+  en: { filter: "Filter", all: "All" },
+} as const;
+
+export function AgendaTimetable({ locale }: { locale: Locale }) {
+  const t = copy[locale];
   const [activeTrack, setActiveTrack] = useState<TrackId | null>(null);
   const rows = useMemo(() => deriveAgendaGrid(agenda, tracks), []);
 
@@ -29,10 +36,10 @@ export function AgendaTimetable() {
     <div>
       <div className="mb-8 flex flex-wrap items-center gap-2">
         <span className="font-display tracking-mono-caps mr-2 text-[0.6875rem] text-slate-200 uppercase">
-          Filtrar
+          {t.filter}
         </span>
         <Tag active={activeTrack === null} onClick={() => setActiveTrack(null)}>
-          Todo
+          {t.all}
         </Tag>
         {tracks.map((track) => (
           <Tag
@@ -40,17 +47,22 @@ export function AgendaTimetable() {
             active={activeTrack === track.id}
             onClick={() => setActiveTrack(activeTrack === track.id ? null : track.id)}
           >
-            {track.shortName}
+            {track.shortName[locale]}
           </Tag>
         ))}
       </div>
 
       <div className="hidden lg:block">
-        <AgendaTable rows={rows} tracks={tracks} activeTrack={activeTrack} />
+        <AgendaTable
+          rows={rows}
+          tracks={tracks}
+          activeTrack={activeTrack}
+          locale={locale}
+        />
       </div>
 
       <div className="lg:hidden">
-        <AgendaList blocks={agenda} activeTrack={activeTrack} />
+        <AgendaList blocks={agenda} activeTrack={activeTrack} locale={locale} />
       </div>
     </div>
   );

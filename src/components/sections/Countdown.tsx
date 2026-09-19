@@ -2,6 +2,22 @@
 
 import { eventEndISO, eventStartISO } from "@/content/event";
 import { useCountdown } from "@/hooks/useCountdown";
+import type { Locale } from "@/lib/i18n";
+
+const copy = {
+  es: {
+    live: "Sucediendo ahora",
+    past: "Gracias por acompañarnos",
+    label: "Tiempo restante para el evento",
+    units: ["días", "hrs", "min", "seg"],
+  },
+  en: {
+    live: "Happening now",
+    past: "Thanks for joining us",
+    label: "Time left until the event",
+    units: ["days", "hrs", "min", "sec"],
+  },
+} as const;
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -18,13 +34,14 @@ function Unit({ value, label }: { value: string; label: string }) {
   );
 }
 
-export function Countdown() {
+export function Countdown({ locale }: { locale: Locale }) {
   const state = useCountdown(eventStartISO, eventEndISO);
+  const t = copy[locale];
 
   if (state.phase === "live") {
     return (
       <p className="font-display text-small tracking-mono-caps text-green uppercase">
-        Sucediendo ahora
+        {t.live}
       </p>
     );
   }
@@ -32,37 +49,22 @@ export function Countdown() {
   if (state.phase === "past") {
     return (
       <p className="font-display text-small tracking-mono-caps text-slate-200 uppercase">
-        Gracias por acompañarnos
+        {t.past}
       </p>
     );
   }
 
   // "pending" renders the same shape with placeholders, so nothing shifts when
   // the real numbers arrive a frame later.
-  const units =
+  const values =
     state.phase === "pending"
-      ? [
-          ["--", "días"],
-          ["--", "hrs"],
-          ["--", "min"],
-          ["--", "seg"],
-        ]
-      : [
-          [pad(state.days), "días"],
-          [pad(state.hours), "hrs"],
-          [pad(state.minutes), "min"],
-          [pad(state.seconds), "seg"],
-        ];
+      ? ["--", "--", "--", "--"]
+      : [pad(state.days), pad(state.hours), pad(state.minutes), pad(state.seconds)];
 
   return (
-    <div
-      className="flex gap-6"
-      role="timer"
-      aria-live="off"
-      aria-label="Tiempo restante para el evento"
-    >
-      {units.map(([value, label]) => (
-        <Unit key={label} value={value ?? "--"} label={label ?? ""} />
+    <div className="flex gap-6" role="timer" aria-live="off" aria-label={t.label}>
+      {t.units.map((label, i) => (
+        <Unit key={label} value={values[i] ?? "--"} label={label} />
       ))}
     </div>
   );

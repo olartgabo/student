@@ -42,7 +42,7 @@ describe("validateAgenda", () => {
         id: "break",
         time: { start: "09:40", end: "10:00" },
         subtype: "break",
-        title: "Break",
+        title: { es: "Break", en: "Break" },
       },
     ] as const satisfies readonly AgendaBlock[];
 
@@ -58,14 +58,14 @@ describe("validateAgenda", () => {
         id: "a",
         time: { start: "09:00", end: "10:00" },
         subtype: "opening",
-        title: "A",
+        title: { es: "A", en: "A" },
       },
       {
         kind: "plenary",
         id: "b",
         time: { start: "09:30", end: "10:30" },
         subtype: "closing",
-        title: "B",
+        title: { es: "B", en: "B" },
       },
     ] as const satisfies readonly AgendaBlock[];
 

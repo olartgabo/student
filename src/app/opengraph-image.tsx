@@ -81,14 +81,14 @@ export default async function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex" }}>
-          {eventDateLabel.day} {eventDateLabel.month} {eventDateLabel.year}
+          {eventDateLabel.es.day} {eventDateLabel.es.month} {eventDateLabel.es.year}
         </div>
         <div style={{ display: "flex" }}>·</div>
         <div style={{ display: "flex" }}>
           {event.venue.shortName} {event.venue.city} / {event.venue.country}
         </div>
         <div style={{ display: "flex" }}>·</div>
-        <div style={{ display: "flex", color: "#ff9900" }}>{event.price}</div>
+        <div style={{ display: "flex", color: "#ff9900" }}>{event.price.es}</div>
       </div>
     </div>,
     {

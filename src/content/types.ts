@@ -1,3 +1,5 @@
+import type { Localized } from "@/lib/i18n";
+
 /** Accent roles. Orange is reserved for calls to action and never used for a track. */
 export type AccentKey = "orange" | "sky" | "green" | "purple" | "neutral";
 
@@ -31,17 +33,17 @@ export interface Track {
   id: TrackId;
   /** "talks" gets a session column of its own; "workshop" gets the hands-on treatment. */
   kind: "talks" | "workshop";
-  /** Full Spanish name, e.g. "Inteligencia Artificial". */
-  name: string;
+  /** Full name, e.g. "Inteligencia Artificial". */
+  name: Localized;
   /** Timetable column header — kept short enough to survive a narrow column. */
-  shortName: string;
+  shortName: Localized;
   /** "01".."05", drives the grid-motif numbering. */
   code: string;
   accent: FillAccent;
   /** Absent renders "Aula por confirmar". */
   room?: string;
-  description: string;
-  topics: readonly string[];
+  description: Localized;
+  topics: Localized<readonly string[]>;
   icon: import("@/components/brand/pixel-icons").PixelIconName;
 }
 
@@ -86,7 +88,7 @@ export type Session =
   | (SessionBase & {
       status: "tba";
       /** Optional teaser shown in place of a title, e.g. "Taller práctico". */
-      placeholder?: string;
+      placeholder?: Localized;
     });
 
 export type PlenarySubtype =
@@ -106,8 +108,8 @@ export type AgendaBlock =
       time: TimeRange;
       subtype: PlenarySubtype;
       /** Always known — a plenary block's purpose is fixed even when its speaker isn't. */
-      title: string;
-      summary?: string;
+      title: Localized;
+      summary?: Localized;
       speakerIds?: readonly string[];
       location?: string;
     }
@@ -116,8 +118,8 @@ export type AgendaBlock =
       id: string;
       time: TimeRange;
       /** e.g. "Bloque 3 — Talks + Workshops". */
-      label?: string;
-      note?: string;
+      label?: Localized;
+      note?: Localized;
       /** 0–5 entries. A track with no entry renders an empty cell, never a collapsed column. */
       sessions: readonly Session[];
     };
@@ -133,24 +135,30 @@ export interface Sponsor {
   height: number;
 }
 
+/** An organisation behind the event itself rather than a paid package. */
+export interface HostPartner extends Sponsor {
+  /** "Host", "Sede anfitriona", … */
+  role: Localized;
+}
+
 export interface SponsorTier {
   id: "host" | "platinum" | "gold" | "silver";
   name: string;
   /** "Eres el evento", "Máxima visibilidad", … */
-  tagline: string;
+  tagline: Localized;
   /**
    * One factual sentence on what the tier actually buys, for the deck card and
    * the homepage summary. Reads as value, not as adjectives — every claim in it
    * has to be traceable to a line in `benefits`.
    */
-  summary: string;
+  summary: Localized;
   code: string;
   priceUsd: number;
   accent: FillAccent;
   /** Total slots available; absent means unlimited. */
   slots?: number;
   featured?: boolean;
-  benefits: readonly string[];
+  benefits: Localized<readonly string[]>;
   /** Confirmed sponsors at this tier. Empty means the tier is still open. */
   sponsors: readonly Sponsor[];
 }
@@ -165,7 +173,7 @@ export interface FaqItem {
 export interface TeamMember {
   id: string;
   name: string;
-  role: string;
+  role: Localized;
   photo?: string;
   links?: readonly SocialLink[];
 }
@@ -186,7 +194,7 @@ export interface EventInfo {
   edition: string;
   /** "SC-DAY // 001" — the footer strip slug from the reference poster. */
   slug: string;
-  tagline: string;
+  tagline: Localized;
   dateISO: `${number}-${number}-${number}`;
   startTime: ClockTime;
   endTime: ClockTime;
@@ -199,7 +207,7 @@ export interface EventInfo {
    * session is still `tba`, and proposals are what fill them.
    */
   speakersUrl: string;
-  price: string;
+  price: Localized;
   venue: Venue;
   contactEmail: string;
   sponsorshipEmail: string;

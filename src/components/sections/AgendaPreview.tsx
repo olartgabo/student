@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { dayRhythm } from "@/content/agenda";
 import { event } from "@/content/event";
 import { speakerCta } from "@/content/nav";
+import { localePath, type Locale } from "@/lib/i18n";
 
 /** Cycled one-at-a-time down the list, the way the brand's agenda slide does it. */
 const rowAccents = [
@@ -14,14 +15,26 @@ const rowAccents = [
   "text-green",
 ] as const;
 
-export function AgendaPreview() {
+const copy = {
+  es: {
+    title: "El ritmo del día",
+    intro: `El registro abre a las 08:00 y el programa corre de ${event.startTime} a ${event.endTime}, con hasta cinco actividades simultáneas en cada bloque.`,
+    note: "Los títulos de sesión se publican a medida que se confirman los speakers. La convocatoria sigue abierta.",
+    fullAgenda: "Ver la agenda completa",
+  },
+  en: {
+    title: "The shape of the day",
+    intro: `Check-in opens at 08:00 and the programme runs from ${event.startTime} to ${event.endTime}, with up to five activities at once in each block.`,
+    note: "Session titles are published as speakers are confirmed. The call for speakers is still open.",
+    fullAgenda: "See the full agenda",
+  },
+} as const;
+
+export function AgendaPreview({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+
   return (
-    <Section
-      id="agenda"
-      eyebrow="Agenda"
-      title="El ritmo del día"
-      intro={`El registro abre a las 08:00 y el programa corre de ${event.startTime} a ${event.endTime}, con hasta cinco actividades simultáneas en cada bloque.`}
-    >
+    <Section id="agenda" eyebrow="Agenda" title={t.title} intro={t.intro}>
       <ol className="border-t border-slate-600" data-reveal-group>
         {dayRhythm.map((item, i) => (
           <li
@@ -39,22 +52,23 @@ export function AgendaPreview() {
             >
               {item.time}
             </time>
-            <span className="font-display text-display-md text-white">{item.label}</span>
+            <span className="font-display text-display-md text-white">
+              {item.label[locale]}
+            </span>
           </li>
         ))}
       </ol>
 
       <p className="mt-8 max-w-2xl text-slate-200" data-reveal>
-        Los títulos de sesión se publican a medida que se confirman los speakers. La
-        convocatoria sigue abierta.
+        {t.note}
       </p>
 
       <div className="mt-6 flex flex-wrap gap-4" data-reveal>
-        <Button href="/agenda" variant="secondary">
-          Ver la agenda completa
+        <Button href={localePath(locale, "/agenda")} variant="secondary">
+          {t.fullAgenda}
         </Button>
         <Button href={speakerCta.href} variant="ghost">
-          {speakerCta.label} <span aria-hidden>↗</span>
+          {speakerCta.label[locale]} <span aria-hidden>↗</span>
         </Button>
       </div>
     </Section>

@@ -5,16 +5,24 @@ import { getTrack } from "@/content/tracks";
 import type { Session } from "@/content/types";
 import { accentFill } from "@/components/ui/accent";
 import { cn } from "@/lib/cn";
+import { TBA } from "@/lib/tba";
+import type { Locale, Localized } from "@/lib/i18n";
 
-const formatLabels: Record<NonNullable<Session["format"]>, string> = {
-  charla: "Charla",
-  taller: "Taller",
-  demo: "Demo",
-  panel: "Panel",
-  caso: "Caso",
+const formatLabels: Record<NonNullable<Session["format"]>, Localized> = {
+  charla: { es: "Charla", en: "Talk" },
+  taller: { es: "Taller", en: "Workshop" },
+  demo: { es: "Demo", en: "Demo" },
+  panel: { es: "Panel", en: "Panel" },
+  caso: { es: "Caso", en: "Case study" },
 };
 
-export function SessionCell({ session }: { session: Session }) {
+const levelLabels: Record<NonNullable<Session["level"]>, Localized> = {
+  intro: { es: "intro", en: "intro" },
+  intermedio: { es: "intermedio", en: "intermediate" },
+  avanzado: { es: "avanzado", en: "advanced" },
+};
+
+export function SessionCell({ session, locale }: { session: Session; locale: Locale }) {
   const track = getTrack(session.trackId);
   const speakers =
     session.status === "confirmed"
@@ -27,9 +35,11 @@ export function SessionCell({ session }: { session: Session }) {
 
       <div className="flex flex-wrap items-center gap-2">
         {session.format ? (
-          <Badge color={track.accent}>{formatLabels[session.format]}</Badge>
+          <Badge color={track.accent}>{formatLabels[session.format][locale]}</Badge>
         ) : null}
-        {session.level ? <Badge color="neutral">{session.level}</Badge> : null}
+        {session.level ? (
+          <Badge color="neutral">{levelLabels[session.level][locale]}</Badge>
+        ) : null}
         {session.remote ? <Badge color="neutral">Online</Badge> : null}
       </div>
 
@@ -43,7 +53,7 @@ export function SessionCell({ session }: { session: Session }) {
           ) : null}
         </>
       ) : (
-        <Tba label={session.placeholder} />
+        <Tba label={session.placeholder?.[locale] ?? TBA[locale]} />
       )}
     </div>
   );

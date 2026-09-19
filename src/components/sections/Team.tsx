@@ -2,6 +2,21 @@ import Image from "next/image";
 
 import { Section } from "@/components/layout/Section";
 import { team } from "@/content/team";
+import type { Locale } from "@/lib/i18n";
+
+const copy = {
+  es: {
+    eyebrow: "Equipo",
+    title: "Quiénes están detrás",
+    intro: "Los Student Builder Group Leaders y voluntarios que arman este evento.",
+  },
+  en: {
+    eyebrow: "Team",
+    title: "Who is behind it",
+    intro:
+      "The Student Builder Group Leaders and volunteers putting this event together.",
+  },
+} as const;
 
 const initials = (name: string) =>
   name
@@ -10,17 +25,13 @@ const initials = (name: string) =>
     .map((part) => part[0] ?? "")
     .join("");
 
-export function Team() {
+export function Team({ locale }: { locale: Locale }) {
   // An empty section reads worse than no section at all.
   if (team.length === 0) return null;
+  const t = copy[locale];
 
   return (
-    <Section
-      id="equipo"
-      eyebrow="Equipo"
-      title="Quiénes están detrás"
-      intro="Los Student Builder Group Leaders y voluntarios que arman este evento."
-    >
+    <Section id="equipo" eyebrow={t.eyebrow} title={t.title} intro={t.intro}>
       <ul
         className="grid grid-cols-2 gap-px border border-slate-600 bg-slate-600 sm:grid-cols-3 lg:grid-cols-4"
         data-reveal-group
@@ -44,7 +55,7 @@ export function Team() {
               </span>
             )}
             <p className="font-display text-body mt-5 text-white">{member.name}</p>
-            <p className="text-small mt-1 text-slate-200">{member.role}</p>
+            <p className="text-small mt-1 text-slate-200">{member.role[locale]}</p>
           </li>
         ))}
       </ul>

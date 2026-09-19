@@ -1,19 +1,22 @@
+import type { Localized } from "@/lib/i18n";
+
 import { event } from "./event";
 
 export interface NavLink {
   href: string;
-  label: string;
+  label: Localized;
   /** Opens in a new tab and renders the ↗ affordance. */
   external?: boolean;
 }
 
 export const navLinks: readonly NavLink[] = [
-  { href: "#evento", label: "El evento" },
-  { href: "#tracks", label: "Tracks" },
-  { href: "#agenda", label: "Agenda" },
-  { href: "#speakers", label: "Speakers" },
-  { href: "#sede", label: "Sede" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#evento", label: { es: "El evento", en: "The event" } },
+  { href: "#tracks", label: { es: "Tracks", en: "Tracks" } },
+  { href: "#agenda", label: { es: "Agenda", en: "Agenda" } },
+  { href: "#speakers", label: { es: "Speakers", en: "Speakers" } },
+  { href: "#sede", label: { es: "Sede", en: "Venue" } },
+  { href: "#patrocinio", label: { es: "Sponsors", en: "Sponsors" } },
+  { href: "#faq", label: { es: "FAQ", en: "FAQ" } },
 ];
 
 /**
@@ -24,8 +27,8 @@ export const navLinks: readonly NavLink[] = [
  */
 export const speakerCta = {
   href: event.speakersUrl,
-  label: "Propone tu charla",
+  label: { es: "Propone tu charla", en: "Submit a talk" },
   /** Shorter form for the header, where the row is already tight. */
-  shortLabel: "Sé speaker",
+  shortLabel: { es: "Sé speaker", en: "Speak" },
   external: true,
 } as const;

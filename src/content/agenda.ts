@@ -16,23 +16,28 @@ export const agenda = [
     id: "registro",
     time: { start: "08:00", end: "09:00" },
     subtype: "registration",
-    title: "Registro + Community Expo",
-    summary: "Acreditación, café y apertura de stands de sponsors y comunidades.",
+    title: { es: "Registro + Community Expo", en: "Registration + Community Expo" },
+    summary: {
+      es: "Acreditación, café y apertura de stands de sponsors y comunidades.",
+      en: "Check-in, coffee and the opening of sponsor and community booths.",
+    },
   },
   {
     kind: "plenary",
     id: "opening",
     time: { start: "09:00", end: "09:30" },
     subtype: "opening",
-    title: "Opening",
-    summary:
-      "Bienvenida, presentación del evento, las comunidades participantes y los tres tracks.",
+    title: { es: "Opening", en: "Opening" },
+    summary: {
+      es: "Bienvenida, presentación del evento, las comunidades participantes y los tres tracks.",
+      en: "Welcome, an introduction to the event, the participating communities and the three tracks.",
+    },
   },
   {
     kind: "parallel",
     id: "bloque-1",
     time: { start: "09:30", end: "10:10" },
-    label: "Bloque 1 — Talks",
+    label: { es: "Bloque 1 — Talks", en: "Block 1 — Talks" },
     sessions: [
       { id: "b1-ai", trackId: "ai", status: "tba", format: "charla" },
       { id: "b1-cloud", trackId: "cloud", status: "tba", format: "charla" },
@@ -44,8 +49,11 @@ export const agenda = [
     kind: "parallel",
     id: "bloque-2",
     time: { start: "10:10", end: "10:50" },
-    label: "Bloque 2 — Talks + Workshops",
-    note: "Empiezan las actividades prácticas en paralelo a las charlas.",
+    label: { es: "Bloque 2 — Talks + Workshops", en: "Block 2 — Talks + Workshops" },
+    note: {
+      es: "Empiezan las actividades prácticas en paralelo a las charlas.",
+      en: "Hands-on activities start alongside the talks.",
+    },
     sessions: [
       { id: "b2-ai", trackId: "ai", status: "tba", format: "charla" },
       { id: "b2-cloud", trackId: "cloud", status: "tba", format: "charla" },
@@ -58,14 +66,17 @@ export const agenda = [
     id: "break-1",
     time: { start: "10:50", end: "11:10" },
     subtype: "break",
-    title: "Community Break",
-    summary: "Café, networking, sponsors y comunidades. Momento para cambiar de sala.",
+    title: { es: "Community Break", en: "Community Break" },
+    summary: {
+      es: "Café, networking, sponsors y comunidades. Momento para cambiar de sala.",
+      en: "Coffee, networking, sponsors and communities. Time to switch rooms.",
+    },
   },
   {
     kind: "parallel",
     id: "bloque-3",
     time: { start: "11:10", end: "11:50" },
-    label: "Bloque 3 — Talks + Workshops",
+    label: { es: "Bloque 3 — Talks + Workshops", en: "Block 3 — Talks + Workshops" },
     sessions: [
       { id: "b3-ai", trackId: "ai", status: "tba", format: "charla" },
       { id: "b3-cloud", trackId: "cloud", status: "tba", format: "charla" },
@@ -78,8 +89,11 @@ export const agenda = [
     kind: "parallel",
     id: "bloque-4",
     time: { start: "11:50", end: "12:30" },
-    label: "Bloque 4 — Parallel Sessions",
-    note: "Bloque preferente para speakers internacionales remotos.",
+    label: { es: "Bloque 4 — Parallel Sessions", en: "Block 4 — Parallel Sessions" },
+    note: {
+      es: "Bloque preferente para speakers internacionales remotos.",
+      en: "Preferred block for remote international speakers.",
+    },
     sessions: [
       { id: "b4-ai", trackId: "ai", status: "tba", format: "demo" },
       { id: "b4-cloud", trackId: "cloud", status: "tba", format: "charla" },
@@ -93,23 +107,32 @@ export const agenda = [
     id: "panel",
     time: { start: "12:30", end: "13:00" },
     subtype: "panel",
-    title: "Community Panel — Building Your Career in Tech",
-    summary: "Panel conjunto con speakers de los tres tracks.",
+    title: {
+      es: "Community Panel — Building Your Career in Tech",
+      en: "Community Panel — Building Your Career in Tech",
+    },
+    summary: {
+      es: "Panel conjunto con speakers de los tres tracks.",
+      en: "A joint panel with speakers from all three tracks.",
+    },
   },
   {
     kind: "plenary",
     id: "almuerzo",
     time: { start: "13:00", end: "14:00" },
     subtype: "lunch",
-    title: "Almuerzo + Community Expo",
-    summary: "Networking, sponsors y comunidades.",
+    title: { es: "Almuerzo + Community Expo", en: "Lunch + Community Expo" },
+    summary: {
+      es: "Networking, sponsors y comunidades.",
+      en: "Networking, sponsors and communities.",
+    },
   },
   {
     // RECONSTRUIDO — el draft perdió columnas aquí.
     kind: "parallel",
     id: "bloque-5",
     time: { start: "14:00", end: "14:40" },
-    label: "Bloque 5 — Talks + Workshops",
+    label: { es: "Bloque 5 — Talks + Workshops", en: "Block 5 — Talks + Workshops" },
     sessions: [
       { id: "b5-ai", trackId: "ai", status: "tba", format: "charla" },
       { id: "b5-cloud", trackId: "cloud", status: "tba", format: "charla" },
@@ -121,7 +144,7 @@ export const agenda = [
     kind: "parallel",
     id: "bloque-6",
     time: { start: "14:40", end: "15:20" },
-    label: "Bloque 6 — Parallel Sessions",
+    label: { es: "Bloque 6 — Parallel Sessions", en: "Block 6 — Parallel Sessions" },
     sessions: [
       { id: "b6-ai", trackId: "ai", status: "tba", format: "demo" },
       { id: "b6-cloud", trackId: "cloud", status: "tba", format: "charla" },
@@ -135,16 +158,22 @@ export const agenda = [
     id: "break-2",
     time: { start: "15:20", end: "15:40" },
     subtype: "break",
-    title: "Community Break",
-    summary: "Café, networking, sponsors y comunidades.",
+    title: { es: "Community Break", en: "Community Break" },
+    summary: {
+      es: "Café, networking, sponsors y comunidades.",
+      en: "Coffee, networking, sponsors and communities.",
+    },
   },
   {
     // RECONSTRUIDO — el draft perdió columnas aquí.
     kind: "parallel",
     id: "bloque-7",
     time: { start: "15:40", end: "16:20" },
-    label: "Bloque 7 — Advanced Sessions",
-    note: "Aquí sube el nivel técnico del contenido.",
+    label: { es: "Bloque 7 — Advanced Sessions", en: "Block 7 — Advanced Sessions" },
+    note: {
+      es: "Aquí sube el nivel técnico del contenido.",
+      en: "The content gets more technical from here.",
+    },
     sessions: [
       { id: "b7-ai", trackId: "ai", status: "tba", format: "charla", level: "avanzado" },
       {
@@ -169,8 +198,14 @@ export const agenda = [
     kind: "parallel",
     id: "bloque-8",
     time: { start: "16:20", end: "17:00" },
-    label: "Bloque 8 — Demos, Paneles e Industria",
-    note: "Bloque deliberadamente abierto: demos, casos reales, fireside chats o sesiones especiales.",
+    label: {
+      es: "Bloque 8 — Demos, Paneles e Industria",
+      en: "Block 8 — Demos, Panels and Industry",
+    },
+    note: {
+      es: "Bloque deliberadamente abierto: demos, casos reales, fireside chats o sesiones especiales.",
+      en: "Deliberately open block: demos, real-world cases, fireside chats or special sessions.",
+    },
     sessions: [
       { id: "b8-ai", trackId: "ai", status: "tba", format: "panel" },
       { id: "b8-cloud", trackId: "cloud", status: "tba", format: "charla" },
@@ -184,35 +219,54 @@ export const agenda = [
     id: "closing",
     time: { start: "17:00", end: "17:30" },
     subtype: "closing",
-    title: "Closing Session",
-    summary: "Recapitulación del día y principales aprendizajes.",
+    title: { es: "Closing Session", en: "Closing Session" },
+    summary: {
+      es: "Recapitulación del día y principales aprendizajes.",
+      en: "A recap of the day and its key takeaways.",
+    },
   },
   {
     kind: "plenary",
     id: "recognition",
     time: { start: "17:30", end: "17:45" },
     subtype: "closing",
-    title: "Community Recognition",
-    summary:
-      "Reconocimiento a speakers, sponsors, comunidades, voluntarios y organizadores.",
+    title: { es: "Community Recognition", en: "Community Recognition" },
+    summary: {
+      es: "Reconocimiento a speakers, sponsors, comunidades, voluntarios y organizadores.",
+      en: "Recognition for speakers, sponsors, communities, volunteers and organizers.",
+    },
   },
   {
     kind: "plenary",
     id: "community-call",
     time: { start: "17:45", end: "18:00" },
     subtype: "networking",
-    title: "Community Call",
-    summary:
-      "Próximas actividades, cómo seguir involucrándose, cierre oficial y fotografía grupal.",
+    title: { es: "Community Call", en: "Community Call" },
+    summary: {
+      es: "Próximas actividades, cómo seguir involucrándose, cierre oficial y fotografía grupal.",
+      en: "Upcoming activities, how to stay involved, the official close and a group photo.",
+    },
   },
 ] as const satisfies readonly AgendaBlock[];
 
 /** The day's shape, for the homepage preview. Times bracket the blocks above. */
 export const dayRhythm = [
-  { code: "01", time: "09:00", label: "Opening" },
-  { code: "02", time: "09:30", label: "Talks + Workshops" },
-  { code: "03", time: "12:30", label: "Community Panel" },
-  { code: "04", time: "13:00", label: "Almuerzo + Expo" },
-  { code: "05", time: "14:00", label: "Contenido técnico profundo" },
-  { code: "06", time: "17:00", label: "Closing + Community" },
+  { code: "01", time: "09:00", label: { es: "Opening", en: "Opening" } },
+  {
+    code: "02",
+    time: "09:30",
+    label: { es: "Talks + Workshops", en: "Talks + Workshops" },
+  },
+  { code: "03", time: "12:30", label: { es: "Community Panel", en: "Community Panel" } },
+  { code: "04", time: "13:00", label: { es: "Almuerzo + Expo", en: "Lunch + Expo" } },
+  {
+    code: "05",
+    time: "14:00",
+    label: { es: "Contenido técnico profundo", en: "Deep technical content" },
+  },
+  {
+    code: "06",
+    time: "17:00",
+    label: { es: "Closing + Community", en: "Closing + Community" },
+  },
 ] as const;

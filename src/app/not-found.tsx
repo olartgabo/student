@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader locale="es" />
       <main id="contenido" className="grid-motif pt-18">
         <Container className="flex min-h-[70svh] flex-col justify-center py-24">
           <Eyebrow>Error 404</Eyebrow>
@@ -35,7 +35,7 @@ export default function NotFound() {
           </div>
         </Container>
       </main>
-      <SiteFooter />
+      <SiteFooter locale="es" />
     </>
   );
 }

@@ -3,6 +3,40 @@ import { event, eventDateLabel } from "@/content/event";
 import { sponsorComparisonRows, sponsorTiers } from "@/content/sponsors";
 import type { FillAccent, SponsorTier } from "@/content/types";
 import { cn } from "@/lib/cn";
+import type { Locale } from "@/lib/i18n";
+
+const copy = {
+  es: {
+    package: "Paquete",
+    taken: "Cupo tomado",
+    open: "Cupos abiertos",
+    remaining: (left: number, total: number) => `${left} de ${total} cupos disponibles`,
+    benefits: "Ver beneficios completos",
+    ask: "Consultar",
+    mailSubject: "Patrocinio",
+    mailBody: (tier: string, price: number) =>
+      `Hola, nos interesa el paquete ${tier} (USD ${price}) para el ${eventDateLabel.es.long}.`,
+    mailFields: [
+      "Empresa:",
+      "Contacto:",
+      "Teléfono:",
+      "",
+      "Consultas o ajustes al paquete:",
+    ],
+  },
+  en: {
+    package: "Package",
+    taken: "Slot taken",
+    open: "Open slots",
+    remaining: (left: number, total: number) => `${left} of ${total} slots available`,
+    benefits: "See all benefits",
+    ask: "Ask about",
+    mailSubject: "Sponsorship",
+    mailBody: (tier: string, price: number) =>
+      `Hi, we are interested in the ${tier} package (USD ${price}) for ${eventDateLabel.en.long}.`,
+    mailFields: ["Company:", "Contact:", "Phone:", "", "Questions or package changes:"],
+  },
+} as const;
 
 const tierStyles: Record<FillAccent, { text: string; border: string; rule: string }> = {
   orange: { text: "text-orange", border: "border-orange", rule: "bg-orange" },
@@ -11,29 +45,25 @@ const tierStyles: Record<FillAccent, { text: string; border: string; rule: strin
   purple: { text: "text-purple", border: "border-purple", rule: "bg-purple" },
 };
 
-function mailto(tier: SponsorTier) {
-  const subject = `Patrocinio ${tier.name} — ${event.name} ${event.edition}`;
-  const body = [
-    `Hola, nos interesa el paquete ${tier.name} (USD ${tier.priceUsd}) para el ${eventDateLabel.long}.`,
-    "",
-    "Empresa:",
-    "Contacto:",
-    "Teléfono:",
-    "",
-    "Consultas o ajustes al paquete:",
-  ].join("\n");
+function mailto(tier: SponsorTier, locale: Locale) {
+  const t = copy[locale];
+  const subject = `${t.mailSubject} ${tier.name} — ${event.name} ${event.edition}`;
+  const body = [t.mailBody(tier.name, tier.priceUsd), "", ...t.mailFields].join("\n");
 
   return `mailto:${event.sponsorshipEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
-function availability(tier: SponsorTier) {
+function availability(tier: SponsorTier, locale: Locale) {
+  const t = copy[locale];
   const filled = tier.sponsors.length;
-  if (tier.slots !== undefined && filled >= tier.slots) return "Cupo tomado";
-  if (tier.slots === undefined) return "Cupos abiertos";
-  return `${tier.slots - filled} de ${tier.slots} cupos disponibles`;
+  if (tier.slots !== undefined && filled >= tier.slots) return t.taken;
+  if (tier.slots === undefined) return t.open;
+  return t.remaining(tier.slots - filled, tier.slots);
 }
 
-export function SponsorComparison() {
+export function SponsorComparison({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4" data-reveal-group>
       {sponsorTiers.map((tier) => {
@@ -52,14 +82,14 @@ export function SponsorComparison() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="font-display text-small tracking-mono-caps text-slate-200 uppercase">
-                  Paquete {tier.code}
+                  {t.package} {tier.code}
                 </p>
                 <h3 className={cn("font-display text-display-md mt-2", style.text)}>
                   {tier.name}
                 </h3>
               </div>
               <span className="text-small max-w-28 text-right text-slate-200">
-                {availability(tier)}
+                {availability(tier, locale)}
               </span>
             </div>
 
@@ -67,27 +97,29 @@ export function SponsorComparison() {
               USD {tier.priceUsd}
             </p>
             <p className="mt-2 min-h-15 text-sm leading-6 text-slate-200">
-              {tier.summary}
+              {tier.summary[locale]}
             </p>
 
             <dl className="mt-7 border-y border-slate-600">
               {sponsorComparisonRows.map((row) => (
                 <div
-                  key={row.label}
+                  key={row.label.es}
                   className="border-b border-slate-600 py-3 last:border-b-0"
                 >
-                  <dt className="text-small text-slate-200">{row.label}</dt>
-                  <dd className="mt-1 text-sm text-white">{row.values[tier.id]}</dd>
+                  <dt className="text-small text-slate-200">{row.label[locale]}</dt>
+                  <dd className="mt-1 text-sm text-white">
+                    {row.values[tier.id][locale]}
+                  </dd>
                 </div>
               ))}
             </dl>
 
             <details className="mt-5">
               <summary className="font-display text-small cursor-pointer text-white">
-                Ver beneficios completos
+                {t.benefits}
               </summary>
               <ul className="mt-4 space-y-3">
-                {tier.benefits.map((benefit) => (
+                {tier.benefits[locale].map((benefit) => (
                   <li key={benefit} className="text-small flex gap-3 text-slate-200">
                     <span
                       aria-hidden
@@ -101,15 +133,15 @@ export function SponsorComparison() {
 
             {taken ? (
               <p className="font-display text-small tracking-mono-caps mt-7 border border-slate-600 px-4 py-3 text-center text-slate-200 uppercase">
-                Cupo tomado
+                {t.taken}
               </p>
             ) : (
               <Button
-                href={mailto(tier)}
+                href={mailto(tier, locale)}
                 variant={tier.featured ? "primary" : "secondary"}
                 className="mt-7 w-full"
               >
-                Consultar {tier.name}
+                {t.ask} {tier.name}
               </Button>
             )}
           </article>

@@ -2,6 +2,7 @@ import { BrandLockup } from "@/components/brand/BrandLockup";
 import { SbgTile } from "@/components/brand/SbgTile";
 import { event } from "@/content/event";
 import { navLinks, speakerCta } from "@/content/nav";
+import { localePath, type Locale } from "@/lib/i18n";
 
 import { Container } from "./Container";
 
@@ -13,13 +14,38 @@ const resources = [
 
 /** External by construction — each one leaves the site. */
 const participate = [
-  { href: event.registrationUrl, label: "Registro en Luma" },
+  {
+    href: event.registrationUrl,
+    label: { es: "Registro en Luma", en: "Register on Luma" },
+  },
   { href: speakerCta.href, label: speakerCta.label },
 ] as const;
 
+const copy = {
+  es: {
+    sections: "Secciones del sitio",
+    event: "El evento",
+    participate: "Participar",
+    packages: "Paquetes de patrocinio",
+    writeTeam: "Escribir al equipo",
+    resources: "Recursos",
+  },
+  en: {
+    sections: "Site sections",
+    event: "The event",
+    participate: "Take part",
+    packages: "Sponsorship packages",
+    writeTeam: "Email the team",
+    resources: "Resources",
+  },
+} as const;
+
 const externalLink = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-export function SiteFooter() {
+export function SiteFooter({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+  const home = localePath(locale, "/");
+
   return (
     <footer className="border-t border-slate-600 bg-slate-900 py-16">
       <Container>
@@ -27,7 +53,7 @@ export function SiteFooter() {
           <div>
             <BrandLockup />
             <p className="mt-5 max-w-sm text-slate-200">
-              {event.name} {event.edition}. {event.tagline}
+              {event.name} {event.edition}. {event.tagline[locale]}
             </p>
             {/* Postal detail in the footer is what local search reads; it also
                 saves a visitor a scroll back to the Sede section. */}
@@ -50,24 +76,27 @@ export function SiteFooter() {
             />
           </div>
 
-          <nav aria-label="Secciones del sitio">
+          <nav aria-label={t.sections}>
             <h2 className="font-display text-small tracking-mono-caps text-slate-200 uppercase">
-              El evento
+              {t.event}
             </h2>
             <ul className="mt-4 space-y-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={`/${link.href}`} className="text-slate-200 hover:text-white">
-                    {link.label}
+                  <a
+                    href={`${home}${link.href}`}
+                    className="text-slate-200 hover:text-white"
+                  >
+                    {link.label[locale]}
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <nav aria-label="Participar">
+          <nav aria-label={t.participate}>
             <h2 className="font-display text-small tracking-mono-caps text-slate-200 uppercase">
-              Participar
+              {t.participate}
             </h2>
             <ul className="mt-4 space-y-2">
               {participate.map((item) => (
@@ -77,13 +106,16 @@ export function SiteFooter() {
                     {...externalLink}
                     className="text-slate-200 hover:text-white"
                   >
-                    {item.label} <span aria-hidden>↗</span>
+                    {item.label[locale]} <span aria-hidden>↗</span>
                   </a>
                 </li>
               ))}
               <li>
-                <a href="/sponsor-deck" className="text-slate-200 hover:text-white">
-                  Paquetes de patrocinio
+                <a
+                  href={localePath(locale, "/sponsor-deck")}
+                  className="text-slate-200 hover:text-white"
+                >
+                  {t.packages}
                 </a>
               </li>
               <li>
@@ -91,15 +123,15 @@ export function SiteFooter() {
                   href={`mailto:${event.sponsorshipEmail}`}
                   className="text-slate-200 hover:text-white"
                 >
-                  Escribir al equipo
+                  {t.writeTeam}
                 </a>
               </li>
             </ul>
           </nav>
 
-          <nav aria-label="Recursos">
+          <nav aria-label={t.resources}>
             <h2 className="font-display text-small tracking-mono-caps text-slate-200 uppercase">
-              Recursos
+              {t.resources}
             </h2>
             <ul className="mt-4 space-y-2">
               {resources.map((item) => (

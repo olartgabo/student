@@ -4,10 +4,24 @@ import type { Track, TrackId } from "@/content/types";
 import type { AgendaRow } from "@/lib/agenda";
 import { formatRange } from "@/lib/agenda";
 import { cn } from "@/lib/cn";
+import type { Locale } from "@/lib/i18n";
 import { NO_SESSION } from "@/lib/tba";
 
 import { PlenaryRow } from "./PlenaryRow";
 import { SessionCell } from "./SessionCell";
+
+const copy = {
+  es: {
+    caption: `Programa completo del ${eventDateLabel.es.long}, de 08:00 a 18:00. Las columnas son los tracks y talleres; las filas, los bloques horarios.`,
+    time: "Hora",
+    roomTbc: "Aula por confirmar",
+  },
+  en: {
+    caption: `Full programme for ${eventDateLabel.en.long}, from 08:00 to 18:00. Columns are the tracks and workshops; rows are the time blocks.`,
+    time: "Time",
+    roomTbc: "Room to be confirmed",
+  },
+} as const;
 
 /**
  * A real <table>, not a CSS grid of divs.
@@ -22,11 +36,14 @@ export function AgendaTable({
   rows,
   tracks,
   activeTrack,
+  locale,
 }: {
   rows: AgendaRow[];
   tracks: readonly Track[];
   activeTrack: TrackId | null;
+  locale: Locale;
 }) {
+  const t = copy[locale];
   const dimmed = (trackId: TrackId) => activeTrack !== null && activeTrack !== trackId;
 
   return (
@@ -37,10 +54,7 @@ export function AgendaTable({
     // viewports get AgendaList instead.
     <div>
       <table className="w-full min-w-[56rem] table-fixed border-separate border-spacing-0">
-        <caption className="sr-only">
-          Programa completo del {eventDateLabel.long}, de 08:00 a 18:00. Las columnas son
-          los tracks y talleres; las filas, los bloques horarios.
-        </caption>
+        <caption className="sr-only">{t.caption}</caption>
         <colgroup>
           <col className="w-24" />
           {tracks.map((track) => (
@@ -51,7 +65,7 @@ export function AgendaTable({
         <thead>
           <tr>
             <th scope="col" className="sticky top-18 z-20 bg-slate-900 p-0">
-              <span className="sr-only">Hora</span>
+              <span className="sr-only">{t.time}</span>
             </th>
             {tracks.map((track) => (
               <th
@@ -69,10 +83,10 @@ export function AgendaTable({
                   {track.code}
                 </span>
                 <span className="font-display text-small tracking-mono-caps mt-2 block text-white uppercase">
-                  {track.shortName}
+                  {track.shortName[locale]}
                 </span>
                 <span className="mt-1 block text-[0.6875rem] text-slate-200">
-                  {track.room ?? "Aula por confirmar"}
+                  {track.room ?? t.roomTbc}
                 </span>
               </th>
             ))}
@@ -95,7 +109,7 @@ export function AgendaTable({
                   colSpan={tracks.length}
                   className="border-t border-l border-slate-600 bg-slate-800 p-4 align-top"
                 >
-                  <PlenaryRow block={row.block} />
+                  <PlenaryRow block={row.block} locale={locale} />
                 </td>
               </tr>
             ) : (
@@ -118,13 +132,13 @@ export function AgendaTable({
                       className="min-h-28 border-t border-l border-slate-600 p-4 align-top transition-opacity duration-200 data-[dimmed=true]:opacity-35"
                     >
                       {cell.kind === "session" ? (
-                        <SessionCell session={cell.session} />
+                        <SessionCell session={cell.session} locale={locale} />
                       ) : (
                         <>
                           <span aria-hidden className="text-slate-400">
                             —
                           </span>
-                          <span className="sr-only">{NO_SESSION}</span>
+                          <span className="sr-only">{NO_SESSION[locale]}</span>
                         </>
                       )}
                     </td>

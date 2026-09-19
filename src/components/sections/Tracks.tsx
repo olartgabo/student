@@ -4,15 +4,25 @@ import { accentFill, accentText } from "@/components/ui/accent";
 import { Tag } from "@/components/ui/Tag";
 import { talkTracks, workshopTracks } from "@/content/tracks";
 import { cn } from "@/lib/cn";
+import type { Locale } from "@/lib/i18n";
 
-export function Tracks() {
+const copy = {
+  es: {
+    title: "Elegí tu camino",
+    intro:
+      "Tres tracks técnicos más dos laboratorios prácticos, corriendo en paralelo durante todo el día.",
+  },
+  en: {
+    title: "Choose your path",
+    intro: "Three technical tracks plus two hands-on labs, running in parallel all day.",
+  },
+} as const;
+
+export function Tracks({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+
   return (
-    <Section
-      id="tracks"
-      eyebrow="Tracks"
-      title="Elegí tu camino"
-      intro="Tres tracks técnicos más dos laboratorios prácticos, corriendo en paralelo durante todo el día."
-    >
+    <Section id="tracks" eyebrow="Tracks" title={t.title} intro={t.intro}>
       <div
         className="grid gap-px border border-slate-600 bg-slate-600 md:grid-cols-3"
         data-reveal-group
@@ -34,11 +44,13 @@ export function Tracks() {
               />
             </div>
 
-            <h3 className="font-display text-display-md mt-8 text-white">{track.name}</h3>
-            <p className="mt-3 flex-1 text-slate-200">{track.description}</p>
+            <h3 className="font-display text-display-md mt-8 text-white">
+              {track.name[locale]}
+            </h3>
+            <p className="mt-3 flex-1 text-slate-200">{track.description[locale]}</p>
 
             <ul className="mt-6 flex flex-wrap gap-2">
-              {track.topics.map((topic) => (
+              {track.topics[locale].map((topic) => (
                 <li key={topic}>
                   <Tag>{topic}</Tag>
                 </li>
@@ -57,9 +69,9 @@ export function Tracks() {
             />
             <div>
               <h3 className="font-display text-body tracking-mono-caps text-white uppercase">
-                {track.name}
+                {track.name[locale]}
               </h3>
-              <p className="mt-2 text-slate-200">{track.description}</p>
+              <p className="mt-2 text-slate-200">{track.description[locale]}</p>
             </div>
           </article>
         ))}
