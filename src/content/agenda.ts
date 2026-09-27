@@ -119,7 +119,7 @@ const session = (
   time,
 });
 
-/** Final proposal, including the independent virtual stream. */
+/** Published programme, including the independent virtual stream. */
 export const agenda = [
   {
     kind: "plenary",
@@ -151,7 +151,7 @@ export const agenda = [
     sessions: [
       session(
         "b1-carlos",
-        "bisa",
+        "gessell",
         "Building Autonomous AI on AWS: From Bedrock to Real-World Agent Systems",
         ["Carlos Olivera"],
         "charla",
@@ -159,7 +159,7 @@ export const agenda = [
       ),
       session(
         "b1-victor",
-        "gessell",
+        "bisa",
         "Monitorea como un Pro: CloudWatch + APIs .NET en tiempo real",
         ["Victor Altamirano"],
         "charla",
@@ -191,7 +191,7 @@ export const agenda = [
     sessions: [
       session(
         "b2-rodrigo",
-        "bisa",
+        "l22",
         "De programar con IA a construir con agentes",
         ["Rodrigo Torrico"],
         "charla",
@@ -199,7 +199,7 @@ export const agenda = [
       ),
       session(
         "b2-silvana",
-        "gessell",
+        "bisa",
         "Sin datos no hay IA: construyendo un pipeline ETL serverless en AWS",
         ["Silvana Gutierrez"],
         "charla",
@@ -215,7 +215,7 @@ export const agenda = [
       ),
       session(
         "b2-freddy",
-        "l22",
+        "gessell",
         "De la idea al código: construyamos una aplicación con AI-DLC",
         ["Freddy Aguilar Rojas"],
         "taller",
@@ -249,10 +249,10 @@ export const agenda = [
     label: local("Bloque 3", "Block 3"),
     sessions: [
       session(
-        "b3-mauricio",
+        "b5-heberht",
         "bisa",
-        "Infraestructura Cloud, Gobernanza y Arquitectura de Datos para el manejo de IA",
-        ["Mauricio Illanes"],
+        "Más allá del Prompt: Construyendo sistemas RAG para que tu IA deje de alucinar",
+        ["Heberht Castellon"],
         "charla",
         "intermedio",
       ),
@@ -334,20 +334,28 @@ export const agenda = [
     kind: "parallel",
     id: "career-panel",
     time: { start: "12:30", end: "13:00" },
-    label: local("Community / Career Block"),
+    label: local("Panel de carrera", "Career panel"),
     note: local(
       "El stream virtual ofrece panel opcional y pausa hasta las 14:00.",
       "The virtual stream has an optional panel and pause until 14:00.",
     ),
     sessions: [
-      session(
-        "career",
-        "bisa",
-        "Building Your Career Before Graduation",
-        ["Sara Salazar Paredes", "Fernando Terrazas", "Jesiel Velasco", "Carlos Roca"],
-        "panel",
-        "intro",
-      ),
+      {
+        ...session(
+          "career",
+          "bisa",
+          "Building Your Career Before Graduation",
+          [
+            "Silvana Gutierrez",
+            "Gonzalo Alfaro",
+            "Carlos Isaac Jaldin Benavides",
+            "Abel Archila",
+          ],
+          "panel",
+          "intro",
+        ),
+        moderator: "Gabriel Olarte (Gabo)",
+      },
     ],
   },
   {
@@ -368,27 +376,27 @@ export const agenda = [
     label: local("Bloque 5", "Block 5"),
     sessions: [
       session(
-        "b5-jose",
-        "bisa",
-        "¿Le darías las llaves de tu empresa a una IA? Cómo evaluar agentes y evitar errores costosos",
-        ["Jose Matias Medinaceli Saavedra"],
-        "charla",
-        "intermedio",
-      ),
-      session(
-        "b5-heberht",
-        "gessell",
-        "Más allá del Prompt: Construyendo sistemas RAG para que tu IA deje de alucinar",
-        ["Heberht Castellon"],
-        "charla",
-        "intermedio",
-      ),
-      session(
         "b5-carlos",
-        "l22",
+        "bisa",
         "De la carpeta de apuntes al 100: un agente de IA que arma tu exposición con AWS Bedrock",
         ["Carlos Isaac Jaldin Benavides"],
         "demo",
+        "intermedio",
+      ),
+      session(
+        "b3-mauricio",
+        "gessell",
+        "Infraestructura Cloud, Gobernanza y Arquitectura de Datos para el manejo de IA",
+        ["Mauricio Illanes"],
+        "charla",
+        "intermedio",
+      ),
+      session(
+        "b8-abel",
+        "l22",
+        "Networking para IA: El protocolo que mueve datos masivos en la era de la IA",
+        ["Abel Archila"],
+        "charla",
         "intermedio",
       ),
       session(
@@ -477,8 +485,8 @@ export const agenda = [
       session(
         "v7",
         "virtual",
-        "De los Cómics a la Nube: Construyendo chatbots con Lex, Bedrock, S3 y OpenSearch",
-        ["Daniel Paredes"],
+        "4 errores en Producción que cambiaron mi forma de trabajar con AWS",
+        ["Jean Reyes"],
         "charla",
         "intermedio",
         { start: "15:40", end: "16:20" },
@@ -491,8 +499,8 @@ export const agenda = [
     time: { start: "16:00", end: "16:40" },
     label: local("Bloque 7", "Block 7"),
     note: local(
-      "BISA cierra para el sound check. El stream de Daniel Paredes continúa hasta las 16:20.",
-      "BISA closes for sound check. Daniel Paredes's virtual talk continues until 16:20.",
+      "BISA cierra para el sound check. El stream de Jean Reyes continúa hasta las 16:20.",
+      "BISA closes for sound check. Jean Reyes's virtual talk continues until 16:20.",
     ),
     sessions: [
       session(
@@ -516,10 +524,10 @@ export const agenda = [
     ),
     sessions: [
       session(
-        "b8-abel",
+        "b5-jose",
         "a1",
-        "Networking para IA: El protocolo que mueve datos masivos en la era de la IA",
-        ["Abel Archila"],
+        "¿Le darías las llaves de tu empresa a una IA? Cómo evaluar agentes y evitar errores costosos",
+        ["Jose Matias Medinaceli Saavedra"],
         "charla",
         "intermedio",
       ),
@@ -575,7 +583,7 @@ export const dayRhythm = [
     time: "09:30",
     label: local("Sesiones presenciales + virtuales", "In-person + virtual sessions"),
   },
-  { code: "03", time: "12:30", label: local("Community / Career Panel") },
+  { code: "03", time: "12:30", label: local("Panel de carrera", "Career panel") },
   { code: "04", time: "13:00", label: local("Almuerzo + Expo", "Lunch + Expo") },
   {
     code: "05",

@@ -58,7 +58,20 @@ export function SessionCell({
               {speakers.map((s) => s?.name).join(", ")}
             </p>
           ) : session.speakers?.length ? (
-            <p className="text-small text-slate-200">{session.speakers.join(", ")}</p>
+            session.format === "panel" ? (
+              <ul className="text-small space-y-1 text-slate-200">
+                {session.speakers.map((name) => (
+                  <li key={name}>{name}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-small text-slate-200">{session.speakers.join(", ")}</p>
+            )
+          ) : null}
+          {session.moderator ? (
+            <p className="text-small text-slate-200">
+              {locale === "es" ? "Moderador" : "Moderator"}: {session.moderator}
+            </p>
           ) : null}
         </>
       ) : (

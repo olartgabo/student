@@ -72,7 +72,28 @@ describe("AgendaTable", () => {
     expect(all).toContain("Cuando tu servidor desaparece");
     expect(all).toContain("Networking para IA");
     expect(all).toContain("Securing Serverless Enterprises");
-    expect(a1).toContain("Networking para IA");
+    expect(a1).toContain("Jose Matias Medinaceli Saavedra");
+    expect(a1).not.toContain("Networking para IA");
     expect(a1).not.toContain("Cuando tu servidor desaparece");
+  });
+
+  it("shows the career panel roster and moderator", () => {
+    const programme = deriveAgendaGrid(agenda, agendaTracks).filter(
+      (row) => row.block.id === "career-panel",
+    );
+    const html = renderToStaticMarkup(
+      <AgendaTable
+        rows={programme}
+        tracks={agendaTracks}
+        activeTrack="bisa"
+        locale="es"
+      />,
+    );
+
+    expect(html).toContain("Silvana Gutierrez");
+    expect(html).toContain("Gonzalo Alfaro");
+    expect(html).toContain("Carlos Isaac Jaldin Benavides");
+    expect(html).toContain("Abel Archila");
+    expect(html).toContain("Moderador: Gabriel Olarte (Gabo)");
   });
 });

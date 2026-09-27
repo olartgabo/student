@@ -96,6 +96,7 @@ export type Session =
       speakerIds?: readonly string[];
       /** Display names used while speaker profiles are not published. */
       speakers?: readonly string[];
+      moderator?: string;
     })
   | (SessionBase & {
       status: "tba";
