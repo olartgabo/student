@@ -168,10 +168,7 @@
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Print. People print conference programmes and pin them to a wall, so the
-   timetable is forced back to its wide form on paper regardless of page width.
---------------------------------------------------------------------------- */
+/* The programme stays legible when printed without background colors. */
 @media print {
   /* Reveals never run on paper — force everything visible. */
   [data-reveal],
@@ -199,28 +196,21 @@
     display: none !important;
   }
 
-  /* The mobile list and the wide table swap roles: paper is wide. */
-  .lg\:hidden {
+  .agenda-filters {
     display: none !important;
   }
-  .hidden.lg\:block {
-    display: block !important;
-  }
 
-  table {
-    border-collapse: collapse;
-  }
-
-  th,
-  td {
-    position: static !important;
+  .agenda-schedule article {
+    background: #fff !important;
     border: 1px solid #999 !important;
+  }
+
+  .agenda-schedule * {
     color: #000 !important;
   }
 
-  tr,
-  td,
-  th {
+  .agenda-schedule li,
+  .agenda-schedule article {
     break-inside: avoid;
   }
 }

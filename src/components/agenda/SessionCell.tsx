@@ -2,9 +2,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Tba } from "@/components/ui/Tba";
 import { getSpeaker } from "@/content/speakers";
 import { getAgendaTrack } from "@/content/agenda";
-import type { Session } from "@/content/types";
-import { accentFill } from "@/components/ui/accent";
-import { cn } from "@/lib/cn";
+import type { Session, TimeRange } from "@/content/types";
 import { TBA } from "@/lib/tba";
 import type { Locale, Localized } from "@/lib/i18n";
 
@@ -22,7 +20,15 @@ const levelLabels: Record<NonNullable<Session["level"]>, Localized> = {
   avanzado: { es: "avanzado", en: "advanced" },
 };
 
-export function SessionCell({ session, locale }: { session: Session; locale: Locale }) {
+export function SessionCell({
+  session,
+  time,
+  locale,
+}: {
+  session: Session;
+  time: TimeRange;
+  locale: Locale;
+}) {
   const track = getAgendaTrack(session.trackId);
   const speakers =
     session.status === "confirmed"
@@ -31,14 +37,10 @@ export function SessionCell({ session, locale }: { session: Session; locale: Loc
 
   return (
     <div className="flex h-full flex-col gap-3">
-      <span aria-hidden className={cn("h-1 w-10 shrink-0", accentFill[track.accent])} />
-
       <div className="flex flex-wrap items-center gap-2">
-        {session.time ? (
-          <Badge color="neutral">
-            {session.time.start}–{session.time.end}
-          </Badge>
-        ) : null}
+        <Badge color="neutral">
+          {time.start}–{time.end}
+        </Badge>
         {session.format ? (
           <Badge color={track.accent}>{formatLabels[session.format][locale]}</Badge>
         ) : null}
@@ -50,7 +52,7 @@ export function SessionCell({ session, locale }: { session: Session; locale: Loc
 
       {session.status === "confirmed" ? (
         <>
-          <p className="font-body font-medium text-white">{session.title}</p>
+          <h3 className="font-body text-body font-medium text-white">{session.title}</h3>
           {speakers.length > 0 ? (
             <p className="text-small text-slate-200">
               {speakers.map((s) => s?.name).join(", ")}

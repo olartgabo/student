@@ -13,9 +13,12 @@ import { Tracks } from "@/components/sections/Tracks";
 import { Venue } from "@/components/sections/Venue";
 import type { Locale } from "@/lib/i18n";
 
+import { HomeStructuredData } from "./HomeStructuredData";
+
 export function HomePage({ locale }: { locale: Locale }) {
   return (
     <>
+      <HomeStructuredData locale={locale} />
       <SiteHeader locale={locale} />
       <main id="contenido">
         <Hero locale={locale} />

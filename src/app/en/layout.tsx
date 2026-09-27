@@ -1,23 +1,30 @@
 import type { Metadata } from "next";
 
-import { DocumentLang } from "@/components/layout/DocumentLang";
-import { event, eventDateLabel } from "@/content/event";
+import { MotionRoot } from "@/components/motion/MotionRoot";
+import { event, eventDateLabel, siteUrl } from "@/content/event";
+import { amazonEmber, jetbrainsMono } from "@/lib/fonts";
 import { languageAlternates } from "@/lib/i18n";
+
+import "../globals.css";
 
 const title = `AWS ${event.name} ${event.edition}`;
 
 const description =
   `A free one-day event at ${event.venue.name}, ${event.venue.city}, on ` +
-  `${eventDateLabel.en.long}. Three tracks (AI, Cloud and Cybersecurity) and two hands-on labs in parallel.`;
+  `${eventDateLabel.en.long}. Talks, hands-on workshops and a virtual stream about cloud technology.`;
 
-/** Overrides the Spanish defaults the root layout sets for every route. */
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    // `absolute`, or the root layout's Spanish-side template wraps it a second time.
-    absolute: `${title} — ${eventDateLabel.en.short} · Free`,
+    default: `${title} — ${eventDateLabel.en.short} · Free`,
     template: `%s — ${title}`,
   },
   description,
+  applicationName: title,
+  authors: [{ name: "AWS Student Builder Group — UPB Cochabamba", url: siteUrl }],
+  creator: "AWS Student Builder Group — UPB Cochabamba",
+  publisher: "AWS Student Builder Group — UPB Cochabamba",
+  category: "technology",
   alternates: { canonical: "/en", languages: languageAlternates("/") },
   openGraph: {
     type: "website",
@@ -32,13 +39,26 @@ export const metadata: Metadata = {
     title: `${title} — ${eventDateLabel.en.short} · Cochabamba · Free`,
     description,
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function EnglishLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div lang="en">
-      <DocumentLang lang="en" />
-      {children}
-    </div>
+    <html lang="en" className={`${amazonEmber.variable} ${jetbrainsMono.variable}`}>
+      <body>
+        <MotionRoot />
+        {children}
+      </body>
+    </html>
   );
 }

@@ -12,8 +12,8 @@ import { AgendaTable } from "./AgendaTable";
 
 /** The single client boundary for filtering the programme by room or stream. */
 const copy = {
-  es: { filter: "Filtrar", all: "Todo" },
-  en: { filter: "Filter", all: "All" },
+  es: { filter: "Sala o stream", all: "Todo", showing: "Mostrando" },
+  en: { filter: "Room or stream", all: "All", showing: "Showing" },
 } as const;
 
 export function AgendaTimetable({ locale }: { locale: Locale }) {
@@ -23,7 +23,7 @@ export function AgendaTimetable({ locale }: { locale: Locale }) {
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap items-center gap-2">
+      <div className="agenda-filters mb-8 flex flex-wrap items-center gap-2">
         <span className="font-display tracking-mono-caps mr-2 text-[0.6875rem] text-slate-200 uppercase">
           {t.filter}
         </span>
@@ -41,12 +41,14 @@ export function AgendaTimetable({ locale }: { locale: Locale }) {
         ))}
       </div>
 
-      <AgendaTable
-        rows={rows}
-        tracks={agendaTracks}
-        activeTrack={activeTrack}
-        locale={locale}
-      />
+      <p aria-live="polite" className="text-small mb-4 text-slate-200">
+        {t.showing}:{" "}
+        {activeTrack === null
+          ? t.all
+          : agendaTracks.find((track) => track.id === activeTrack)?.name[locale]}
+      </p>
+
+      <AgendaTable rows={rows} activeTrack={activeTrack} locale={locale} />
     </div>
   );
 }

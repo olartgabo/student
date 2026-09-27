@@ -10,7 +10,7 @@ export const dynamic = "force-static";
  * a clock-derived value would rewrite every `lastmod` on each deploy and teach
  * crawlers to ignore the field. Bump it when the content actually changes.
  */
-const lastModified = new Date("2026-09-19");
+const lastModified = new Date("2026-09-26");
 
 const routes = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
