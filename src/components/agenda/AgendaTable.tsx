@@ -41,17 +41,20 @@ export function AgendaTable({
 
   return (
     <div className="overflow-x-auto border border-slate-600">
-      <table className="w-full min-w-[70rem] table-fixed border-separate border-spacing-0">
+      <table className="min-w-[106rem] table-fixed border-separate border-spacing-0">
         <caption className="sr-only">{t.caption}</caption>
         <colgroup>
           <col className="w-28" />
           {tracks.map((track) => (
-            <col key={track.id} />
+            <col key={track.id} className="w-56" />
           ))}
         </colgroup>
         <thead>
           <tr>
-            <th scope="col" className="sticky top-18 z-20 bg-slate-900 p-4 text-left">
+            <th
+              scope="col"
+              className="sticky top-18 left-0 z-30 bg-slate-900 p-4 text-left"
+            >
               <span className="font-display text-small text-slate-200">{t.time}</span>
             </th>
             {tracks.map((track) => (
@@ -85,7 +88,7 @@ export function AgendaTable({
               <tr key={row.block.id}>
                 <th
                   scope="row"
-                  className="border-t border-slate-600 p-4 text-left align-top"
+                  className="sticky left-0 z-10 border-t border-slate-600 bg-slate-900 p-4 text-left align-top"
                 >
                   <span className="tabular font-display text-small text-slate-200">
                     {formatRange(row.block.time)}
@@ -102,7 +105,7 @@ export function AgendaTable({
               <tr key={row.block.id}>
                 <th
                   scope="row"
-                  className="border-t border-slate-600 p-4 text-left align-top"
+                  className="sticky left-0 z-10 border-t border-slate-600 bg-slate-900 p-4 text-left align-top"
                 >
                   <span className="tabular font-display text-small text-slate-200">
                     {formatRange(row.block.time)}
