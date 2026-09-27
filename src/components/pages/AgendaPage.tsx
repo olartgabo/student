@@ -15,18 +15,18 @@ const place = `${event.venue.shortName} ${event.venue.city}`;
 const copy = {
   es: {
     description:
-      `Programa completo del ${eventDateLabel.es.long}: tres tracks y dos laboratorios en ` +
-      `paralelo, de ${event.startTime} a ${event.endTime} en ${place}.`,
+      `Programa completo del ${eventDateLabel.es.long}: sesiones presenciales y virtuales ` +
+      `de ${event.startTime} a ${event.endTime} en ${place}.`,
     title: "Programa del día",
-    intro: `${eventDateLabel.es.long} · ${event.startTime}–${event.endTime} · ${place}. El registro abre a las 08:00. Los títulos de sesión se publican a medida que se confirman los speakers.`,
+    intro: `${eventDateLabel.es.long} · ${event.startTime}–${event.endTime} · ${place}. Filtrá por sala o seguí el stream virtual durante todo el día.`,
     register: "Inscríbete gratis",
   },
   en: {
     description:
-      `Full programme for ${eventDateLabel.en.long}: three tracks and two labs in ` +
-      `parallel, from ${event.startTime} to ${event.endTime} at ${place}.`,
+      `Full programme for ${eventDateLabel.en.long}: in-person and virtual sessions ` +
+      `from ${event.startTime} to ${event.endTime} at ${place}.`,
     title: "Programme for the day",
-    intro: `${eventDateLabel.en.long} · ${event.startTime}–${event.endTime} · ${place}. Check-in opens at 08:00. Session titles are published as speakers are confirmed.`,
+    intro: `${eventDateLabel.en.long} · ${event.startTime}–${event.endTime} · ${place}. Filter by room or follow the virtual stream throughout the day.`,
     register: "Register for free",
   },
 } as const;

@@ -18,7 +18,7 @@ export const event: EventInfo = {
     en: "Where Bolivia's university tech community meets.",
   },
   dateISO: "2026-10-10",
-  startTime: "09:00",
+  startTime: "08:00",
   endTime: "18:00",
   timeZone: "America/La_Paz",
   utcOffset: "-04:00",

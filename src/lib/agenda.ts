@@ -1,17 +1,18 @@
-import type { AgendaBlock, Session, Track, TrackId } from "@/content/types";
+import type { AgendaBlock, ScheduleTrackId, Session } from "@/content/types";
 
 /**
  * Turns the authored agenda into a render-ready row/cell matrix.
  *
- * The timetable is a real <table>, so `rowSpan` has to be resolved up front:
+ * The former table view used row spans, so they are resolved up front for any
+ * future matrix presentation:
  * a session spanning two blocks emits one cell in the first row and marks the
  * corresponding cell in the next row as covered so it is not rendered at all.
  */
 
 export type AgendaCell =
-  | { kind: "session"; trackId: TrackId; session: Session; rowSpan: number }
-  | { kind: "empty"; trackId: TrackId }
-  | { kind: "covered"; trackId: TrackId };
+  | { kind: "session"; trackId: ScheduleTrackId; session: Session; rowSpan: number }
+  | { kind: "empty"; trackId: ScheduleTrackId }
+  | { kind: "covered"; trackId: ScheduleTrackId };
 
 export type AgendaRow =
   | { kind: "plenary"; block: Extract<AgendaBlock, { kind: "plenary" }> }
@@ -23,14 +24,14 @@ export type AgendaRow =
 
 export function deriveAgendaGrid(
   blocks: readonly AgendaBlock[],
-  tracks: readonly Track[],
+  tracks: readonly { id: ScheduleTrackId }[],
 ): AgendaRow[] {
   const columns = tracks.map((t) => t.id);
   // blockIndex -> trackId -> true when a session from an earlier row covers it
-  const covered = new Map<number, Set<TrackId>>();
+  const covered = new Map<number, Set<ScheduleTrackId>>();
 
-  const claim = (blockIndex: number, trackId: TrackId) => {
-    const set = covered.get(blockIndex) ?? new Set<TrackId>();
+  const claim = (blockIndex: number, trackId: ScheduleTrackId) => {
+    const set = covered.get(blockIndex) ?? new Set<ScheduleTrackId>();
     set.add(trackId);
     covered.set(blockIndex, set);
   };
@@ -68,10 +69,10 @@ const toMinutes = (time: string): number => {
  */
 export function validateAgenda(
   blocks: readonly AgendaBlock[],
-  tracks: readonly Track[],
+  tracks: readonly { id: ScheduleTrackId }[],
 ): string[] {
   const errors: string[] = [];
-  const knownTracks = new Set(tracks.map((t) => t.id));
+  const knownTracks = new Set<ScheduleTrackId>(tracks.map((t) => t.id));
   const seenIds = new Set<string>();
 
   blocks.forEach((block, index) => {
@@ -84,14 +85,9 @@ export function validateAgenda(
       );
     }
 
-    const previous = blocks[index - 1];
-    if (previous && toMinutes(block.time.start) < toMinutes(previous.time.end)) {
-      errors.push(`"${block.id}" empieza antes de que termine "${previous.id}"`);
-    }
-
     if (block.kind !== "parallel") return;
 
-    const usedTracks = new Set<TrackId>();
+    const usedTracks = new Set<ScheduleTrackId>();
     for (const session of block.sessions) {
       if (!knownTracks.has(session.trackId)) {
         errors.push(

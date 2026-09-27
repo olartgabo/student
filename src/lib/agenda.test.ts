@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { agenda } from "@/content/agenda";
+import { agenda, agendaTracks } from "@/content/agenda";
 import { tracks } from "@/content/tracks";
 import type { AgendaBlock } from "@/content/types";
 
@@ -8,7 +8,7 @@ import { deriveAgendaGrid, validateAgenda } from "./agenda";
 
 describe("validateAgenda", () => {
   it("accepts the authored agenda", () => {
-    expect(validateAgenda(agenda, tracks)).toEqual([]);
+    expect(validateAgenda(agenda, agendaTracks)).toEqual([]);
   });
 
   it("rejects two sessions in the same track within one block", () => {
@@ -51,7 +51,7 @@ describe("validateAgenda", () => {
     );
   });
 
-  it("rejects overlapping blocks", () => {
+  it("allows intentionally overlapping blocks in different rooms", () => {
     const blocks = [
       {
         kind: "plenary",
@@ -69,9 +69,7 @@ describe("validateAgenda", () => {
       },
     ] as const satisfies readonly AgendaBlock[];
 
-    expect(validateAgenda(blocks, tracks)).toContainEqual(
-      expect.stringContaining("antes de que termine"),
-    );
+    expect(validateAgenda(blocks, tracks)).toEqual([]);
   });
 });
 

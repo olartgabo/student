@@ -1,6 +1,6 @@
 import { accentFill } from "@/components/ui/accent";
-import { getTrack } from "@/content/tracks";
-import type { AgendaBlock, TrackId } from "@/content/types";
+import { getAgendaTrack } from "@/content/agenda";
+import type { AgendaBlock, AgendaTrackId } from "@/content/types";
 import { formatRange } from "@/lib/agenda";
 import { cn } from "@/lib/cn";
 import type { Locale } from "@/lib/i18n";
@@ -8,20 +8,14 @@ import type { Locale } from "@/lib/i18n";
 import { PlenaryRow } from "./PlenaryRow";
 import { SessionCell } from "./SessionCell";
 
-/**
- * The narrow-screen reading of the same data: strictly chronological, time as a
- * sticky sub-header, one card per session.
- *
- * Plenary blocks ignore the track filter — opening, breaks, lunch, the panel and
- * the closing apply to everyone regardless of which track you are following.
- */
+/** A chronological agenda that preserves the programme's intentionally overlapping rooms. */
 export function AgendaList({
   blocks,
   activeTrack,
   locale,
 }: {
   blocks: readonly AgendaBlock[];
-  activeTrack: TrackId | null;
+  activeTrack: AgendaTrackId | null;
   locale: Locale;
 }) {
   return (
@@ -56,7 +50,7 @@ export function AgendaList({
             ) : (
               <ul>
                 {sessions.map((session) => {
-                  const track = getTrack(session.trackId);
+                  const track = getAgendaTrack(session.trackId);
                   return (
                     <li
                       key={session.id}
@@ -77,6 +71,11 @@ export function AgendaList({
                 })}
               </ul>
             )}
+            {block.kind === "parallel" && block.note ? (
+              <p className="text-small border-b border-slate-600 px-4 py-3 text-slate-200">
+                {block.note[locale]}
+              </p>
+            ) : null}
           </li>
         );
       })}

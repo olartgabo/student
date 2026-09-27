@@ -1,27 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { Tag } from "@/components/ui/Tag";
-import { agenda } from "@/content/agenda";
-import { tracks } from "@/content/tracks";
-import type { TrackId } from "@/content/types";
-import { deriveAgendaGrid } from "@/lib/agenda";
+import { agenda, agendaTracks } from "@/content/agenda";
+import type { AgendaTrackId } from "@/content/types";
 import type { Locale } from "@/lib/i18n";
 
 import { AgendaList } from "./AgendaList";
-import { AgendaTable } from "./AgendaTable";
 
-/**
- * The single client boundary for the programme. It owns the filter and feeds both
- * renderings.
- *
- * Both trees are always in the DOM, toggled with `hidden`/`lg:block`. That is
- * `display: none`, which removes a subtree from the accessibility tree and from
- * the focus order in every browser — so there is no duplicate-content problem, and
- * unlike a `useMediaQuery` swap it needs no SSR guess and cannot flash the wrong
- * layout or mismatch on hydration.
- */
+/** The single client boundary for filtering the programme by room or stream. */
 const copy = {
   es: { filter: "Filtrar", all: "Todo" },
   en: { filter: "Filter", all: "All" },
@@ -29,8 +17,7 @@ const copy = {
 
 export function AgendaTimetable({ locale }: { locale: Locale }) {
   const t = copy[locale];
-  const [activeTrack, setActiveTrack] = useState<TrackId | null>(null);
-  const rows = useMemo(() => deriveAgendaGrid(agenda, tracks), []);
+  const [activeTrack, setActiveTrack] = useState<AgendaTrackId | null>(null);
 
   return (
     <div>
@@ -41,7 +28,7 @@ export function AgendaTimetable({ locale }: { locale: Locale }) {
         <Tag active={activeTrack === null} onClick={() => setActiveTrack(null)}>
           {t.all}
         </Tag>
-        {tracks.map((track) => (
+        {agendaTracks.map((track) => (
           <Tag
             key={track.id}
             active={activeTrack === track.id}
@@ -52,18 +39,7 @@ export function AgendaTimetable({ locale }: { locale: Locale }) {
         ))}
       </div>
 
-      <div className="hidden lg:block">
-        <AgendaTable
-          rows={rows}
-          tracks={tracks}
-          activeTrack={activeTrack}
-          locale={locale}
-        />
-      </div>
-
-      <div className="lg:hidden">
-        <AgendaList blocks={agenda} activeTrack={activeTrack} locale={locale} />
-      </div>
+      <AgendaList blocks={agenda} activeTrack={activeTrack} locale={locale} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/Badge";
 import { Tba } from "@/components/ui/Tba";
 import { getSpeaker } from "@/content/speakers";
-import { getTrack } from "@/content/tracks";
+import { getAgendaTrack } from "@/content/agenda";
 import type { Session } from "@/content/types";
 import { accentFill } from "@/components/ui/accent";
 import { cn } from "@/lib/cn";
@@ -23,7 +23,7 @@ const levelLabels: Record<NonNullable<Session["level"]>, Localized> = {
 };
 
 export function SessionCell({ session, locale }: { session: Session; locale: Locale }) {
-  const track = getTrack(session.trackId);
+  const track = getAgendaTrack(session.trackId);
   const speakers =
     session.status === "confirmed"
       ? (session.speakerIds ?? []).map(getSpeaker).filter((s) => s?.confirmed)
@@ -50,6 +50,8 @@ export function SessionCell({ session, locale }: { session: Session; locale: Loc
             <p className="text-small text-slate-200">
               {speakers.map((s) => s?.name).join(", ")}
             </p>
+          ) : session.speakers?.length ? (
+            <p className="text-small text-slate-200">{session.speakers.join(", ")}</p>
           ) : null}
         </>
       ) : (

@@ -7,6 +7,8 @@ export type AccentKey = "orange" | "sky" | "green" | "purple" | "neutral";
 export type FillAccent = Exclude<AccentKey, "neutral">;
 
 export type TrackId = "ai" | "cloud" | "security" | "workshop-1" | "workshop-2";
+export type AgendaTrackId = "bisa" | "gessell" | "a1" | "d1" | "l29" | "l22" | "virtual";
+export type ScheduleTrackId = TrackId | AgendaTrackId;
 
 /**
  * "HH:MM", 24h, always America/La_Paz.
@@ -47,6 +49,12 @@ export interface Track {
   icon: import("@/components/brand/pixel-icons").PixelIconName;
 }
 
+/** A room or stream used by the published programme. */
+export interface AgendaTrack extends Omit<Track, "id" | "kind"> {
+  id: AgendaTrackId;
+  kind: "room" | "virtual";
+}
+
 export interface Speaker {
   id: string;
   name: string;
@@ -62,7 +70,7 @@ export interface Speaker {
 
 interface SessionBase {
   id: string;
-  trackId: TrackId;
+  trackId: ScheduleTrackId;
   /**
    * How many consecutive *parallel* blocks this session occupies. Workshops are
    * typically 2. A span may never cross a plenary block — validateAgenda enforces it.
@@ -84,6 +92,8 @@ export type Session =
       title: string;
       summary?: string;
       speakerIds?: readonly string[];
+      /** Display names used while speaker profiles are not published. */
+      speakers?: readonly string[];
     })
   | (SessionBase & {
       status: "tba";
