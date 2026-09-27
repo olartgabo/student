@@ -200,17 +200,30 @@
     display: none !important;
   }
 
-  .agenda-schedule article {
-    background: #fff !important;
-    border: 1px solid #999 !important;
+  .agenda-scroll-controls {
+    display: none !important;
   }
 
-  .agenda-schedule * {
+  .agenda-grid {
+    overflow: visible !important;
+  }
+
+  .agenda-table {
+    min-width: 0 !important;
+    width: 100% !important;
+    table-layout: auto;
+    border-collapse: collapse;
+  }
+
+  .agenda-table * {
     color: #000 !important;
   }
 
-  .agenda-schedule li,
-  .agenda-schedule article {
+  .agenda-table tr,
+  .agenda-table td,
+  .agenda-table th {
+    position: static !important;
+    border: 1px solid #999 !important;
     break-inside: avoid;
   }
 }

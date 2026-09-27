@@ -71,9 +71,9 @@ export function AgendaPage({ locale }: { locale: Locale }) {
           </Container>
         </div>
 
-        <Container className="py-12 md:py-16">
+        <div className="mx-auto w-full max-w-[100rem] px-4 py-12 sm:px-6 md:py-16">
           <AgendaTimetable locale={locale} />
-        </Container>
+        </div>
       </main>
       <SiteFooter locale={locale} />
     </>

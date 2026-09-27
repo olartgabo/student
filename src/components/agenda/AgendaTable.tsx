@@ -1,115 +1,233 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 import { accentFill } from "@/components/ui/accent";
-import { agendaTracks } from "@/content/agenda";
-import type { AgendaTrackId } from "@/content/types";
+import { eventDateLabel } from "@/content/event";
+import type { AgendaTrack, AgendaTrackId, TimeRange } from "@/content/types";
 import type { AgendaRow } from "@/lib/agenda";
 import { formatRange } from "@/lib/agenda";
 import type { Locale } from "@/lib/i18n";
+import { NO_SESSION } from "@/lib/tba";
 
 import { PlenaryRow } from "./PlenaryRow";
 import { SessionCell } from "./SessionCell";
 
 const copy = {
-  es: { empty: "No hay sesiones en este bloque." },
-  en: { empty: "No sessions in this block." },
+  es: {
+    caption: `Programa completo del ${eventDateLabel.es.long}. Las columnas son las salas y el stream; las filas, los bloques horarios.`,
+    time: "Hora",
+    roomTbc: "Sala por confirmar",
+    scroll: "Desplazá la tabla para ver todas las salas.",
+    previous: "Ver salas anteriores",
+    next: "Ver más salas",
+  },
+  en: {
+    caption: `Full programme for ${eventDateLabel.en.long}. Columns are rooms and the stream; rows are time blocks.`,
+    time: "Time",
+    roomTbc: "Room to be confirmed",
+    scroll: "Scroll the table to see every room.",
+    previous: "See previous rooms",
+    next: "See more rooms",
+  },
 } as const;
 
-/** A chronological list keeps every room readable at mobile and desktop widths. */
 export function AgendaTable({
   rows,
+  tracks,
   activeTrack,
   locale,
 }: {
   rows: readonly AgendaRow[];
+  tracks: readonly AgendaTrack[];
   activeTrack: AgendaTrackId | null;
   locale: Locale;
 }) {
   const t = copy[locale];
+  const visibleTracks =
+    activeTrack === null ? tracks : tracks.filter((track) => track.id === activeTrack);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  useEffect(() => {
+    const scroller = scrollRef.current;
+    if (!scroller) return;
+    scroller.scrollLeft = 0;
+    const update = () => {
+      setCanScrollLeft(scroller.scrollLeft > 1);
+      setCanScrollRight(
+        scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth - 1,
+      );
+    };
+    update();
+    scroller.addEventListener("scroll", update);
+    const observer = new ResizeObserver(update);
+    observer.observe(scroller);
+    if (scroller.firstElementChild) observer.observe(scroller.firstElementChild);
+    return () => {
+      scroller.removeEventListener("scroll", update);
+      observer.disconnect();
+    };
+  }, [activeTrack]);
+
+  const scroll = (direction: -1 | 1) => {
+    const scroller = scrollRef.current;
+    if (scroller)
+      scroller.scrollBy({
+        left: direction * scroller.clientWidth * 0.75,
+        behavior: "smooth",
+      });
+  };
 
   return (
-    <ol className="agenda-schedule border-t border-slate-600">
-      {rows.map((row, index) => {
-        if (row.kind === "plenary") {
-          return (
-            <li
-              key={row.block.id}
-              className="grid gap-3 border-b border-slate-600 py-6 md:grid-cols-[9rem_minmax(0,1fr)] md:gap-8"
+    <div>
+      {activeTrack === null && (canScrollLeft || canScrollRight) ? (
+        <div className="agenda-scroll-controls mb-3 flex items-center justify-between gap-3">
+          <p className="text-small text-slate-200">{t.scroll}</p>
+          <div className="flex shrink-0 gap-2">
+            <button
+              type="button"
+              aria-label={t.previous}
+              disabled={!canScrollLeft}
+              onClick={() => scroll(-1)}
+              className="border border-slate-600 px-3 py-1 text-white disabled:opacity-35"
             >
-              <p className="tabular font-display text-small text-orange">
-                {formatRange(row.block.time)}
-              </p>
-              <div className="border-orange border-l-2 pl-4">
-                <PlenaryRow block={row.block} locale={locale} />
-              </div>
-            </li>
-          );
-        }
-
-        const sessions = row.cells.filter(
-          (cell) =>
-            cell.kind === "session" &&
-            (activeTrack === null || cell.trackId === activeTrack),
-        );
-        if (activeTrack !== null && sessions.length === 0) return null;
-
-        return (
-          <li
-            key={row.block.id}
-            className="grid gap-4 border-b border-slate-600 py-7 md:grid-cols-[9rem_minmax(0,1fr)] md:gap-8"
-          >
-            <div>
-              <p className="tabular font-display text-small text-sky">
-                {formatRange(row.block.time)}
-              </p>
-              {row.block.label ? (
-                <h2 className="font-display text-small mt-2 text-white">
-                  {row.block.label[locale]}
-                </h2>
-              ) : null}
-              {row.block.note ? (
-                <p className="text-small mt-2 text-slate-200">{row.block.note[locale]}</p>
-              ) : null}
-            </div>
-            <div
-              className={`grid min-w-0 gap-3 ${activeTrack === null ? "sm:grid-cols-2 xl:grid-cols-3" : "grid-cols-1"}`}
+              ←
+            </button>
+            <button
+              type="button"
+              aria-label={t.next}
+              disabled={!canScrollRight}
+              onClick={() => scroll(1)}
+              className="border border-slate-600 px-3 py-1 text-white disabled:opacity-35"
             >
-              {sessions.length === 0 ? (
-                <p className="text-small text-slate-200">{t.empty}</p>
+              →
+            </button>
+          </div>
+        </div>
+      ) : null}
+      <div
+        ref={scrollRef}
+        className="agenda-grid w-full min-w-0 overflow-x-auto overscroll-x-contain border border-slate-600"
+        style={{ scrollbarGutter: "stable" }}
+      >
+        <table
+          className={`agenda-table table-fixed border-separate border-spacing-0 ${activeTrack === null ? "w-full min-w-[80rem]" : "w-full"}`}
+        >
+          <caption className="sr-only">{t.caption}</caption>
+          <colgroup>
+            <col className="w-36" />
+            {visibleTracks.map((track) => (
+              <col key={track.id} className={activeTrack === null ? "w-40" : undefined} />
+            ))}
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col" className="sticky left-0 z-20 bg-slate-900 p-3 text-left">
+                <span className="font-display text-small text-slate-200">{t.time}</span>
+              </th>
+              {visibleTracks.map((track) => (
+                <th
+                  key={track.id}
+                  scope="col"
+                  className="border-l border-slate-600 bg-slate-900 p-3 text-left align-bottom"
+                >
+                  <span
+                    className={`font-display inline-block px-1 text-[0.6875rem] ${accentFill[track.accent]}`}
+                  >
+                    {track.code}
+                  </span>
+                  <span className="font-display text-small mt-2 block text-white">
+                    {track.name[locale]}
+                  </span>
+                  <span className="text-small mt-1 block text-slate-200">
+                    {track.room ?? t.roomTbc}
+                  </span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, index) =>
+              row.kind === "plenary" ? (
+                <tr key={row.block.id}>
+                  <th
+                    scope="row"
+                    className="sticky left-0 z-10 border-t border-slate-600 bg-slate-900 p-3 text-left align-top"
+                  >
+                    <span className="tabular font-display text-small text-slate-200">
+                      {formatRange(row.block.time)}
+                    </span>
+                  </th>
+                  <td
+                    colSpan={visibleTracks.length}
+                    className="border-t border-l border-slate-600 bg-slate-800 p-4 align-top"
+                  >
+                    <PlenaryRow block={row.block} locale={locale} />
+                  </td>
+                </tr>
               ) : (
-                sessions.map((cell) => {
-                  if (cell.kind !== "session") return null;
-                  const track = agendaTracks.find((item) => item.id === cell.trackId);
-                  if (!track) return null;
-                  const lastRow = rows[index + cell.rowSpan - 1];
-                  const time = cell.session.time ?? {
-                    start: row.block.time.start,
-                    end: lastRow?.block.time.end ?? row.block.time.end,
-                  };
-
-                  return (
-                    <article
-                      key={cell.session.id}
-                      className="min-w-0 border border-slate-600 bg-slate-800 p-4 md:p-5"
-                    >
-                      <div className="mb-4 flex items-center gap-2 border-b border-slate-600 pb-3">
-                        <div className="flex min-w-0 items-center gap-2">
-                          <span
-                            aria-hidden
-                            className={`size-2 shrink-0 ${accentFill[track.accent]}`}
+                <tr key={row.block.id}>
+                  <th
+                    scope="row"
+                    className="sticky left-0 z-10 border-t border-slate-600 bg-slate-900 p-3 text-left align-top"
+                  >
+                    <span className="tabular font-display text-small text-slate-200">
+                      {formatRange(row.block.time)}
+                    </span>
+                    {row.block.label ? (
+                      <span className="text-small mt-2 block text-white">
+                        {row.block.label[locale]}
+                      </span>
+                    ) : null}
+                    {row.block.note ? (
+                      <span className="mt-2 block text-[0.6875rem] leading-4 text-slate-200">
+                        {row.block.note[locale]}
+                      </span>
+                    ) : null}
+                  </th>
+                  {visibleTracks.map((track) => {
+                    const cell = row.cells.find((item) => item.trackId === track.id);
+                    if (!cell || cell.kind === "covered") return null;
+                    const lastRow =
+                      cell.kind === "session" ? rows[index + cell.rowSpan - 1] : null;
+                    const time: TimeRange =
+                      cell.kind === "session"
+                        ? (cell.session.time ?? {
+                            start: row.block.time.start,
+                            end: lastRow?.block.time.end ?? row.block.time.end,
+                          })
+                        : row.block.time;
+                    return (
+                      <td
+                        key={track.id}
+                        rowSpan={cell.kind === "session" ? cell.rowSpan : undefined}
+                        className="min-w-0 border-t border-l border-slate-600 p-3 align-top [overflow-wrap:anywhere]"
+                      >
+                        {cell.kind === "session" ? (
+                          <SessionCell
+                            session={cell.session}
+                            time={time}
+                            locale={locale}
                           />
-                          <p className="font-display text-small text-white">
-                            {track.name[locale]}
-                          </p>
-                        </div>
-                      </div>
-                      <SessionCell session={cell.session} time={time} locale={locale} />
-                    </article>
-                  );
-                })
-              )}
-            </div>
-          </li>
-        );
-      })}
-    </ol>
+                        ) : (
+                          <>
+                            <span aria-hidden className="text-slate-400">
+                              —
+                            </span>
+                            <span className="sr-only">{NO_SESSION[locale]}</span>
+                          </>
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ),
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }

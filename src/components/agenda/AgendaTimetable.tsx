@@ -48,7 +48,12 @@ export function AgendaTimetable({ locale }: { locale: Locale }) {
           : agendaTracks.find((track) => track.id === activeTrack)?.name[locale]}
       </p>
 
-      <AgendaTable rows={rows} activeTrack={activeTrack} locale={locale} />
+      <AgendaTable
+        rows={rows}
+        tracks={agendaTracks}
+        activeTrack={activeTrack}
+        locale={locale}
+      />
     </div>
   );
 }

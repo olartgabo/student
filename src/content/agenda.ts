@@ -491,8 +491,8 @@ export const agenda = [
     time: { start: "16:00", end: "16:40" },
     label: local("Bloque 7", "Block 7"),
     note: local(
-      "BISA permanece cerrado para sesiones técnicas por sound check del acto cultural.",
-      "BISA is closed to technical sessions for the cultural act sound check.",
+      "BISA cierra para el sound check. El stream de Daniel Paredes continúa hasta las 16:20.",
+      "BISA closes for sound check. Daniel Paredes's virtual talk continues until 16:20.",
     ),
     sessions: [
       session(
@@ -511,8 +511,8 @@ export const agenda = [
     time: { start: "16:20", end: "17:00" },
     label: local("Bloque 8", "Block 8"),
     note: local(
-      "Bloque superpuesto: Gessell cierra desde las 16:40 para transición al acto cultural.",
-      "Overlapping block: Gessell closes from 16:40 for the cultural-act transition.",
+      "BISA sigue en sound check. Gessell cierra desde las 16:40 para la transición al acto cultural.",
+      "BISA remains closed for sound check. Gessell closes from 16:40 for the cultural-act transition.",
     ),
     sessions: [
       session(
