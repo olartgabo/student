@@ -71,6 +71,8 @@ export interface Speaker {
 interface SessionBase {
   id: string;
   trackId: ScheduleTrackId;
+  /** Use when a session starts or ends within its parent schedule block. */
+  time?: TimeRange;
   /**
    * How many consecutive *parallel* blocks this session occupies. Workshops are
    * typically 2. A span may never cross a plenary block — validateAgenda enforces it.

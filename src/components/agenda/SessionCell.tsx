@@ -34,6 +34,11 @@ export function SessionCell({ session, locale }: { session: Session; locale: Loc
       <span aria-hidden className={cn("h-1 w-10 shrink-0", accentFill[track.accent])} />
 
       <div className="flex flex-wrap items-center gap-2">
+        {session.time ? (
+          <Badge color="neutral">
+            {session.time.start}–{session.time.end}
+          </Badge>
+        ) : null}
         {session.format ? (
           <Badge color={track.accent}>{formatLabels[session.format][locale]}</Badge>
         ) : null}

@@ -103,6 +103,10 @@ const session = (
   speakers: readonly string[],
   format: "charla" | "taller" | "demo" | "panel" | "caso" = "charla",
   level?: "intro" | "intermedio" | "avanzado",
+  time?: {
+    start: `${number}${number}:${number}${number}`;
+    end: `${number}${number}:${number}${number}`;
+  },
 ) => ({
   kind: "session" as const,
   id,
@@ -112,6 +116,7 @@ const session = (
   speakers,
   format,
   level,
+  time,
 });
 
 /** Final proposal, including the independent virtual stream. */
@@ -476,6 +481,7 @@ export const agenda = [
         ["Daniel Paredes"],
         "charla",
         "intermedio",
+        { start: "15:40", end: "16:20" },
       ),
     ],
   },
@@ -494,14 +500,6 @@ export const agenda = [
         "gessell",
         "Cuando tu servidor desaparece",
         ["Pablo Daniel Noya Quiroz"],
-        "charla",
-        "intermedio",
-      ),
-      session(
-        "v7-continued",
-        "virtual",
-        "De los Cómics a la Nube: Construyendo chatbots con Lex, Bedrock, S3 y OpenSearch (continúa)",
-        ["Daniel Paredes"],
         "charla",
         "intermedio",
       ),
