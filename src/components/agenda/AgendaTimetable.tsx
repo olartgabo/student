@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Tag } from "@/components/ui/Tag";
 import { agenda, agendaTracks } from "@/content/agenda";
 import type { AgendaTrackId } from "@/content/types";
+import { deriveAgendaGrid } from "@/lib/agenda";
 import type { Locale } from "@/lib/i18n";
 
-import { AgendaList } from "./AgendaList";
+import { AgendaTable } from "./AgendaTable";
 
 /** The single client boundary for filtering the programme by room or stream. */
 const copy = {
@@ -18,6 +19,7 @@ const copy = {
 export function AgendaTimetable({ locale }: { locale: Locale }) {
   const t = copy[locale];
   const [activeTrack, setActiveTrack] = useState<AgendaTrackId | null>(null);
+  const rows = useMemo(() => deriveAgendaGrid(agenda, agendaTracks), []);
 
   return (
     <div>
@@ -39,7 +41,12 @@ export function AgendaTimetable({ locale }: { locale: Locale }) {
         ))}
       </div>
 
-      <AgendaList blocks={agenda} activeTrack={activeTrack} locale={locale} />
+      <AgendaTable
+        rows={rows}
+        tracks={agendaTracks}
+        activeTrack={activeTrack}
+        locale={locale}
+      />
     </div>
   );
 }
