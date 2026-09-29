@@ -217,7 +217,10 @@ export const agenda = [
         "b2-freddy",
         "gessell",
         "De la idea al código: construyamos una aplicación con AI-DLC",
-        ["Freddy Aguilar Rojas"],
+        [
+          "Freddy Aguilar Rojas",
+          "Natalia Alfaro — Senior Software Developer - Assuresoft",
+        ],
         "taller",
         "intro",
       ),
