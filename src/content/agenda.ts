@@ -219,7 +219,7 @@ export const agenda = [
         "De la idea al código: construyamos una aplicación con AI-DLC",
         [
           "Freddy Aguilar Rojas",
-          "Natalia Alfaro — Senior Software Developer - Assuresoft",
+          "Natalia Alfaro",
         ],
         "taller",
         "intro",
