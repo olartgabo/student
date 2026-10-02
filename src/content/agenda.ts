@@ -466,9 +466,13 @@ export const agenda = [
   },
   {
     kind: "parallel",
-    id: "featured-lightning",
-    time: { start: "15:40", end: "16:00" },
-    label: local("Featured Lightning Session"),
+    id: "bloque-7",
+    time: { start: "15:40", end: "16:20" },
+    label: local("Bloque 7 + Featured Lightning", "Block 7 + Featured Lightning"),
+    note: local(
+      "BISA cierra desde las 16:20 para el sound check.",
+      "BISA closes from 16:20 for sound check.",
+    ),
     sessions: [
       session(
         "sara",
@@ -479,31 +483,18 @@ export const agenda = [
         "intro",
       ),
       session(
-        "v7",
-        "virtual",
-        "4 errores en Producción que cambiaron mi forma de trabajar con AWS",
-        ["Jean Reyes"],
-        "charla",
-        "intermedio",
-        { start: "15:40", end: "16:20" },
-      ),
-    ],
-  },
-  {
-    kind: "parallel",
-    id: "bloque-7",
-    time: { start: "16:00", end: "16:40" },
-    label: local("Bloque 7", "Block 7"),
-    note: local(
-      "BISA cierra para el sound check. El stream de Jean Reyes continúa hasta las 16:20.",
-      "BISA closes for sound check. Jean Reyes's virtual talk continues until 16:20.",
-    ),
-    sessions: [
-      session(
         "b7-pablo",
         "gessell",
         "Cuando tu servidor desaparece",
         ["Pablo Daniel Noya Quiroz"],
+        "charla",
+        "intermedio",
+      ),
+      session(
+        "v7",
+        "virtual",
+        "4 errores en Producción que cambiaron mi forma de trabajar con AWS",
+        ["Jean Reyes"],
         "charla",
         "intermedio",
       ),
@@ -515,8 +506,8 @@ export const agenda = [
     time: { start: "16:20", end: "17:00" },
     label: local("Bloque 8", "Block 8"),
     note: local(
-      "BISA sigue en sound check. Gessell cierra desde las 16:40 para la transición al acto cultural.",
-      "BISA remains closed for sound check. Gessell closes from 16:40 for the cultural-act transition.",
+      "BISA cerrado por sound check y Gessell libre para la transición al acto cultural.",
+      "BISA closed for sound check and Gessell free for the cultural-act transition.",
     ),
     sessions: [
       session(
@@ -583,7 +574,7 @@ export const dayRhythm = [
   { code: "04", time: "13:00", label: local("Almuerzo + Expo", "Lunch + Expo") },
   {
     code: "05",
-    time: "16:00",
+    time: "16:20",
     label: local("Transición cultural", "Cultural transition"),
   },
   {
