@@ -260,8 +260,16 @@ export const agenda = [
         "intermedio",
       ),
       session(
-        "b3-fernando",
+        "b3-kaya",
         "gessell",
+        "Inteligencia Artificial, Machine Learning y Generative AI",
+        ["Kaya Platzer"],
+        "charla",
+        "intermedio",
+      ),
+      session(
+        "b3-fernando",
+        "a1",
         "Ship Code on AWS: Hands-On IaC & Automation",
         ["Fernando Iquiza"],
         "charla",
@@ -308,14 +316,6 @@ export const agenda = [
         "intermedio",
       ),
       session(
-        "b4-martin",
-        "a1",
-        "Optimization for everyone",
-        ["Martin Arispe Riveros"],
-        "charla",
-        "intermedio",
-      ),
-      session(
         "b4-carlos-roca",
         "d1",
         "Como una mamushka",
@@ -338,6 +338,7 @@ export const agenda = [
     id: "career-panel",
     time: { start: "12:30", end: "13:00" },
     label: local("Panel de carrera", "Career panel"),
+    wide: true,
     note: local(
       "El stream virtual ofrece panel opcional y pausa hasta las 14:00.",
       "The virtual stream has an optional panel and pause until 14:00.",
@@ -418,14 +419,6 @@ export const agenda = [
     time: { start: "14:40", end: "15:20" },
     label: local("Bloque 6", "Block 6"),
     sessions: [
-      session(
-        "b6-kaya",
-        "bisa",
-        "Inteligencia Artificial, Machine Learning y Generative AI",
-        ["Kaya Platzer"],
-        "charla",
-        "intermedio",
-      ),
       session(
         "b6-adrian",
         "gessell",

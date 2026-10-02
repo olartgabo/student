@@ -96,4 +96,30 @@ describe("AgendaTable", () => {
     expect(html).toContain("Abel Archila");
     expect(html).toContain("Moderador: Gabriel Olarte (Gabo)");
   });
+
+  it("spans the career panel across every room and tags it with BISA", () => {
+    const programme = deriveAgendaGrid(agenda, agendaTracks).filter(
+      (row) => row.block.id === "career-panel",
+    );
+    const all = renderToStaticMarkup(
+      <AgendaTable
+        rows={programme}
+        tracks={agendaTracks}
+        activeTrack={null}
+        locale="es"
+      />,
+    );
+    const gessell = renderToStaticMarkup(
+      <AgendaTable
+        rows={programme}
+        tracks={agendaTracks}
+        activeTrack="gessell"
+        locale="es"
+      />,
+    );
+
+    expect(all).toContain(`colSpan="${agendaTracks.length}"`);
+    expect(all).toContain(">BISA<");
+    expect(gessell).not.toContain("Building Your Career Before Graduation");
+  });
 });

@@ -167,6 +167,41 @@ export function AgendaTable({
                     <PlenaryRow block={row.block} locale={locale} />
                   </td>
                 </tr>
+              ) : row.block.wide &&
+                row.block.sessions[0] &&
+                (activeTrack === null ||
+                  activeTrack === row.block.sessions[0].trackId) ? (
+                <tr key={row.block.id}>
+                  <th
+                    scope="row"
+                    className="sticky left-0 z-10 border-t border-slate-600 bg-slate-900 p-3 text-left align-top"
+                  >
+                    <span className="tabular font-display text-small text-slate-200">
+                      {formatRange(row.block.time)}
+                    </span>
+                    {row.block.label ? (
+                      <span className="text-small mt-2 block text-white">
+                        {row.block.label[locale]}
+                      </span>
+                    ) : null}
+                    {row.block.note ? (
+                      <span className="mt-2 block text-[0.6875rem] leading-4 text-slate-200">
+                        {row.block.note[locale]}
+                      </span>
+                    ) : null}
+                  </th>
+                  <td
+                    colSpan={visibleTracks.length}
+                    className="border-t border-l border-slate-600 p-4 align-top"
+                  >
+                    <SessionCell
+                      session={row.block.sessions[0]}
+                      time={row.block.sessions[0].time ?? row.block.time}
+                      locale={locale}
+                      wide
+                    />
+                  </td>
+                </tr>
               ) : (
                 <tr key={row.block.id}>
                   <th

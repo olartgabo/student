@@ -24,10 +24,13 @@ export function SessionCell({
   session,
   time,
   locale,
+  wide = false,
 }: {
   session: Session;
   time: TimeRange;
   locale: Locale;
+  /** Full-width row: names the room with a tag and lays the roster out in a line. */
+  wide?: boolean;
 }) {
   const track = getAgendaTrack(session.trackId);
   const speakers =
@@ -48,6 +51,7 @@ export function SessionCell({
           <Badge color="neutral">{levelLabels[session.level][locale]}</Badge>
         ) : null}
         {session.remote ? <Badge color="neutral">Online</Badge> : null}
+        {wide ? <Badge color={track.accent}>{track.shortName[locale]}</Badge> : null}
       </div>
 
       {session.status === "confirmed" ? (
@@ -59,7 +63,13 @@ export function SessionCell({
             </p>
           ) : session.speakers?.length ? (
             session.format === "panel" ? (
-              <ul className="text-small space-y-1 text-slate-200">
+              <ul
+                className={
+                  wide
+                    ? "text-small flex flex-wrap gap-x-6 gap-y-1 text-slate-200"
+                    : "text-small space-y-1 text-slate-200"
+                }
+              >
                 {session.speakers.map((name) => (
                   <li key={name}>{name}</li>
                 ))}

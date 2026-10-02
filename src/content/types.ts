@@ -133,6 +133,11 @@ export type AgendaBlock =
       /** e.g. "Bloque 3 — Talks + Workshops". */
       label?: Localized;
       note?: Localized;
+      /**
+       * Renders the block's single session across every column, tagged with its
+       * room, instead of squeezing it into one room column.
+       */
+      wide?: boolean;
       /** 0–5 entries. A track with no entry renders an empty cell, never a collapsed column. */
       sessions: readonly Session[];
     };
