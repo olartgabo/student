@@ -7,7 +7,8 @@ export type AccentKey = "orange" | "sky" | "green" | "purple" | "neutral";
 export type FillAccent = Exclude<AccentKey, "neutral">;
 
 export type TrackId = "ai" | "cloud" | "security" | "workshop-1" | "workshop-2";
-export type AgendaTrackId = "bisa" | "gessell" | "a1" | "d1" | "l29" | "l22" | "virtual";
+export type AgendaTrackId =
+  "bisa" | "gessell" | "a1" | "d1" | "l29" | "l22" | "virtual-es" | "virtual-en";
 export type ScheduleTrackId = TrackId | AgendaTrackId;
 
 /**

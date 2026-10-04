@@ -77,14 +77,26 @@ export const agendaTracks = [
     icon: "dumbbell",
   },
   {
-    id: "virtual",
+    id: "virtual-es",
     kind: "virtual",
-    name: local("Virtual"),
-    shortName: local("Virtual"),
+    name: local("Virtual · Español", "Virtual · Spanish"),
+    shortName: local("Virtual ES"),
     code: "07",
     accent: "purple",
     room: "Online",
-    description: local("Stream independiente", "Independent stream"),
+    description: local("Stream virtual en español", "Virtual stream in Spanish"),
+    topics: { es: [], en: [] },
+    icon: "ai",
+  },
+  {
+    id: "virtual-en",
+    kind: "virtual",
+    name: local("Virtual · Inglés", "Virtual · English"),
+    shortName: local("Virtual EN"),
+    code: "08",
+    accent: "sky",
+    room: "Online",
+    description: local("Stream virtual en inglés", "Virtual stream in English"),
     topics: { es: [], en: [] },
     icon: "ai",
   },
@@ -119,7 +131,7 @@ const session = (
   time,
 });
 
-/** Published programme, including the independent virtual stream. */
+/** Published programme, including the Spanish and English virtual streams. */
 export const agenda = [
   {
     kind: "plenary",
@@ -135,7 +147,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "opening",
-    time: { start: "09:00", end: "09:30" },
+    time: { start: "09:00", end: "09:20" },
     subtype: "opening",
     title: local("Opening — AWS Student Community Day Cochabamba 2026"),
     summary: local(
@@ -146,7 +158,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-1",
-    time: { start: "09:30", end: "10:10" },
+    time: { start: "09:20", end: "10:00" },
     label: local("Bloque 1", "Block 1"),
     sessions: [
       session(
@@ -173,20 +185,12 @@ export const agenda = [
         "taller",
         "intro",
       ),
-      session(
-        "v1",
-        "virtual",
-        "From Complex Orchestration to Declarative Data Pipelines with AWS Glue",
-        ["Vikneshwara R B"],
-        "charla",
-        "intermedio",
-      ),
     ],
   },
   {
     kind: "parallel",
     id: "bloque-2",
-    time: { start: "10:10", end: "10:50" },
+    time: { start: "10:05", end: "10:45" },
     label: local("Bloque 2", "Block 2"),
     sessions: [
       session(
@@ -217,18 +221,23 @@ export const agenda = [
         "b2-freddy",
         "gessell",
         "De la idea al código: construyamos una aplicación con AI-DLC",
-        [
-          "Freddy Aguilar Rojas",
-          "Natalia Alfaro",
-        ],
+        ["Freddy Aguilar Rojas", "Natalia Alfaro"],
         "taller",
         "intro",
       ),
       session(
-        "v2",
-        "virtual",
-        "Architecture's Evolution: From Stonehenge Monoliths up to Smart Multi Agent Architectures",
-        ["Socrates Ruiz"],
+        "v3",
+        "virtual-es",
+        "Construye tu Primer MCP Server de Seguridad en AWS",
+        ["Jorge Barreto"],
+        "charla",
+        "intermedio",
+      ),
+      session(
+        "v1",
+        "virtual-en",
+        "From Complex Orchestration to Declarative Data Pipelines with AWS Glue",
+        ["Vikneshwara R B"],
         "charla",
         "intermedio",
       ),
@@ -237,18 +246,18 @@ export const agenda = [
   {
     kind: "plenary",
     id: "break-1",
-    time: { start: "10:50", end: "11:10" },
+    time: { start: "10:45", end: "11:00" },
     subtype: "break",
     title: local("Community Break"),
     summary: local(
-      "Coffee, expo, sponsors, comunidades y desplazamiento. El stream virtual también entra en pausa.",
-      "Coffee, expo, sponsors, communities and room changes. The virtual stream also pauses.",
+      "Coffee, expo, sponsors, comunidades y desplazamiento. Los streams virtuales también entran en pausa.",
+      "Coffee, expo, sponsors, communities and room changes. The virtual streams also pause.",
     ),
   },
   {
     kind: "parallel",
     id: "bloque-3",
-    time: { start: "11:10", end: "11:50" },
+    time: { start: "11:00", end: "11:40" },
     label: local("Bloque 3", "Block 3"),
     sessions: [
       session(
@@ -284,10 +293,18 @@ export const agenda = [
         "intermedio",
       ),
       session(
-        "v3",
-        "virtual",
-        "Construye tu Primer MCP Server de Seguridad en AWS",
-        ["Jorge Barreto"],
+        "v5",
+        "virtual-es",
+        "Cloud no es solo aprender servicios: Cómo empezar a tomar decisiones de ingeniería",
+        ["Jesús Aguirre"],
+        "charla",
+        "intro",
+      ),
+      session(
+        "v2",
+        "virtual-en",
+        "Architecture's Evolution: From Stonehenge Monoliths up to Smart Multi Agent Architectures",
+        ["Socrates Ruiz"],
         "charla",
         "intermedio",
       ),
@@ -296,7 +313,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-4",
-    time: { start: "11:50", end: "12:30" },
+    time: { start: "11:45", end: "12:25" },
     label: local("Bloque 4", "Block 4"),
     sessions: [
       session(
@@ -324,8 +341,16 @@ export const agenda = [
         "intro",
       ),
       session(
+        "v6",
+        "virtual-es",
+        "Defensa Contra las Artes Oscuras de los data pipelines: hazlo más robusto",
+        ["Carlos Chicata"],
+        "charla",
+        "intermedio",
+      ),
+      session(
         "v4",
-        "virtual",
+        "virtual-en",
         "Get Paid to Learn in Public: How LFX Mentorship Took Me From Student to CNCF Contributor",
         ["Mohammed Firdous Araoye"],
         "charla",
@@ -336,12 +361,12 @@ export const agenda = [
   {
     kind: "parallel",
     id: "career-panel",
-    time: { start: "12:30", end: "13:00" },
+    time: { start: "12:30", end: "13:10" },
     label: local("Panel de carrera", "Career panel"),
     wide: true,
     note: local(
-      "El stream virtual ofrece panel opcional y pausa hasta las 14:00.",
-      "The virtual stream has an optional panel and pause until 14:00.",
+      "Los streams virtuales ofrecen panel opcional y pausa hasta las 14:00.",
+      "The virtual streams have an optional panel and pause until 14:00.",
     ),
     sessions: [
       {
@@ -353,7 +378,7 @@ export const agenda = [
             "Silvana Gutierrez",
             "Gonzalo Alfaro",
             "Carlos Isaac Jaldin Benavides",
-            "Abel Archila",
+            "Victor Altamirano",
           ],
           "panel",
           "intro",
@@ -365,7 +390,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "lunch",
-    time: { start: "13:00", end: "14:00" },
+    time: { start: "13:10", end: "14:00" },
     subtype: "lunch",
     title: local("Almuerzo + Community Expo", "Lunch + Community Expo"),
     summary: local(
@@ -396,29 +421,37 @@ export const agenda = [
         "intermedio",
       ),
       session(
-        "b8-abel",
-        "l22",
-        "Networking para IA: El protocolo que mueve datos masivos en la era de la IA",
-        ["Abel Archila"],
+        "v7",
+        "virtual-es",
+        "4 errores en Producción que cambiaron mi forma de trabajar con AWS",
+        ["Jean Reyes"],
         "charla",
         "intermedio",
       ),
       session(
-        "v5",
-        "virtual",
-        "Cloud no es solo aprender servicios: Cómo empezar a tomar decisiones de ingeniería",
-        ["Jesús Aguirre"],
+        "v8",
+        "virtual-en",
+        "Securing Serverless Enterprises Against Agentic AI Threats + Evolving from Risk to Resilience",
+        ["Daniel Clement"],
         "charla",
-        "intro",
+        "intermedio",
       ),
     ],
   },
   {
     kind: "parallel",
     id: "bloque-6",
-    time: { start: "14:40", end: "15:20" },
+    time: { start: "14:45", end: "15:25" },
     label: local("Bloque 6", "Block 6"),
     sessions: [
+      session(
+        "sara",
+        "bisa",
+        "No estaba lista, pero dije que sí: de estudiante a Solution Architect en FOX",
+        ["Sara Salazar Paredes"],
+        "charla",
+        "intro",
+      ),
       session(
         "b6-adrian",
         "gessell",
@@ -444,10 +477,10 @@ export const agenda = [
         "intermedio",
       ),
       session(
-        "v6",
-        "virtual",
-        "Defensa Contra las Artes Oscuras de los data pipelines: hazlo más robusto",
-        ["Carlos Chicata"],
+        "b8-abel",
+        "virtual-es",
+        "Networking para IA: El protocolo que mueve datos masivos en la era de la IA",
+        ["Abel Archila"],
         "charla",
         "intermedio",
       ),
@@ -456,12 +489,12 @@ export const agenda = [
   {
     kind: "plenary",
     id: "break-2",
-    time: { start: "15:20", end: "15:40" },
+    time: { start: "15:25", end: "15:40" },
     subtype: "break",
     title: local("Community Break"),
     summary: local(
-      "Pausa y preparación para la transición cultural. El stream virtual también entra en pausa.",
-      "Break and preparation for the cultural transition. The virtual stream also pauses.",
+      "Pausa y preparación para la transición cultural. Los streams virtuales también entran en pausa.",
+      "Break and preparation for the cultural transition. The virtual streams also pause.",
     ),
   },
   {
@@ -475,26 +508,10 @@ export const agenda = [
     ),
     sessions: [
       session(
-        "sara",
-        "bisa",
-        "No estaba lista, pero dije que sí: de estudiante a Solution Architect en FOX",
-        ["Sara Salazar Paredes"],
-        "charla",
-        "intro",
-      ),
-      session(
         "b7-pablo",
         "gessell",
         "Cuando tu servidor desaparece",
         ["Pablo Daniel Noya Quiroz"],
-        "charla",
-        "intermedio",
-      ),
-      session(
-        "v7",
-        "virtual",
-        "4 errores en Producción que cambiaron mi forma de trabajar con AWS",
-        ["Jean Reyes"],
         "charla",
         "intermedio",
       ),
@@ -503,7 +520,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-8",
-    time: { start: "16:20", end: "17:00" },
+    time: { start: "16:25", end: "17:05" },
     label: local("Bloque 8", "Block 8"),
     note: local(
       "BISA cerrado por sound check y Gessell libre para la transición al acto cultural.",
@@ -518,20 +535,12 @@ export const agenda = [
         "charla",
         "intermedio",
       ),
-      session(
-        "v8",
-        "virtual",
-        "Securing Serverless Enterprises Against Agentic AI Threats + Evolving from Risk to Resilience",
-        ["Daniel Clement"],
-        "charla",
-        "intermedio",
-      ),
     ],
   },
   {
     kind: "plenary",
     id: "cultural",
-    time: { start: "17:00", end: "17:30" },
+    time: { start: "17:05", end: "17:30" },
     subtype: "keynote",
     title: local("Acto cultural", "Cultural act"),
     summary: local(
@@ -567,19 +576,19 @@ export const dayRhythm = [
   { code: "01", time: "08:00", label: local("Registro + Expo", "Registration + Expo") },
   {
     code: "02",
-    time: "09:30",
+    time: "09:20",
     label: local("Sesiones presenciales + virtuales", "In-person + virtual sessions"),
   },
   { code: "03", time: "12:30", label: local("Panel de carrera", "Career panel") },
-  { code: "04", time: "13:00", label: local("Almuerzo + Expo", "Lunch + Expo") },
+  { code: "04", time: "13:10", label: local("Almuerzo + Expo", "Lunch + Expo") },
   {
     code: "05",
-    time: "16:20",
+    time: "16:25",
     label: local("Transición cultural", "Cultural transition"),
   },
   {
     code: "06",
-    time: "17:00",
+    time: "17:05",
     label: local("Acto cultural + cierre", "Cultural act + closing"),
   },
 ] as const;

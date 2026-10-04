@@ -93,7 +93,7 @@ describe("AgendaTable", () => {
     expect(html).toContain("Silvana Gutierrez");
     expect(html).toContain("Gonzalo Alfaro");
     expect(html).toContain("Carlos Isaac Jaldin Benavides");
-    expect(html).toContain("Abel Archila");
+    expect(html).toContain("Victor Altamirano");
     expect(html).toContain("Moderador: Gabriel Olarte (Gabo)");
   });
 

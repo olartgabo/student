@@ -18,7 +18,7 @@ const copy = {
       `Programa completo del ${eventDateLabel.es.long}: sesiones presenciales y virtuales ` +
       `de ${event.startTime} a ${event.endTime} en ${place}.`,
     title: "Programa del día",
-    intro: `${eventDateLabel.es.long} · ${event.startTime}–${event.endTime} · ${place}. Filtrá por sala o seguí el stream virtual durante todo el día.`,
+    intro: `${eventDateLabel.es.long} · ${event.startTime}–${event.endTime} · ${place}. Filtrá por sala o seguí los streams virtuales en español e inglés durante todo el día.`,
     register: "Inscríbete gratis",
   },
   en: {
@@ -26,7 +26,7 @@ const copy = {
       `Full programme for ${eventDateLabel.en.long}: in-person and virtual sessions ` +
       `from ${event.startTime} to ${event.endTime} at ${place}.`,
     title: "Programme for the day",
-    intro: `${eventDateLabel.en.long} · ${event.startTime}–${event.endTime} · ${place}. Filter by room or follow the virtual stream throughout the day.`,
+    intro: `${eventDateLabel.en.long} · ${event.startTime}–${event.endTime} · ${place}. Filter by room or follow the Spanish and English virtual streams throughout the day.`,
     register: "Register for free",
   },
 } as const;

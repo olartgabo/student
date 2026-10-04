@@ -19,13 +19,13 @@ const copy = {
   es: {
     title: "El ritmo del día",
     intro: `El registro abre a las 08:00 y el programa corre de ${event.startTime} a ${event.endTime}, con hasta cinco actividades simultáneas en cada bloque.`,
-    note: "La agenda incluye salas presenciales y un stream virtual durante todo el día.",
+    note: "La agenda incluye salas presenciales y dos streams virtuales (español e inglés) durante todo el día.",
     fullAgenda: "Ver la agenda completa",
   },
   en: {
     title: "The shape of the day",
     intro: `Check-in opens at 08:00 and the programme runs from ${event.startTime} to ${event.endTime}, with up to five activities at once in each block.`,
-    note: "The programme includes in-person rooms and a virtual stream throughout the day.",
+    note: "The programme includes in-person rooms and two virtual streams (Spanish and English) throughout the day.",
     fullAgenda: "See the full agenda",
   },
 } as const;

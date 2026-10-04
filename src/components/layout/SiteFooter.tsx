@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { BrandLockup } from "@/components/brand/BrandLockup";
 import { SbgTile } from "@/components/brand/SbgTile";
 import { event } from "@/content/event";
@@ -40,6 +42,16 @@ const copy = {
   },
 } as const;
 
+/** Sister AWS Student Builder Groups shown beside the UPB tile. */
+const clubLogos = [
+  {
+    src: "/organizers/ucb-la-paz-white.svg",
+    alt: "AWS Student Builder Group UCB La Paz",
+    width: 2334,
+    height: 2257,
+  },
+] as const;
+
 const externalLink = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 export function SiteFooter({ locale }: { locale: Locale }) {
@@ -70,10 +82,22 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 {event.contactEmail}
               </a>
             </address>
-            <SbgTile
-              title="Universidad Privada Boliviana"
-              className="mt-8 size-20 text-slate-200"
-            />
+            <div className="mt-8 flex flex-wrap items-center gap-8">
+              <SbgTile
+                title="Universidad Privada Boliviana"
+                className="size-20 text-slate-200"
+              />
+              {clubLogos.map((logo) => (
+                <Image
+                  key={logo.src}
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  className="size-20"
+                />
+              ))}
+            </div>
           </div>
 
           <nav aria-label={t.sections}>
