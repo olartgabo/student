@@ -78,23 +78,43 @@ describe("AgendaTable", () => {
   });
 
   it("mirrors a screened virtual talk into the room that projects it", () => {
-    const programme = deriveAgendaGrid(agenda, agendaTracks);
-    const d1 = renderToStaticMarkup(
-      <AgendaTable rows={programme} tracks={agendaTracks} activeTrack="d1" locale="es" />,
-    );
-    const virtual = renderToStaticMarkup(
+    const screened = [
+      {
+        kind: "parallel",
+        id: "stream",
+        time: { start: "09:00", end: "09:40" },
+        sessions: [
+          {
+            id: "remote",
+            trackId: "virtual-en",
+            status: "confirmed",
+            title: "Remote talk",
+            screenedIn: "gessell",
+          },
+        ],
+      },
+    ] as const satisfies readonly AgendaBlock[];
+    const programme = deriveAgendaGrid(screened, agendaTracks);
+    const room = renderToStaticMarkup(
       <AgendaTable
         rows={programme}
         tracks={agendaTracks}
-        activeTrack="virtual-es"
+        activeTrack="gessell"
+        locale="es"
+      />,
+    );
+    const stream = renderToStaticMarkup(
+      <AgendaTable
+        rows={programme}
+        tracks={agendaTracks}
+        activeTrack="virtual-en"
         locale="es"
       />,
     );
 
-    expect(d1).toContain("Networking para IA");
-    expect(d1).toContain("Transmisión en vivo desde");
-    expect(virtual).toContain("Networking para IA");
-    expect(virtual).toContain("También se transmite en");
+    expect(room).toContain("Remote talk");
+    expect(room).toContain("Transmisión en vivo desde");
+    expect(stream).toContain("También se transmite en");
   });
 
   it("shows the career panel roster and moderator", () => {

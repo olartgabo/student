@@ -7,8 +7,7 @@ export type AccentKey = "orange" | "sky" | "green" | "purple" | "neutral";
 export type FillAccent = Exclude<AccentKey, "neutral">;
 
 export type TrackId = "ai" | "cloud" | "security" | "workshop-1" | "workshop-2";
-export type AgendaTrackId =
-  "bisa" | "gessell" | "a1" | "d1" | "l22" | "virtual-es" | "virtual-en";
+export type AgendaTrackId = "bisa" | "gessell" | "a1" | "d1" | "l22" | "virtual-en";
 export type ScheduleTrackId = TrackId | AgendaTrackId;
 
 /**
@@ -80,7 +79,7 @@ interface SessionBase {
    */
   span?: number;
   level?: "intro" | "intermedio" | "avanzado";
-  format?: "charla" | "taller" | "demo" | "panel" | "caso";
+  format?: "charla" | "taller" | "demo" | "panel" | "caso" | "lightning";
   /** A remote/hybrid speaker. Not a fourth track — it sits inside its own track. */
   remote?: boolean;
   /**

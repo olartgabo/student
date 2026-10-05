@@ -12,6 +12,7 @@ const formatLabels: Record<NonNullable<Session["format"]>, Localized> = {
   demo: { es: "Demo", en: "Demo" },
   panel: { es: "Panel", en: "Panel" },
   caso: { es: "Caso", en: "Case study" },
+  lightning: { es: "Lightning talk", en: "Lightning talk" },
 };
 
 const levelLabels: Record<NonNullable<Session["level"]>, Localized> = {
