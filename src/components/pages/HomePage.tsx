@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { About } from "@/components/sections/About";
 import { AgendaPreview } from "@/components/sections/AgendaPreview";
 import { CommunityGallery } from "@/components/sections/CommunityGallery";
+import { CoOrganizers } from "@/components/sections/CoOrganizers";
 import { Faq } from "@/components/sections/Faq";
 import { Hero } from "@/components/sections/Hero";
 import { RegisterCta } from "@/components/sections/RegisterCta";
@@ -28,6 +29,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         <AgendaPreview locale={locale} />
         <Speakers locale={locale} />
         <Venue locale={locale} />
+        <CoOrganizers locale={locale} />
         <Sponsors locale={locale} />
         <Team locale={locale} />
         <Faq locale={locale} />
