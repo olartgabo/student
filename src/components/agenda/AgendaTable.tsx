@@ -233,18 +233,21 @@ export function AgendaTable({
                             start: row.block.time.start,
                             end: lastRow?.block.time.end ?? row.block.time.end,
                           })
-                        : row.block.time;
+                        : cell.kind === "screening"
+                          ? (cell.session.time ?? row.block.time)
+                          : row.block.time;
                     return (
                       <td
                         key={track.id}
                         rowSpan={cell.kind === "session" ? cell.rowSpan : undefined}
                         className="min-w-0 border-t border-l border-slate-600 p-3 align-top [overflow-wrap:anywhere]"
                       >
-                        {cell.kind === "session" ? (
+                        {cell.kind === "session" || cell.kind === "screening" ? (
                           <SessionCell
                             session={cell.session}
                             time={time}
                             locale={locale}
+                            screening={cell.kind === "screening"}
                           />
                         ) : (
                           <>

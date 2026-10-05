@@ -3,6 +3,7 @@ import {
   eventDateLabel,
   eventEndISO,
   eventStartISO,
+  organizerName,
   siteUrl,
 } from "@/content/event";
 import { faq } from "@/content/faq";
@@ -46,7 +47,7 @@ export function HomeStructuredData({ locale }: { locale: Locale }) {
         organizer: {
           "@type": "Organization",
           "@id": `${siteUrl}/#organizer`,
-          name: "AWS Student Builder Group — UPB Cochabamba",
+          name: organizerName,
           url: siteUrl,
           email: event.contactEmail,
         },

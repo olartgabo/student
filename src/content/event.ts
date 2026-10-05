@@ -44,6 +44,36 @@ export const event: EventInfo = {
   social: [],
 };
 
+/**
+ * The AWS Student Builder Groups organising the event together. Every credit
+ * line on the site (hero, About, metadata, social card) is built from this list.
+ */
+export const organizerName = "AWS Student Builder Groups Bolivia";
+
+export const organizerGroups = [
+  { short: "UCB", city: { es: "LP", en: "LP" } },
+  { short: "UMSA" },
+  { short: "UMSS" },
+  { short: "UPB", city: { es: "CBBA y LP", en: "CBBA & LP" } },
+  { short: "UAJMS", city: { es: "TJ", en: "TJ" } },
+  { short: "Univalle", city: { es: "SCR", en: "SCR" } },
+] as const satisfies readonly { short: string; city?: Record<Locale, string> }[];
+
+const groupLabel = (group: (typeof organizerGroups)[number], locale: Locale) =>
+  "city" in group ? `${group.short} (${group.city[locale]})` : group.short;
+
+/** "UCB (La Paz) · UMSA · … · Univalle" — for eyebrows and credit lines. */
+export function organizerGroupsLabel(locale: Locale): string {
+  return organizerGroups.map((group) => groupLabel(group, locale)).join(" · ");
+}
+
+/** "UCB (La Paz), UMSA, … y Univalle" — for running copy. */
+export function organizerGroupsSentence(locale: Locale): string {
+  const names = organizerGroups.map((group) => groupLabel(group, locale));
+  const last = names.pop();
+  return `${names.join(", ")} ${locale === "es" ? "y" : "and"} ${last}`;
+}
+
 /** Absolute instant the programme opens. Used by the countdown and the JSON-LD. */
 export const eventStartISO = `${event.dateISO}T${event.startTime}:00${event.utcOffset}`;
 export const eventEndISO = `${event.dateISO}T${event.endTime}:00${event.utcOffset}`;

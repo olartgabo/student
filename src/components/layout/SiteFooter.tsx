@@ -4,6 +4,7 @@ import { BrandLockup } from "@/components/brand/BrandLockup";
 import { SbgTile } from "@/components/brand/SbgTile";
 import { event } from "@/content/event";
 import { navLinks, speakerCta } from "@/content/nav";
+import { organizers } from "@/content/sponsors";
 import { localePath, type Locale } from "@/lib/i18n";
 
 import { Container } from "./Container";
@@ -42,16 +43,6 @@ const copy = {
   },
 } as const;
 
-/** Sister AWS Student Builder Groups shown beside the UPB tile. */
-const clubLogos = [
-  {
-    src: "/organizers/ucb-la-paz-white.svg",
-    alt: "AWS Student Builder Group UCB La Paz",
-    width: 2334,
-    height: 2257,
-  },
-] as const;
-
 const externalLink = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 export function SiteFooter({ locale }: { locale: Locale }) {
@@ -82,19 +73,19 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 {event.contactEmail}
               </a>
             </address>
-            <div className="mt-8 flex flex-wrap items-center gap-8">
+            <div className="mt-8 flex flex-wrap items-center gap-6">
               <SbgTile
-                title="Universidad Privada Boliviana"
-                className="size-20 text-slate-200"
+                title="AWS Student Builder Group UPB"
+                className="size-14 text-slate-200"
               />
-              {clubLogos.map((logo) => (
+              {organizers.map((organizer) => (
                 <Image
-                  key={logo.src}
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width}
-                  height={logo.height}
-                  className="size-20"
+                  key={organizer.id}
+                  src={organizer.logo}
+                  alt={organizer.name}
+                  width={organizer.width}
+                  height={organizer.height}
+                  className="h-14 w-auto"
                 />
               ))}
             </div>
@@ -179,8 +170,8 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             {event.venue.country}
           </p>
           <p className="text-small text-slate-200">
-            © {new Date(event.dateISO).getUTCFullYear()} AWS Student Builder Group — UPB
-            Cochabamba
+            © {new Date(event.dateISO).getUTCFullYear()} AWS Student Builder Groups —
+            Bolivia
           </p>
         </div>
       </Container>

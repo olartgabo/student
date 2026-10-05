@@ -1,10 +1,12 @@
 import Image from "next/image";
 
+import { SbgTile } from "@/components/brand/SbgTile";
 import { Section } from "@/components/layout/Section";
 import { Button } from "@/components/ui/Button";
 import {
   confirmedSponsors,
   hostPartners,
+  organizers,
   sponsorDeckPdf,
   sponsorTiers,
 } from "@/content/sponsors";
@@ -20,6 +22,8 @@ const copy = {
     intro:
       "Organizaciones que invierten en una comunidad tecnológica abierta para estudiantes y profesionales de Cochabamba.",
     sponsorsHeading: "Sponsors",
+    organizersHeading: "Organizan",
+    organizersBody: "AWS Student Builder Groups de Bolivia",
     ctaEyebrow: "Patrocinio 2026",
     ctaTitle: "Sumá a tu empresa",
     ctaBody: `Cuatro paquetes desde USD ${priceFrom}, con presencia de marca, stand en la feria de talento y acceso a estudiantes de 12+ universidades. El deck detalla cada beneficio.`,
@@ -33,6 +37,8 @@ const copy = {
     intro:
       "Organizations investing in an open tech community for students and professionals in Cochabamba.",
     sponsorsHeading: "Sponsors",
+    organizersHeading: "Organized by",
+    organizersBody: "AWS Student Builder Groups across Bolivia",
     ctaEyebrow: "Sponsorship 2026",
     ctaTitle: "Bring your company on board",
     ctaBody: `Four packages from USD ${priceFrom}, with brand presence, a booth at the talent fair and access to students from 12+ universities. The deck lists every benefit.`,
@@ -73,8 +79,34 @@ export function Sponsors({ locale }: { locale: Locale }) {
       title={t.title}
       intro={t.intro}
     >
+      <div className="bg-slate-900 p-7 md:p-10" data-reveal>
+        <p className="font-display text-small tracking-mono-caps text-orange uppercase">
+          {t.organizersHeading}
+        </p>
+        <p className="mt-2 text-slate-200">{t.organizersBody}</p>
+        <ul className="mt-8 grid grid-cols-2 items-center gap-8 sm:grid-cols-3 lg:grid-cols-5">
+          <li className="flex justify-center">
+            <SbgTile
+              title="AWS Student Builder Group UPB"
+              className="size-20 text-white md:size-24"
+            />
+          </li>
+          {organizers.map((organizer) => (
+            <li key={organizer.id} className="flex justify-center">
+              <Image
+                src={organizer.logo}
+                alt={organizer.name}
+                width={organizer.width}
+                height={organizer.height}
+                className="h-20 w-auto max-w-full object-contain md:h-24"
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <ul
-        className="border-border-light bg-border-light grid gap-px border sm:grid-cols-2"
+        className="border-border-light bg-border-light mt-10 grid gap-px border sm:grid-cols-2"
         data-reveal-group
       >
         {hostPartners.map((partner) => (

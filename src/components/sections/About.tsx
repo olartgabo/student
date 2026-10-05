@@ -1,4 +1,5 @@
 import { Section } from "@/components/layout/Section";
+import { organizerGroupsSentence } from "@/content/event";
 import type { Locale } from "@/lib/i18n";
 
 const copy = {
@@ -8,12 +9,14 @@ const copy = {
     intro:
       "La primera edición de Student Community Day en Bolivia: un día gratuito, liderado por estudiantes y respaldado por AWS en Cochabamba.",
     body: [
-      "En lugar de una sola sala con una charla detrás de otra, el día está construido como varias experiencias ocurriendo al mismo tiempo. A las 11:10 hay cinco cosas pasando en paralelo, y vos elegís en cuál estar.",
+      "En lugar de una sola sala con una charla detrás de otra, el día está construido como varias experiencias ocurriendo al mismo tiempo. Desde temprano hay charlas impresionantes, talleres y sesiones virtuales en paralelo, y vos elegís en cuál estar.",
       "Podés seguir un track de principio a fin, saltar entre salas según el tema, o pasar la mañana en un laboratorio construyendo algo. No hay una ruta correcta.",
     ],
+    organizersLabel: "Organizan",
+    organizers: `Los AWS Student Builder Groups de ${organizerGroupsSentence("es")}, juntos en un solo evento.`,
     stats: [
-      { value: "03", label: "Tracks en paralelo" },
-      { value: "05", label: "Salas simultáneas" },
+      { value: "05", label: "Salas presenciales" },
+      { value: "02", label: "Streams virtuales" },
       { value: "09h", label: "De contenido" },
       { value: "Gratis", label: "Entrada" },
     ],
@@ -24,12 +27,14 @@ const copy = {
     intro:
       "The first Student Community Day in Bolivia: a free, student-led day backed by AWS in Cochabamba.",
     body: [
-      "Instead of a single room with one talk after another, the day is built as several experiences running at once. At 11:10 there are five things happening in parallel, and you choose where to be.",
+      "Instead of a single room with one talk after another, the day is built as several experiences running at once. From early in the morning, great talks, workshops and virtual sessions run in parallel, and you choose where to be.",
       "You can follow one track from start to finish, jump between rooms by topic, or spend the morning in a lab building something. There is no right path.",
     ],
+    organizersLabel: "Organized by",
+    organizers: `The AWS Student Builder Groups of ${organizerGroupsSentence("en")}, together in one event.`,
     stats: [
-      { value: "03", label: "Parallel tracks" },
-      { value: "05", label: "Simultaneous rooms" },
+      { value: "05", label: "In-person rooms" },
+      { value: "02", label: "Virtual streams" },
       { value: "09h", label: "Of content" },
       { value: "Free", label: "Admission" },
     ],
@@ -46,6 +51,12 @@ export function About({ locale }: { locale: Locale }) {
           {t.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
+          <div className="border-t border-slate-600 pt-5">
+            <p className="font-display text-small tracking-mono-caps text-slate-200 uppercase">
+              {t.organizersLabel}
+            </p>
+            <p className="mt-1 text-white">{t.organizers}</p>
+          </div>
         </div>
 
         <dl

@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 import { ImageResponse } from "next/og";
 
-import { event, eventDateLabel } from "@/content/event";
+import { event, eventDateLabel, organizerGroups } from "@/content/event";
 
 export const dynamic = "force-static";
 export const alt = `AWS ${event.name} ${event.edition}`;
@@ -48,7 +48,7 @@ export default async function OpengraphImage() {
           color: "#ff9900",
         }}
       >
-        {"// AWS Student Builder Group — UPB Cochabamba"}
+        {`// AWS Student Builder Groups — ${organizerGroups.map((g) => g.short).join(" · ")}`}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", marginTop: 28 }}>

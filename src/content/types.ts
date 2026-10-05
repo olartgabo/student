@@ -8,7 +8,7 @@ export type FillAccent = Exclude<AccentKey, "neutral">;
 
 export type TrackId = "ai" | "cloud" | "security" | "workshop-1" | "workshop-2";
 export type AgendaTrackId =
-  "bisa" | "gessell" | "a1" | "d1" | "l29" | "l22" | "virtual-es" | "virtual-en";
+  "bisa" | "gessell" | "a1" | "d1" | "l22" | "virtual-es" | "virtual-en";
 export type ScheduleTrackId = TrackId | AgendaTrackId;
 
 /**
@@ -83,6 +83,11 @@ interface SessionBase {
   format?: "charla" | "taller" | "demo" | "panel" | "caso";
   /** A remote/hybrid speaker. Not a fourth track — it sits inside its own track. */
   remote?: boolean;
+  /**
+   * A room that projects this session live, e.g. a virtual talk screened in D1.
+   * The session still belongs to `trackId`; the room's cell mirrors it.
+   */
+  screenedIn?: AgendaTrackId;
 }
 
 /**

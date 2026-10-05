@@ -2,7 +2,7 @@ import { PixelIcon } from "@/components/brand/PixelIcon";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { event, eventDateLabel } from "@/content/event";
+import { event, eventDateLabel, organizerGroupsLabel } from "@/content/event";
 import { speakerCta } from "@/content/nav";
 import { localePath, type Locale } from "@/lib/i18n";
 
@@ -14,11 +14,6 @@ const communityLinks = [
   {
     href: "https://www.instagram.com/aws_sbg_bolivia/",
     shortLabel: { es: "SBG Bolivia", en: "SBG Bolivia" },
-    platform: "instagram",
-  },
-  {
-    href: "https://www.instagram.com/aws_upb_cbba/",
-    shortLabel: { es: "UPB Cbba", en: "UPB Cbba" },
     platform: "instagram",
   },
   {
@@ -121,7 +116,7 @@ export function Hero({ locale }: { locale: Locale }) {
       <Container className="relative flex min-h-svh flex-col justify-center py-28">
         <div className="max-w-3xl">
           <div data-hero-step>
-            <Eyebrow>AWS Student Builder Group — UPB Cochabamba</Eyebrow>
+            <Eyebrow>AWS Student Builder Groups — {organizerGroupsLabel(locale)}</Eyebrow>
           </div>
 
           <h1 className="font-display text-display-xl mt-6 uppercase">

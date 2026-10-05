@@ -25,12 +25,15 @@ export function SessionCell({
   time,
   locale,
   wide = false,
+  screening = false,
 }: {
   session: Session;
   time: TimeRange;
   locale: Locale;
   /** Full-width row: names the room with a tag and lays the roster out in a line. */
   wide?: boolean;
+  /** This cell is a room projecting a session that belongs to another track. */
+  screening?: boolean;
 }) {
   const track = getAgendaTrack(session.trackId);
   const speakers =
@@ -53,6 +56,18 @@ export function SessionCell({
         {session.remote ? <Badge color="neutral">Online</Badge> : null}
         {wide ? <Badge color={track.accent}>{track.shortName[locale]}</Badge> : null}
       </div>
+
+      {screening ? (
+        <p className="font-display tracking-mono-caps text-[0.6875rem] text-slate-200 uppercase">
+          {locale === "es" ? "Transmisión en vivo desde" : "Live screening from"}{" "}
+          {track.shortName[locale]}
+        </p>
+      ) : session.screenedIn ? (
+        <p className="font-display tracking-mono-caps text-[0.6875rem] text-slate-200 uppercase">
+          {locale === "es" ? "También se transmite en" : "Also screened in"}{" "}
+          {getAgendaTrack(session.screenedIn).name[locale]}
+        </p>
+      ) : null}
 
       {session.status === "confirmed" ? (
         <>

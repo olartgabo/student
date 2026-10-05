@@ -11,6 +11,8 @@ import type { AgendaBlock, ScheduleTrackId, Session } from "@/content/types";
 
 export type AgendaCell =
   | { kind: "session"; trackId: ScheduleTrackId; session: Session; rowSpan: number }
+  /** A room projecting a session that belongs to another track (`screenedIn`). */
+  | { kind: "screening"; trackId: ScheduleTrackId; session: Session }
   | { kind: "empty"; trackId: ScheduleTrackId }
   | { kind: "covered"; trackId: ScheduleTrackId };
 
@@ -40,12 +42,20 @@ export function deriveAgendaGrid(
     if (block.kind === "plenary") return { kind: "plenary", block };
 
     const byTrack = new Map(block.sessions.map((s) => [s.trackId, s]));
+    const screenedBy = new Map<ScheduleTrackId, Session>(
+      block.sessions.flatMap((s) => (s.screenedIn ? [[s.screenedIn, s] as const] : [])),
+    );
 
     const cells = columns.map((trackId): AgendaCell => {
       if (covered.get(index)?.has(trackId)) return { kind: "covered", trackId };
 
       const session = byTrack.get(trackId);
-      if (!session) return { kind: "empty", trackId };
+      if (!session) {
+        const screened = screenedBy.get(trackId);
+        return screened
+          ? { kind: "screening", trackId, session: screened }
+          : { kind: "empty", trackId };
+      }
 
       const rowSpan = session.span ?? 1;
       for (let offset = 1; offset < rowSpan; offset += 1) {
@@ -98,6 +108,20 @@ export function validateAgenda(
         errors.push(`"${block.id}" tiene dos sesiones en el track "${session.trackId}"`);
       }
       usedTracks.add(session.trackId);
+
+      if (session.screenedIn) {
+        if (!knownTracks.has(session.screenedIn)) {
+          errors.push(
+            `"${session.id}" se proyecta en una sala inexistente: "${session.screenedIn}"`,
+          );
+        } else if (session.screenedIn === session.trackId) {
+          errors.push(`"${session.id}" se proyecta en su propia sala`);
+        } else if (block.sessions.some((other) => other.trackId === session.screenedIn)) {
+          errors.push(
+            `"${session.id}" se proyecta en "${session.screenedIn}", que ya tiene una sesión en "${block.id}"`,
+          );
+        }
+      }
 
       const span = session.span ?? 1;
       if (span < 1) errors.push(`"${session.id}" tiene un span inválido: ${span}`);

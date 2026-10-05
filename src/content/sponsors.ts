@@ -231,5 +231,40 @@ export const hostPartners = [
   },
 ] as const satisfies readonly HostPartner[];
 
+/**
+ * Sister AWS Student Builder Groups co-organising the event, shown after the
+ * UPB group's own tile. White marks: render them on a dark surface only.
+ */
+export const organizers = [
+  {
+    id: "sbg-ucb-la-paz",
+    name: "AWS Student Builder Group UCB La Paz",
+    logo: "/organizers/ucb-la-paz-white.svg",
+    width: 2334,
+    height: 2257,
+  },
+  {
+    id: "sbg-umsa",
+    name: "AWS Student Builder Group UMSA",
+    logo: "/organizers/umsa-white.png",
+    width: 1200,
+    height: 359,
+  },
+  {
+    id: "sbg-umss",
+    name: "AWS Student Builder Group UMSS",
+    logo: "/organizers/umss-white.png",
+    width: 800,
+    height: 800,
+  },
+  {
+    id: "sbg-univalle",
+    name: "AWS Student Builder Group Univalle",
+    logo: "/organizers/univalle-white.png",
+    width: 800,
+    height: 668,
+  },
+] as const satisfies readonly Sponsor[];
+
 /** The PDF deck offered for download next to the sponsorship CTA. */
 export const sponsorDeckPdf = "/downloads/scd-bolivia-2026-sponsor-deck.pdf";

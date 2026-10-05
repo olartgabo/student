@@ -74,7 +74,27 @@ describe("AgendaTable", () => {
     expect(all).toContain("Securing Serverless Enterprises");
     expect(a1).toContain("Jose Matias Medinaceli Saavedra");
     expect(a1).not.toContain("Networking para IA");
-    expect(a1).not.toContain("Cuando tu servidor desaparece");
+    expect(a1).toContain("Cuando tu servidor desaparece");
+  });
+
+  it("mirrors a screened virtual talk into the room that projects it", () => {
+    const programme = deriveAgendaGrid(agenda, agendaTracks);
+    const d1 = renderToStaticMarkup(
+      <AgendaTable rows={programme} tracks={agendaTracks} activeTrack="d1" locale="es" />,
+    );
+    const virtual = renderToStaticMarkup(
+      <AgendaTable
+        rows={programme}
+        tracks={agendaTracks}
+        activeTrack="virtual-es"
+        locale="es"
+      />,
+    );
+
+    expect(d1).toContain("Networking para IA");
+    expect(d1).toContain("Transmisión en vivo desde");
+    expect(virtual).toContain("Networking para IA");
+    expect(virtual).toContain("También se transmite en");
   });
 
   it("shows the career panel roster and moderator", () => {
@@ -94,7 +114,7 @@ describe("AgendaTable", () => {
     expect(html).toContain("Gonzalo Alfaro");
     expect(html).toContain("Carlos Isaac Jaldin Benavides");
     expect(html).toContain("Victor Altamirano");
-    expect(html).toContain("Moderador: Gabriel Olarte (Gabo)");
+    expect(html).toContain("Moderador: Gabriel Olarte");
   });
 
   it("spans the career panel across every room and tags it with BISA", () => {

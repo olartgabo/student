@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { MotionRoot } from "@/components/motion/MotionRoot";
-import { event, eventDateLabel, siteUrl } from "@/content/event";
+import { event, eventDateLabel, organizerName, siteUrl } from "@/content/event";
 import { amazonEmber, jetbrainsMono } from "@/lib/fonts";
 import { languageAlternates } from "@/lib/i18n";
 
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   },
   description,
   applicationName: title,
-  authors: [{ name: "AWS Student Builder Group — UPB Cochabamba", url: siteUrl }],
-  creator: "AWS Student Builder Group — UPB Cochabamba",
-  publisher: "AWS Student Builder Group — UPB Cochabamba",
+  authors: [{ name: organizerName, url: siteUrl }],
+  creator: organizerName,
+  publisher: organizerName,
   category: "technology",
   alternates: { canonical: "/en", languages: languageAlternates("/") },
   openGraph: {
