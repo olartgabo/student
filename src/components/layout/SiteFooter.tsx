@@ -1,10 +1,9 @@
 import Image from "next/image";
 
 import { BrandLockup } from "@/components/brand/BrandLockup";
-import { SbgTile } from "@/components/brand/SbgTile";
 import { event } from "@/content/event";
 import { navLinks, speakerCta } from "@/content/nav";
-import { organizers } from "@/content/sponsors";
+import { organizers } from "@/content/organizers";
 import { localePath, type Locale } from "@/lib/i18n";
 
 import { Container } from "./Container";
@@ -74,10 +73,6 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               </a>
             </address>
             <div className="mt-8 flex flex-wrap items-center gap-6">
-              <SbgTile
-                title="AWS Student Builder Group UPB"
-                className="size-14 text-slate-200"
-              />
               {organizers.map((organizer) => (
                 <Image
                   key={organizer.id}
@@ -85,7 +80,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                   alt={organizer.name}
                   width={organizer.width}
                   height={organizer.height}
-                  className="h-14 w-auto"
+                  className="h-12 w-auto max-w-20 object-contain"
                 />
               ))}
             </div>

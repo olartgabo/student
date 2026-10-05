@@ -5,8 +5,12 @@
  width="1254.000000pt" height="1254.000000pt" viewBox="0 0 1254.000000 1254.000000"
  preserveAspectRatio="xMidYMid meet">
 
+<!-- The supplied mark uses transparent lettering cut out of a black square.
+     Invert its mask so the lettering stays visible on the site's dark surface. -->
+<mask id="uajms-lettering" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254">
+<rect width="1254" height="1254" fill="white"/>
 <g transform="translate(0.000000,1254.000000) scale(0.100000,-0.100000)"
-fill="#000000" stroke="none">
+fill="black" stroke="none">
 <path d="M0 6270 l0 -6270 6270 0 6270 0 0 6270 0 6270 -6270 0 -6270 0 0
 -6270z m5020 3352 l5 -422 413 -3 412 -2 0 427 0 427 412 -2 413 -2 -2 -415
 c-1 -228 2 -424 7 -435 5 -11 9 -14 9 -7 1 9 90 12 411 12 l410 0 -2 420 c-2
@@ -66,4 +70,6 @@ c-456 0 -829 -1 -830 -2 0 -2 -3 -381 -5 -843 -3 -462 -7 -846 -9 -852 -3 -10
 <path d="M7191 5424 c-11 -31 -21 -60 -21 -65 0 -5 25 -9 56 -9 41 0 55 3 51
 13 -37 88 -51 117 -57 117 -4 0 -17 -25 -29 -56z"/>
 </g>
+ </mask>
+<rect width="1254" height="1254" fill="white" mask="url(#uajms-lettering)"/>
 </svg>
