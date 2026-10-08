@@ -10,6 +10,7 @@ const copy = {
       "La primera edición de Student Community Day en Bolivia: un día gratuito, liderado por estudiantes y respaldado por AWS en Cochabamba.",
     body: [
       "En lugar de una sola sala con una charla detrás de otra, el día está construido como varias experiencias ocurriendo al mismo tiempo. Desde temprano hay charlas impresionantes, talleres y sesiones virtuales en paralelo, y vos elegís en cuál estar.",
+      "Ya superamos las 900 personas registradas. También tendremos buses gratuitos para llegar al evento.",
       "Podés seguir un track de principio a fin, saltar entre salas según el tema, o pasar la mañana en un laboratorio construyendo algo. No hay una ruta correcta.",
     ],
     organizersLabel: "Organizan",
@@ -28,6 +29,7 @@ const copy = {
       "The first Student Community Day in Bolivia: a free, student-led day backed by AWS in Cochabamba.",
     body: [
       "Instead of a single room with one talk after another, the day is built as several experiences running at once. From early in the morning, great talks, workshops and virtual sessions run in parallel, and you choose where to be.",
+      "More than 900 people have registered. Free buses will also be available to get to the event.",
       "You can follow one track from start to finish, jump between rooms by topic, or spend the morning in a lab building something. There is no right path.",
     ],
     organizersLabel: "Organized by",

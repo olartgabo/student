@@ -56,7 +56,14 @@ export const faq = {
       id: "comida",
       question: "¿Hay comida?",
       answer: [
-        "Sí. Hay coffee breaks por la mañana y por la tarde, y un espacio de almuerzo al mediodía junto a la Community Expo.",
+        "Ofreceremos desayuno por la mañana y habrá food trucks durante el evento.",
+      ],
+    },
+    {
+      id: "transporte",
+      question: "¿Habrá transporte gratuito?",
+      answer: [
+        "Sí. Tendremos buses gratuitos para llegar al evento. Compartiremos más detalles pronto.",
       ],
     },
     {
@@ -134,8 +141,13 @@ export const faq = {
       id: "comida",
       question: "Is food provided?",
       answer: [
-        "Yes. There are coffee breaks in the morning and afternoon, and a lunch area at midday next to the Community Expo.",
+        "Breakfast will be provided in the morning, and food trucks will be on site during the event.",
       ],
+    },
+    {
+      id: "transporte",
+      question: "Will there be free transportation?",
+      answer: ["Yes. We will have free buses to the event. More details will be shared soon."],
     },
     {
       id: "certificado",

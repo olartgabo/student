@@ -10,19 +10,17 @@ const subtypeLabels: Record<PlenarySubtype, Localized> = {
   keynote: { es: "Keynote", en: "Keynote" },
   panel: { es: "Panel", en: "Panel" },
   break: { es: "Break", en: "Break" },
-  lunch: { es: "Almuerzo", en: "Lunch" },
   closing: { es: "Cierre", en: "Closing" },
   networking: { es: "Networking", en: "Networking" },
 };
 
-/** Breaks and meals stay neutral so they read as pauses, not as programme items. */
+/** Breaks stay neutral so they read as pauses, not as programme items. */
 const subtypeAccents: Record<PlenarySubtype, AccentKey> = {
   registration: "neutral",
   opening: "orange",
   keynote: "orange",
   panel: "purple",
   break: "neutral",
-  lunch: "neutral",
   closing: "orange",
   networking: "green",
 };
