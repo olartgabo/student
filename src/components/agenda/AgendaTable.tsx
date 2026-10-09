@@ -15,7 +15,7 @@ import { SessionCell } from "./SessionCell";
 
 const copy = {
   es: {
-    caption: `Programa completo del ${eventDateLabel.es.long}. Las columnas son las salas y el stream; las filas, los bloques horarios.`,
+    caption: `Programa completo del ${eventDateLabel.es.long}. Las columnas son las salas; las filas, los bloques horarios.`,
     time: "Hora",
     roomTbc: "Sala por confirmar",
     scroll: "Desplazá la tabla para ver todas las salas.",
@@ -23,7 +23,7 @@ const copy = {
     next: "Ver más salas",
   },
   en: {
-    caption: `Full programme for ${eventDateLabel.en.long}. Columns are rooms and the stream; rows are time blocks.`,
+    caption: `Full programme for ${eventDateLabel.en.long}. Columns are rooms; rows are time blocks.`,
     time: "Time",
     roomTbc: "Room to be confirmed",
     scroll: "Scroll the table to see every room.",

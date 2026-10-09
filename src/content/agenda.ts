@@ -29,10 +29,10 @@ export const agendaTracks = [
     icon: "ai",
   },
   {
-    id: "a1",
+    id: "d1",
     kind: "room",
-    name: local("Arquitectura 1", "Architecture 1"),
-    shortName: local("A1"),
+    name: local("Diseño 1", "Design 1"),
+    shortName: local("D1"),
     code: "03",
     accent: "purple",
     room: "Specialized Talks",
@@ -53,29 +53,26 @@ export const agendaTracks = [
     icon: "dumbbell",
   },
   {
-    id: "d1",
+    id: "a1",
     kind: "room",
-    name: local("Diseño 1 · Transmisión virtual", "Design 1 · Virtual stream"),
-    shortName: local("D1 · Virtual"),
+    name: local("Arquitectura 1 · Híbrido español", "Architecture 1 · Hybrid Spanish"),
+    shortName: local("A1 · Híbrido ES", "A1 · Hybrid ES"),
     code: "05",
     accent: "green",
-    room: "Virtual Stream Room",
-    description: local(
-      "Espacio de transmisión de las charlas virtuales en español",
-      "Room screening the Spanish-language virtual talks",
-    ),
+    room: "Hybrid Talks",
+    description: local("Charlas híbridas en español", "Hybrid talks in Spanish"),
     topics: { es: [], en: [] },
     icon: "bolt",
   },
   {
-    id: "virtual-en",
-    kind: "virtual",
-    name: local("Virtual · Inglés", "Virtual · English"),
-    shortName: local("Virtual EN"),
+    id: "a2",
+    kind: "room",
+    name: local("Arquitectura 2 · Híbrido inglés", "Architecture 2 · Hybrid English"),
+    shortName: local("A2 · Híbrido EN", "A2 · Hybrid EN"),
     code: "06",
     accent: "sky",
-    room: "Online Stream",
-    description: local("Stream virtual en inglés", "Virtual stream in English"),
+    room: "Hybrid Talks",
+    description: local("Charlas híbridas en inglés", "Hybrid talks in English"),
     topics: { es: [], en: [] },
     icon: "ai",
   },
@@ -161,7 +158,7 @@ export const agenda = [
       ),
       session(
         "b7-pablo",
-        "a1",
+        "d1",
         "Cuando tu servidor desaparece",
         ["Pablo Daniel Noya Quiroz"],
         "charla",
@@ -201,7 +198,7 @@ export const agenda = [
       ),
       session(
         "b2-juan",
-        "a1",
+        "d1",
         "El mindset DevOps que nadie te enseña en la universidad",
         ["Juan Rodrigo Villarroel Calderon"],
         "charla",
@@ -217,7 +214,7 @@ export const agenda = [
       ),
       session(
         "v3",
-        "d1",
+        "a1",
         "Construye tu Primer MCP Server de Seguridad en AWS",
         ["Jorge Barreto"],
         "charla",
@@ -225,7 +222,7 @@ export const agenda = [
       ),
       session(
         "v1",
-        "virtual-en",
+        "a2",
         "From Complex Orchestration to Declarative Data Pipelines with AWS Glue",
         ["Vikneshwara R B"],
         "charla",
@@ -246,7 +243,7 @@ export const agenda = [
     sessions: [
       session(
         "v5",
-        "d1",
+        "a1",
         "Cloud no es solo aprender servicios: Cómo empezar a tomar decisiones de ingeniería",
         ["Jesús Aguirre"],
         "charla",
@@ -255,7 +252,7 @@ export const agenda = [
       ),
       session(
         "v4",
-        "virtual-en",
+        "a2",
         "Get Paid to Learn in Public: How LFX Mentorship Took Me From Student to CNCF Contributor",
         ["Mohammed Firdous Araoye"],
         "charla",
@@ -288,7 +285,7 @@ export const agenda = [
       ),
       session(
         "b3-fernando",
-        "a1",
+        "d1",
         "Ship Code on AWS: Hands-On IaC & Automation",
         ["Fernando Iquiza"],
         "charla",
@@ -304,7 +301,7 @@ export const agenda = [
       ),
       session(
         "v6",
-        "d1",
+        "a1",
         "Defensa Contra las Artes Oscuras de los data pipelines: hazlo más robusto",
         ["Carlos Chicata"],
         "charla",
@@ -313,7 +310,7 @@ export const agenda = [
       ),
       session(
         "v8",
-        "virtual-en",
+        "a2",
         "Securing Serverless Enterprises Against Agentic AI Threats",
         ["Daniel Clement"],
         "charla",
@@ -347,7 +344,7 @@ export const agenda = [
       },
       session(
         "v7",
-        "d1",
+        "a1",
         "4 errores en Producción que cambiaron mi forma de trabajar con AWS",
         ["Jean Reyes"],
         "charla",
@@ -369,7 +366,7 @@ export const agenda = [
     sessions: [
       session(
         "b8-abel",
-        "d1",
+        "a1",
         "Networking para IA: El protocolo que mueve datos masivos en la era de la IA",
         ["Abel Archila"],
         "charla",
@@ -402,7 +399,7 @@ export const agenda = [
       ),
       session(
         "b5-jose",
-        "a1",
+        "d1",
         "¿Le darías las llaves de tu empresa a una IA? Cómo evaluar agentes y evitar errores costosos",
         ["Jose Matias Medinaceli Saavedra"],
         "charla",
@@ -410,7 +407,7 @@ export const agenda = [
       ),
       session(
         "b7-juan-manuel",
-        "d1",
+        "a1",
         "Más allá del código: cómo una comunidad puede cambiar tu carrera",
         ["Juan Manuel Hoyos"],
         "lightning",
@@ -443,7 +440,7 @@ export const agenda = [
       ),
       session(
         "b6-lightning",
-        "a1",
+        "d1",
         "Infrastructure + Context Lightning Block",
         ["Alvaro Flores", "Fernando Quinteros Gutierrez"],
         "charla",
@@ -451,7 +448,7 @@ export const agenda = [
       ),
       session(
         "v2",
-        "d1",
+        "a1",
         "Architecture's Evolution: From Stonehenge Monoliths up to Smart Multi Agent Architectures",
         ["Socrates Ruiz"],
         "charla",
@@ -484,7 +481,7 @@ export const agenda = [
       ),
       session(
         "b6-odaliz",
-        "a1",
+        "d1",
         "Agentes que no alucinan tu infraestructura",
         ["Odaliz Rojas"],
         "charla",
@@ -523,7 +520,7 @@ export const agenda = [
       ),
       session(
         "b4-carlos-roca",
-        "a1",
+        "d1",
         "Como una mamushka",
         ["Carlos Roca"],
         "charla",

@@ -12,8 +12,8 @@ import { AgendaTable } from "./AgendaTable";
 
 /** The single client boundary for filtering the programme by room or stream. */
 const copy = {
-  es: { filter: "Sala o stream", all: "Todo", showing: "Mostrando" },
-  en: { filter: "Room or stream", all: "All", showing: "Showing" },
+  es: { filter: "Sala", all: "Todo", showing: "Mostrando" },
+  en: { filter: "Room", all: "All", showing: "Showing" },
 } as const;
 
 export function AgendaTimetable({ locale }: { locale: Locale }) {
