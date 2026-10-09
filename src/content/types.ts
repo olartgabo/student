@@ -130,6 +130,11 @@ export type AgendaBlock =
       summary?: Localized;
       speakerIds?: readonly string[];
       location?: string;
+      /**
+       * Virtual sessions that keep running during the plenary. They render in
+       * their own columns; the plenary spans the room columns before them.
+       */
+      sessions?: readonly Session[];
     }
   | {
       kind: "parallel";

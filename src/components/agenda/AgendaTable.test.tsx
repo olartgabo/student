@@ -158,7 +158,9 @@ describe("AgendaTable", () => {
       />,
     );
 
-    expect(all).toContain(`colSpan="${agendaTracks.length}"`);
+    // The virtual streams keep their own cells beside the panel.
+    expect(all).toContain(`colSpan="${agendaTracks.length - 2}"`);
+    expect(all).toContain("Jean Reyes");
     expect(all).toContain(">BISA<");
     expect(gessell).not.toContain("Building Your Career Before Graduation");
   });
