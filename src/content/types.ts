@@ -115,7 +115,6 @@ export type PlenarySubtype =
   | "keynote"
   | "panel"
   | "break"
-  | "lunch"
   | "closing"
   | "networking";
 

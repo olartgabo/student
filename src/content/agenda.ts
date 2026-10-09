@@ -237,8 +237,8 @@ export const agenda = [
     subtype: "break",
     title: local("Community Break"),
     summary: local(
-      "Coffee, expo, sponsors, comunidades y desplazamiento.",
-      "Coffee, expo, sponsors, communities and room changes.",
+      "Expo, sponsors, comunidades y desplazamiento.",
+      "Expo, sponsors, communities and room changes.",
     ),
     sessions: [
       session(
@@ -355,10 +355,10 @@ export const agenda = [
   },
   {
     kind: "plenary",
-    id: "lunch",
+    id: "food-trucks",
     time: { start: "13:00", end: "14:00" },
-    subtype: "lunch",
-    title: local("Almuerzo + Community Expo", "Lunch + Community Expo"),
+    subtype: "break",
+    title: local("Food trucks + Community Expo", "Food trucks + Community Expo"),
     summary: local(
       "Sin sesiones presenciales. El evento vuelve a converger.",
       "No in-person sessions. The event comes back together.",
@@ -577,7 +577,7 @@ export const dayRhythm = [
     label: local("Sesiones presenciales + virtuales", "In-person + virtual sessions"),
   },
   { code: "03", time: "12:20", label: local("Panel de carrera", "Career panel") },
-  { code: "04", time: "13:00", label: local("Almuerzo + Expo", "Lunch + Expo") },
+  { code: "04", time: "13:00", label: local("Food trucks + Expo", "Food trucks + Expo") },
   {
     code: "05",
     time: "16:20",
