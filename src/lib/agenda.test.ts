@@ -30,10 +30,10 @@ describe("validateAgenda", () => {
     });
   });
 
-  it("starts the morning Community Break at 12:30", () => {
-    expect(agenda.find((block) => block.id === "break-1")?.time).toEqual({
-      start: "12:30",
-      end: "13:00",
+  it("goes straight from the morning blocks into lunch at 13:20", () => {
+    expect(agenda.find((block) => block.id === "food-trucks")?.time).toEqual({
+      start: "13:20",
+      end: "14:20",
     });
   });
 
