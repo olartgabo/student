@@ -43,7 +43,8 @@ export function AgendaMap({ locale }: { locale: Locale }) {
     <>
       <Button
         href={mapSrc}
-        variant="secondary"
+        variant="primary"
+        className="w-full sm:w-auto"
         aria-haspopup="dialog"
         aria-controls="agenda-map"
         onClick={(event) => {
