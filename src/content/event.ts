@@ -19,7 +19,7 @@ export const event: EventInfo = {
   },
   dateISO: "2026-10-10",
   startTime: "08:00",
-  endTime: "19:00",
+  endTime: "18:20",
   timeZone: "America/La_Paz",
   utcOffset: "-04:00",
   registrationUrl: "https://luma.com/r65j1ukn",

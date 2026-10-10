@@ -284,9 +284,20 @@ export const agenda = [
     ],
   },
   {
+    kind: "plenary",
+    id: "food-trucks",
+    time: { start: "13:10", end: "13:30" },
+    subtype: "break",
+    title: local("Food trucks + Community Expo", "Food trucks + Community Expo"),
+    summary: local(
+      "Pausa de comida y expo. Las sesiones presenciales vuelven a las 13:30.",
+      "Food and expo break. In-person sessions resume at 13:30.",
+    ),
+  },
+  {
     kind: "parallel",
     id: "bloque-3",
-    time: { start: "13:20", end: "14:00" },
+    time: { start: "13:30", end: "14:10" },
     label: local("Bloque 3", "Block 3"),
     sessions: [
       session(
@@ -342,15 +353,10 @@ export const agenda = [
     ],
   },
   {
-    kind: "plenary",
-    id: "food-trucks",
-    time: { start: "14:00", end: "15:00" },
-    subtype: "break",
-    title: local("Food trucks + Community Expo", "Food trucks + Community Expo"),
-    summary: local(
-      "Sin sesiones presenciales. El evento vuelve a converger.",
-      "No in-person sessions. The event comes back together.",
-    ),
+    kind: "parallel",
+    id: "hibrido-2",
+    time: { start: "14:00", end: "14:40" },
+    label: local("Sesión híbrida", "Hybrid session"),
     sessions: [
       session(
         "b8-abel",
@@ -366,7 +372,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-4",
-    time: { start: "15:00", end: "15:40" },
+    time: { start: "14:20", end: "15:00" },
     label: local("Bloque 4", "Block 4"),
     sessions: [
       session(
@@ -407,7 +413,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-5",
-    time: { start: "15:50", end: "16:30" },
+    time: { start: "15:10", end: "15:50" },
     label: local("Bloque 5", "Block 5"),
     sessions: [
       session(
@@ -439,7 +445,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-6",
-    time: { start: "16:40", end: "17:20" },
+    time: { start: "16:00", end: "16:40" },
     label: local("Bloque 6", "Block 6"),
     sessions: [
       session(
@@ -471,7 +477,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "break-2",
-    time: { start: "17:20", end: "17:30" },
+    time: { start: "16:40", end: "16:50" },
     subtype: "break",
     title: local("Community Break"),
     summary: local(
@@ -482,7 +488,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-7",
-    time: { start: "17:30", end: "18:10" },
+    time: { start: "16:50", end: "17:30" },
     label: local("Bloque 7", "Block 7"),
     note: local(
       "Auditorio BISA cerrado por sound check.",
@@ -510,7 +516,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "cultural",
-    time: { start: "18:10", end: "18:30" },
+    time: { start: "17:30", end: "17:50" },
     subtype: "keynote",
     title: local("Keynote & Acto Cultural", "Keynote & Cultural Act"),
     summary: local(
@@ -521,7 +527,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "closing",
-    time: { start: "18:30", end: "18:45" },
+    time: { start: "17:50", end: "18:05" },
     subtype: "closing",
     title: local(
       "Cierre — Closing Session + Community Recognition",
@@ -535,7 +541,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "community-call",
-    time: { start: "18:45", end: "19:00" },
+    time: { start: "18:05", end: "18:20" },
     subtype: "networking",
     title: local(
       "Networking — Community Call + Networking",
@@ -556,15 +562,15 @@ export const dayRhythm = [
     time: "11:00",
     label: local("Sesiones presenciales + híbridas", "In-person + hybrid sessions"),
   },
-  { code: "04", time: "14:00", label: local("Food trucks + Expo", "Food trucks + Expo") },
+  { code: "04", time: "13:10", label: local("Food trucks + Expo", "Food trucks + Expo") },
   {
     code: "05",
-    time: "17:20",
+    time: "16:40",
     label: local("Transición cultural", "Cultural transition"),
   },
   {
     code: "06",
-    time: "18:10",
+    time: "17:30",
     label: local("Keynote, acto cultural + cierre", "Keynote, cultural act + closing"),
   },
 ] as const;

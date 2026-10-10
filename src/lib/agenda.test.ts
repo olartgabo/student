@@ -30,7 +30,7 @@ describe("validateAgenda", () => {
     });
   });
 
-  it("starts Silvana's BISA talk at 12:30 and moves the remaining programme", () => {
+  it("starts Silvana's BISA talk at 12:30 and resumes after Food trucks at 13:30", () => {
     const silvanaBlock = agenda.find((block) => block.id === "bloque-2");
     expect(silvanaBlock?.time).toEqual({ start: "12:30", end: "13:10" });
     expect(
@@ -39,10 +39,17 @@ describe("validateAgenda", () => {
         : undefined,
     ).toContain("Silvana Gutierrez");
     expect(agenda.find((block) => block.id === "food-trucks")?.time).toEqual({
-      start: "14:00",
-      end: "15:00",
+      start: "13:10",
+      end: "13:30",
     });
-    expect(agenda.at(-1)?.time.end).toBe("19:00");
+    const resumedBlock = agenda.find((block) => block.id === "bloque-3");
+    expect(resumedBlock?.time).toEqual({ start: "13:30", end: "14:10" });
+    expect(
+      resumedBlock?.kind === "parallel"
+        ? resumedBlock.sessions.find((session) => session.id === "b5-heberht")?.trackId
+        : undefined,
+    ).toBe("bisa");
+    expect(agenda.at(-1)?.time.end).toBe("18:20");
   });
 
   it("rejects two sessions in the same track within one block", () => {
