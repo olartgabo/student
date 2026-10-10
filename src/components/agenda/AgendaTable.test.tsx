@@ -104,12 +104,7 @@ describe("AgendaTable", () => {
       />,
     );
     const stream = renderToStaticMarkup(
-      <AgendaTable
-        rows={programme}
-        tracks={agendaTracks}
-        activeTrack="a2"
-        locale="es"
-      />,
+      <AgendaTable rows={programme} tracks={agendaTracks} activeTrack="a2" locale="es" />,
     );
 
     expect(room).toContain("Remote talk");
@@ -117,13 +112,45 @@ describe("AgendaTable", () => {
     expect(stream).toContain("También se transmite en");
   });
 
-  it("shows the career panel roster and moderator", () => {
-    const programme = deriveAgendaGrid(agenda, agendaTracks).filter(
-      (row) => row.block.id === "career-panel",
-    );
+  const panel = [
+    {
+      kind: "parallel",
+      id: "career-panel",
+      time: { start: "12:20", end: "13:00" },
+      wide: true,
+      sessions: [
+        {
+          id: "career",
+          trackId: "bisa",
+          status: "confirmed",
+          title: "Building Your Career Before Graduation",
+          speakers: ["Silvana Gutierrez", "Gonzalo Alfaro"],
+          format: "panel",
+          moderator: "Gabriel Olarte",
+        },
+        {
+          id: "remote",
+          trackId: "a1",
+          status: "confirmed",
+          title: "Remote talk",
+          speakers: ["Jean Reyes"],
+          time: { start: "12:35", end: "13:15" },
+        },
+        {
+          id: "remote-en",
+          trackId: "a2",
+          status: "confirmed",
+          title: "Remote English talk",
+          time: { start: "12:50", end: "13:10" },
+        },
+      ],
+    },
+  ] as const satisfies readonly AgendaBlock[];
+
+  it("shows the panel roster and moderator", () => {
     const html = renderToStaticMarkup(
       <AgendaTable
-        rows={programme}
+        rows={deriveAgendaGrid(panel, agendaTracks)}
         tracks={agendaTracks}
         activeTrack="bisa"
         locale="es"
@@ -132,15 +159,11 @@ describe("AgendaTable", () => {
 
     expect(html).toContain("Silvana Gutierrez");
     expect(html).toContain("Gonzalo Alfaro");
-    expect(html).toContain("Carlos Isaac Jaldin Benavides");
-    expect(html).toContain("Victor Altamirano");
     expect(html).toContain("Moderador: Gabriel Olarte");
   });
 
-  it("spans the career panel across every room and tags it with BISA", () => {
-    const programme = deriveAgendaGrid(agenda, agendaTracks).filter(
-      (row) => row.block.id === "career-panel",
-    );
+  it("spans a wide panel across the rooms and tags it with BISA", () => {
+    const programme = deriveAgendaGrid(panel, agendaTracks);
     const all = renderToStaticMarkup(
       <AgendaTable
         rows={programme}
@@ -158,7 +181,6 @@ describe("AgendaTable", () => {
       />,
     );
 
-    // The virtual streams keep their own cells beside the panel.
     expect(all).toContain(`colSpan="${agendaTracks.length - 2}"`);
     expect(all).toContain("Jean Reyes");
     expect(all).toContain(">BISA<");

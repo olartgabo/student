@@ -11,11 +11,11 @@ describe("validateAgenda", () => {
     expect(validateAgenda(agenda, agendaTracks)).toEqual([]);
   });
 
-  it("places a fifteen-minute breakfast between the welcome and first sessions", () => {
+  it("places a fifteen-minute breakfast after the welcome and delays in-person sessions to 11:00", () => {
     const openingIndex = agenda.findIndex((block) => block.id === "opening");
     const opening = agenda[openingIndex];
     const breakfast = agenda[openingIndex + 1];
-    const firstSessions = agenda[openingIndex + 2];
+    const firstSessions = agenda.find((block) => block.id === "bloque-1");
 
     expect(opening?.time.end).toBe("09:15");
     expect(breakfast).toMatchObject({
@@ -26,14 +26,14 @@ describe("validateAgenda", () => {
     });
     expect(firstSessions).toMatchObject({
       id: "bloque-1",
-      time: { start: "09:30", end: "10:10" },
+      time: { start: "11:00", end: "11:40" },
     });
   });
 
-  it("starts the morning Community Break at 11:15", () => {
+  it("starts the morning Community Break at 12:30", () => {
     expect(agenda.find((block) => block.id === "break-1")?.time).toEqual({
-      start: "11:15",
-      end: "11:30",
+      start: "12:30",
+      end: "13:00",
     });
   });
 

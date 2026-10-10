@@ -143,8 +143,34 @@ export const agenda = [
   },
   {
     kind: "parallel",
+    id: "hibrido-1",
+    time: { start: "10:20", end: "11:00" },
+    label: local("Sesiones híbridas", "Hybrid sessions"),
+    sessions: [
+      session(
+        "v3",
+        "a1",
+        "Construye tu Primer MCP Server de Seguridad en AWS",
+        ["Jorge Barreto"],
+        "charla",
+        "intermedio",
+        { start: "10:20", end: "11:00" },
+      ),
+      session(
+        "v1",
+        "a2",
+        "From Complex Orchestration to Declarative Data Pipelines with AWS Glue",
+        ["Vikneshwara R B"],
+        "charla",
+        "intermedio",
+        { start: "10:20", end: "11:00" },
+      ),
+    ],
+  },
+  {
+    kind: "parallel",
     id: "bloque-1",
-    time: { start: "09:30", end: "10:10" },
+    time: { start: "11:00", end: "11:40" },
     label: local("Bloque 1", "Block 1"),
     sessions: [
       session(
@@ -179,12 +205,30 @@ export const agenda = [
         "taller",
         "intro",
       ),
+      session(
+        "v5",
+        "a1",
+        "Cloud no es solo aprender servicios: Cómo empezar a tomar decisiones de ingeniería",
+        ["Jesús Aguirre"],
+        "charla",
+        "intro",
+        { start: "11:05", end: "11:45" },
+      ),
+      session(
+        "v2",
+        "a2",
+        "Architecture's Evolution: From Stonehenge Monoliths up to Smart Multi Agent Architectures",
+        ["Socrates Ruiz"],
+        "charla",
+        "intermedio",
+        { start: "11:10", end: "11:50" },
+      ),
     ],
   },
   {
     kind: "parallel",
     id: "bloque-2",
-    time: { start: "10:20", end: "11:00" },
+    time: { start: "11:50", end: "12:30" },
     label: local("Bloque 2", "Block 2"),
     sessions: [
       session(
@@ -220,27 +264,29 @@ export const agenda = [
         "intermedio",
       ),
       session(
-        "v3",
+        "v6",
         "a1",
-        "Construye tu Primer MCP Server de Seguridad en AWS",
-        ["Jorge Barreto"],
+        "Defensa Contra las Artes Oscuras de los data pipelines: hazlo más robusto",
+        ["Carlos Chicata"],
         "charla",
         "intermedio",
+        { start: "11:50", end: "12:30" },
       ),
       session(
-        "v1",
+        "v4",
         "a2",
-        "From Complex Orchestration to Declarative Data Pipelines with AWS Glue",
-        ["Vikneshwara R B"],
+        "Get Paid to Learn in Public: How LFX Mentorship Took Me From Student to CNCF Contributor",
+        ["Mohammed Firdous Araoye"],
         "charla",
-        "intermedio",
+        "intro",
+        { start: "12:00", end: "12:40" },
       ),
     ],
   },
   {
     kind: "plenary",
     id: "break-1",
-    time: { start: "11:15", end: "11:30" },
+    time: { start: "12:30", end: "13:00" },
     subtype: "break",
     title: local("Community Break"),
     summary: local(
@@ -249,29 +295,29 @@ export const agenda = [
     ),
     sessions: [
       session(
-        "v5",
+        "v7",
         "a1",
-        "Cloud no es solo aprender servicios: Cómo empezar a tomar decisiones de ingeniería",
-        ["Jesús Aguirre"],
-        "charla",
-        "intro",
-        { start: "11:05", end: "11:45" },
-      ),
-      session(
-        "v2",
-        "a2",
-        "Architecture's Evolution: From Stonehenge Monoliths up to Smart Multi Agent Architectures",
-        ["Socrates Ruiz"],
+        "4 errores en Producción que cambiaron mi forma de trabajar con AWS",
+        ["Jean Reyes"],
         "charla",
         "intermedio",
-        { start: "11:10", end: "11:50" },
+        { start: "12:35", end: "13:15" },
+      ),
+      session(
+        "v8",
+        "a2",
+        "Securing Serverless Enterprises Against Agentic AI Threats",
+        ["Daniel Clement"],
+        "charla",
+        "intermedio",
+        { start: "12:50", end: "13:10" },
       ),
     ],
   },
   {
     kind: "parallel",
     id: "bloque-3",
-    time: { start: "11:30", end: "12:10" },
+    time: { start: "13:00", end: "13:40" },
     label: local("Bloque 3", "Block 3"),
     sessions: [
       session(
@@ -307,80 +353,6 @@ export const agenda = [
         "intermedio",
       ),
       session(
-        "v6",
-        "a1",
-        "Defensa Contra las Artes Oscuras de los data pipelines: hazlo más robusto",
-        ["Carlos Chicata"],
-        "charla",
-        "intermedio",
-        { start: "11:50", end: "12:30" },
-      ),
-      session(
-        "v4",
-        "a2",
-        "Get Paid to Learn in Public: How LFX Mentorship Took Me From Student to CNCF Contributor",
-        ["Mohammed Firdous Araoye"],
-        "charla",
-        "intro",
-        { start: "12:00", end: "12:40" },
-      ),
-    ],
-  },
-  {
-    kind: "parallel",
-    id: "career-panel",
-    time: { start: "12:20", end: "13:00" },
-    label: local("Panel de carrera", "Career panel"),
-    wide: true,
-    sessions: [
-      {
-        ...session(
-          "career",
-          "bisa",
-          "Building Your Career Before Graduation",
-          [
-            "Silvana Gutierrez",
-            "Gonzalo Alfaro",
-            "Carlos Isaac Jaldin Benavides",
-            "Victor Altamirano",
-          ],
-          "panel",
-          "intro",
-        ),
-        moderator: "Gabriel Olarte",
-      },
-      session(
-        "v8",
-        "a2",
-        "Securing Serverless Enterprises Against Agentic AI Threats",
-        ["Daniel Clement"],
-        "charla",
-        "intermedio",
-        { start: "12:50", end: "13:10" },
-      ),
-      session(
-        "v7",
-        "a1",
-        "4 errores en Producción que cambiaron mi forma de trabajar con AWS",
-        ["Jean Reyes"],
-        "charla",
-        "intermedio",
-        { start: "12:35", end: "13:15" },
-      ),
-    ],
-  },
-  {
-    kind: "plenary",
-    id: "food-trucks",
-    time: { start: "13:00", end: "14:00" },
-    subtype: "break",
-    title: local("Food trucks + Community Expo", "Food trucks + Community Expo"),
-    summary: local(
-      "Sin sesiones presenciales. El evento vuelve a converger.",
-      "No in-person sessions. The event comes back together.",
-    ),
-    sessions: [
-      session(
         "b8-abel",
         "a1",
         "Networking para IA: El protocolo que mueve datos masivos en la era de la IA",
@@ -393,8 +365,36 @@ export const agenda = [
   },
   {
     kind: "parallel",
+    id: "hibrido-2",
+    time: { start: "13:40", end: "14:30" },
+    label: local("Sesiones híbridas", "Hybrid sessions"),
+    sessions: [
+      session(
+        "b7-juan-manuel",
+        "a1",
+        "Más allá del código: cómo una comunidad puede cambiar tu carrera",
+        ["Juan Manuel Hoyos"],
+        "lightning",
+        "intro",
+        { start: "14:05", end: "14:25" },
+      ),
+    ],
+  },
+  {
+    kind: "plenary",
+    id: "food-trucks",
+    time: { start: "14:30", end: "15:30" },
+    subtype: "break",
+    title: local("Food trucks + Community Expo", "Food trucks + Community Expo"),
+    summary: local(
+      "Sin sesiones presenciales. El evento vuelve a converger.",
+      "No in-person sessions. The event comes back together.",
+    ),
+  },
+  {
+    kind: "parallel",
     id: "bloque-4",
-    time: { start: "14:00", end: "14:40" },
+    time: { start: "15:30", end: "16:10" },
     label: local("Bloque 4", "Block 4"),
     sessions: [
       session(
@@ -421,21 +421,12 @@ export const agenda = [
         "charla",
         "intermedio",
       ),
-      session(
-        "b7-juan-manuel",
-        "a1",
-        "Más allá del código: cómo una comunidad puede cambiar tu carrera",
-        ["Juan Manuel Hoyos"],
-        "lightning",
-        "intro",
-        { start: "14:05", end: "14:25" },
-      ),
     ],
   },
   {
     kind: "parallel",
     id: "bloque-5",
-    time: { start: "14:50", end: "15:30" },
+    time: { start: "16:20", end: "17:00" },
     label: local("Bloque 5", "Block 5"),
     sessions: [
       session(
@@ -467,7 +458,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-6",
-    time: { start: "15:40", end: "16:20" },
+    time: { start: "17:10", end: "17:50" },
     label: local("Bloque 6", "Block 6"),
     sessions: [
       session(
@@ -499,7 +490,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "break-2",
-    time: { start: "16:20", end: "16:30" },
+    time: { start: "17:50", end: "18:00" },
     subtype: "break",
     title: local("Community Break"),
     summary: local(
@@ -510,7 +501,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-7",
-    time: { start: "16:30", end: "17:10" },
+    time: { start: "18:00", end: "18:40" },
     label: local("Bloque 7", "Block 7"),
     note: local(
       "Auditorio BISA cerrado por sound check.",
@@ -538,7 +529,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "cultural",
-    time: { start: "17:10", end: "17:30" },
+    time: { start: "18:40", end: "19:00" },
     subtype: "keynote",
     title: local("Keynote & Acto Cultural", "Keynote & Cultural Act"),
     summary: local(
@@ -549,7 +540,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "closing",
-    time: { start: "17:30", end: "17:45" },
+    time: { start: "19:00", end: "19:15" },
     subtype: "closing",
     title: local(
       "Cierre — Closing Session + Community Recognition",
@@ -563,7 +554,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "community-call",
-    time: { start: "17:45", end: "18:00" },
+    time: { start: "19:15", end: "19:30" },
     subtype: "networking",
     title: local(
       "Networking — Community Call + Networking",
@@ -578,21 +569,21 @@ export const agenda = [
 
 export const dayRhythm = [
   { code: "01", time: "08:00", label: local("Registro + Expo", "Registration + Expo") },
+  { code: "02", time: "10:20", label: local("Sesiones híbridas", "Hybrid sessions") },
   {
-    code: "02",
-    time: "09:30",
-    label: local("Sesiones presenciales + virtuales", "In-person + virtual sessions"),
+    code: "03",
+    time: "11:00",
+    label: local("Sesiones presenciales + híbridas", "In-person + hybrid sessions"),
   },
-  { code: "03", time: "12:20", label: local("Panel de carrera", "Career panel") },
-  { code: "04", time: "13:00", label: local("Food trucks + Expo", "Food trucks + Expo") },
+  { code: "04", time: "14:30", label: local("Food trucks + Expo", "Food trucks + Expo") },
   {
     code: "05",
-    time: "16:20",
+    time: "17:50",
     label: local("Transición cultural", "Cultural transition"),
   },
   {
     code: "06",
-    time: "17:10",
+    time: "18:40",
     label: local("Keynote, acto cultural + cierre", "Keynote, cultural act + closing"),
   },
 ] as const;
