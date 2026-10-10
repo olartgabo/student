@@ -4,18 +4,19 @@ import { useEffect, useRef, useState } from "react";
 
 import { accentFill } from "@/components/ui/accent";
 import { eventDateLabel } from "@/content/event";
-import type { AgendaTrack, AgendaTrackId, TimeRange } from "@/content/types";
+import type { AgendaTrack, AgendaTrackId, Session, TimeRange } from "@/content/types";
 import type { AgendaRow } from "@/lib/agenda";
 import { formatRange } from "@/lib/agenda";
 import type { Locale } from "@/lib/i18n";
 import { NO_SESSION } from "@/lib/tba";
 
+import { AgendaMobileSchedule } from "./AgendaMobileSchedule";
 import { PlenaryRow } from "./PlenaryRow";
 import { SessionCell } from "./SessionCell";
 
 const copy = {
   es: {
-    caption: `Programa completo del ${eventDateLabel.es.long}. Las columnas son las salas y el stream; las filas, los bloques horarios.`,
+    caption: `Programa completo del ${eventDateLabel.es.long}. Las columnas son las salas; las filas, los bloques horarios.`,
     time: "Hora",
     roomTbc: "Sala por confirmar",
     scroll: "Desplazá la tabla para ver todas las salas.",
@@ -23,7 +24,7 @@ const copy = {
     next: "Ver más salas",
   },
   en: {
-    caption: `Full programme for ${eventDateLabel.en.long}. Columns are rooms and the stream; rows are time blocks.`,
+    caption: `Full programme for ${eventDateLabel.en.long}. Columns are rooms; rows are time blocks.`,
     time: "Time",
     roomTbc: "Room to be confirmed",
     scroll: "Scroll the table to see every room.",
@@ -71,6 +72,36 @@ export function AgendaTable({
     };
   }, [activeTrack]);
 
+  /**
+   * A plenary or wide row spans the room columns up to the first track that
+   * keeps a virtual session running alongside it; those tracks get their own cells.
+   */
+  const concurrent = (sessions: readonly Session[], fallback: TimeRange) => {
+    const byTrack = new Map(sessions.map((s) => [s.trackId, s]));
+    const first = visibleTracks.findIndex((track) => byTrack.has(track.id));
+    const span = first === -1 ? visibleTracks.length : first;
+    const cells = visibleTracks.slice(span).map((track) => {
+      const session = byTrack.get(track.id);
+      return (
+        <td
+          key={track.id}
+          className="min-w-0 border-t border-l border-slate-600 p-3 align-top [overflow-wrap:anywhere]"
+        >
+          {session ? (
+            <SessionCell
+              session={session}
+              time={session.time ?? fallback}
+              locale={locale}
+            />
+          ) : (
+            <EmptyCell locale={locale} />
+          )}
+        </td>
+      );
+    });
+    return { span, cells };
+  };
+
   const scroll = (direction: -1 | 1) => {
     const scroller = scrollRef.current;
     if (scroller)
@@ -82,8 +113,11 @@ export function AgendaTable({
 
   return (
     <div>
+      <div className="md:hidden print:hidden">
+        <AgendaMobileSchedule rows={rows} tracks={visibleTracks} locale={locale} />
+      </div>
       {activeTrack === null && (canScrollLeft || canScrollRight) ? (
-        <div className="agenda-scroll-controls mb-3 flex items-center justify-between gap-3">
+        <div className="agenda-scroll-controls mb-3 hidden items-center justify-between gap-3 md:flex print:hidden">
           <p className="text-small text-slate-200">{t.scroll}</p>
           <div className="flex shrink-0 gap-2">
             <button
@@ -109,7 +143,7 @@ export function AgendaTable({
       ) : null}
       <div
         ref={scrollRef}
-        className="agenda-grid w-full min-w-0 overflow-x-auto overscroll-x-contain border border-slate-600"
+        className="agenda-grid hidden w-full min-w-0 overflow-x-auto overscroll-x-contain border border-slate-600 md:block print:block"
         style={{ scrollbarGutter: "stable" }}
       >
         <table
@@ -160,12 +194,25 @@ export function AgendaTable({
                       {formatRange(row.block.time)}
                     </span>
                   </th>
-                  <td
-                    colSpan={visibleTracks.length}
-                    className="border-t border-l border-slate-600 bg-slate-800 p-4 align-top"
-                  >
-                    <PlenaryRow block={row.block} locale={locale} />
-                  </td>
+                  {(() => {
+                    const { span, cells } = concurrent(
+                      row.block.sessions ?? [],
+                      row.block.time,
+                    );
+                    return (
+                      <>
+                        {span > 0 ? (
+                          <td
+                            colSpan={span}
+                            className="border-t border-l border-slate-600 bg-slate-800 p-4 align-top"
+                          >
+                            <PlenaryRow block={row.block} locale={locale} />
+                          </td>
+                        ) : null}
+                        {cells}
+                      </>
+                    );
+                  })()}
                 </tr>
               ) : row.block.wide &&
                 row.block.sessions[0] &&
@@ -190,17 +237,27 @@ export function AgendaTable({
                       </span>
                     ) : null}
                   </th>
-                  <td
-                    colSpan={visibleTracks.length}
-                    className="border-t border-l border-slate-600 p-4 align-top"
-                  >
-                    <SessionCell
-                      session={row.block.sessions[0]}
-                      time={row.block.sessions[0].time ?? row.block.time}
-                      locale={locale}
-                      wide
-                    />
-                  </td>
+                  {(() => {
+                    const [main, ...streams] = row.block.sessions;
+                    if (!main) return null;
+                    const { span, cells } = concurrent(streams, row.block.time);
+                    return (
+                      <>
+                        <td
+                          colSpan={Math.max(span, 1)}
+                          className="border-t border-l border-slate-600 p-4 align-top"
+                        >
+                          <SessionCell
+                            session={main}
+                            time={main.time ?? row.block.time}
+                            locale={locale}
+                            wide
+                          />
+                        </td>
+                        {cells}
+                      </>
+                    );
+                  })()}
                 </tr>
               ) : (
                 <tr key={row.block.id}>
@@ -250,12 +307,7 @@ export function AgendaTable({
                             screening={cell.kind === "screening"}
                           />
                         ) : (
-                          <>
-                            <span aria-hidden className="text-slate-400">
-                              —
-                            </span>
-                            <span className="sr-only">{NO_SESSION[locale]}</span>
-                          </>
+                          <EmptyCell locale={locale} />
                         )}
                       </td>
                     );
@@ -267,5 +319,16 @@ export function AgendaTable({
         </table>
       </div>
     </div>
+  );
+}
+
+function EmptyCell({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <span aria-hidden className="text-slate-400">
+        —
+      </span>
+      <span className="sr-only">{NO_SESSION[locale]}</span>
+    </>
   );
 }

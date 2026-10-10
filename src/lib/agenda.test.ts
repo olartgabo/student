@@ -77,6 +77,43 @@ describe("validateAgenda", () => {
     );
   });
 
+  it("rejects virtual talks that overlap on the same stream", () => {
+    const blocks = [
+      {
+        kind: "parallel",
+        id: "b1",
+        time: { start: "09:00", end: "09:40" },
+        sessions: [
+          {
+            id: "first",
+            trackId: "ai",
+            status: "tba",
+            time: { start: "09:00", end: "09:40" },
+          },
+        ],
+      },
+      {
+        kind: "plenary",
+        id: "break",
+        time: { start: "09:40", end: "10:00" },
+        subtype: "break",
+        title: { es: "Break", en: "Break" },
+        sessions: [
+          {
+            id: "second",
+            trackId: "ai",
+            status: "tba",
+            time: { start: "09:30", end: "10:10" },
+          },
+        ],
+      },
+    ] as const satisfies readonly AgendaBlock[];
+
+    expect(validateAgenda(blocks, tracks)).toContainEqual(
+      expect.stringContaining('"first" y "second" se superponen'),
+    );
+  });
+
   it("allows intentionally overlapping blocks in different rooms", () => {
     const blocks = [
       {

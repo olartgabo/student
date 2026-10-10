@@ -95,7 +95,24 @@ export function validateAgenda(
       );
     }
 
-    if (block.kind !== "parallel") return;
+    if (block.kind !== "parallel") {
+      const usedTracks = new Set<ScheduleTrackId>();
+      for (const session of block.sessions ?? []) {
+        if (!knownTracks.has(session.trackId)) {
+          errors.push(
+            `"${session.id}" apunta a un track inexistente: "${session.trackId}"`,
+          );
+        }
+        if (usedTracks.has(session.trackId)) {
+          errors.push(`"${block.id}" tiene dos sesiones en el track "${session.trackId}"`);
+        }
+        usedTracks.add(session.trackId);
+        if ((session.span ?? 1) !== 1) {
+          errors.push(`"${session.id}" no puede extenderse desde un bloque plenario`);
+        }
+      }
+      return;
+    }
 
     const usedTracks = new Set<ScheduleTrackId>();
     for (const session of block.sessions) {
@@ -137,6 +154,35 @@ export function validateAgenda(
       }
     }
   });
+
+  // Each track runs one session at a time. Virtual talks carry their own times,
+  // so they are checked against the clock rather than against the block rows.
+  const slots = new Map<ScheduleTrackId, { id: string; start: number; end: number }[]>();
+  blocks.forEach((block, index) => {
+    for (const session of block.sessions ?? []) {
+      const last = blocks[index + (session.span ?? 1) - 1] ?? block;
+      const time = session.time ?? { start: block.time.start, end: last.time.end };
+      const start = toMinutes(time.start);
+      const end = toMinutes(time.end);
+      if (end <= start) {
+        errors.push(`"${session.id}" termina antes de empezar (${time.start}–${time.end})`);
+      }
+      const list = slots.get(session.trackId) ?? [];
+      list.push({ id: session.id, start, end });
+      slots.set(session.trackId, list);
+    }
+  });
+  for (const [trackId, list] of slots) {
+    const sorted = [...list].sort((a, b) => a.start - b.start);
+    sorted.slice(1).forEach((current, i) => {
+      const previous = sorted[i];
+      if (previous && current.start < previous.end) {
+        errors.push(
+          `"${previous.id}" y "${current.id}" se superponen en el track "${trackId}"`,
+        );
+      }
+    });
+  }
 
   // A cell may not be both covered by a span and filled by its own session.
   const grid = deriveAgendaGrid(blocks, tracks);

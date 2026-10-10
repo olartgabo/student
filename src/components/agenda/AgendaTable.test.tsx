@@ -66,7 +66,7 @@ describe("AgendaTable", () => {
       />,
     );
     const a1 = renderToStaticMarkup(
-      <AgendaTable rows={programme} tracks={agendaTracks} activeTrack="a1" locale="es" />,
+      <AgendaTable rows={programme} tracks={agendaTracks} activeTrack="d1" locale="es" />,
     );
 
     expect(all).toContain("Cuando tu servidor desaparece");
@@ -86,7 +86,7 @@ describe("AgendaTable", () => {
         sessions: [
           {
             id: "remote",
-            trackId: "virtual-en",
+            trackId: "a2",
             status: "confirmed",
             title: "Remote talk",
             screenedIn: "gessell",
@@ -107,7 +107,7 @@ describe("AgendaTable", () => {
       <AgendaTable
         rows={programme}
         tracks={agendaTracks}
-        activeTrack="virtual-en"
+        activeTrack="a2"
         locale="es"
       />,
     );
@@ -158,7 +158,9 @@ describe("AgendaTable", () => {
       />,
     );
 
-    expect(all).toContain(`colSpan="${agendaTracks.length}"`);
+    // The virtual streams keep their own cells beside the panel.
+    expect(all).toContain(`colSpan="${agendaTracks.length - 2}"`);
+    expect(all).toContain("Jean Reyes");
     expect(all).toContain(">BISA<");
     expect(gessell).not.toContain("Building Your Career Before Graduation");
   });

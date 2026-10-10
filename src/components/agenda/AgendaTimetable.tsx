@@ -12,8 +12,8 @@ import { AgendaTable } from "./AgendaTable";
 
 /** The single client boundary for filtering the programme by room or stream. */
 const copy = {
-  es: { filter: "Sala o stream", all: "Todo", showing: "Mostrando" },
-  en: { filter: "Room or stream", all: "All", showing: "Showing" },
+  es: { filter: "Sala", all: "Todo", showing: "Mostrando" },
+  en: { filter: "Room", all: "All", showing: "Showing" },
 } as const;
 
 export function AgendaTimetable({ locale }: { locale: Locale }) {
@@ -23,11 +23,15 @@ export function AgendaTimetable({ locale }: { locale: Locale }) {
 
   return (
     <div>
-      <div className="agenda-filters mb-8 flex flex-wrap items-center gap-2">
-        <span className="font-display tracking-mono-caps mr-2 text-[0.6875rem] text-slate-200 uppercase">
+      <div className="agenda-filters mb-6 flex flex-wrap items-center gap-2 md:mb-8">
+        <span className="font-display tracking-mono-caps w-full text-[0.6875rem] text-slate-200 uppercase md:mr-2 md:w-auto">
           {t.filter}
         </span>
-        <Tag active={activeTrack === null} onClick={() => setActiveTrack(null)}>
+        <Tag
+          active={activeTrack === null}
+          onClick={() => setActiveTrack(null)}
+          className="min-h-11 px-4 md:min-h-0 md:px-3"
+        >
           {t.all}
         </Tag>
         {agendaTracks.map((track) => (
@@ -35,6 +39,7 @@ export function AgendaTimetable({ locale }: { locale: Locale }) {
             key={track.id}
             active={activeTrack === track.id}
             onClick={() => setActiveTrack(activeTrack === track.id ? null : track.id)}
+            className="min-h-11 px-4 md:min-h-0 md:px-3"
           >
             {track.shortName[locale]}
           </Tag>
