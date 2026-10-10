@@ -381,12 +381,12 @@ export const agenda = [
     label: local("Bloque 4", "Block 4"),
     sessions: [
       session(
-        "b4-gonzalo",
+        "sara",
         "bisa",
-        "RAG sin quebrar tus finanzas: Búsqueda vectorial a escala con Amazon S3 Vectors y Bedrock Knowledge",
-        ["Gonzalo Alfaro"],
+        "No estaba lista, pero dije que sí: de estudiante a Solution Architect en FOX",
+        ["Sara Salazar Paredes"],
         "charla",
-        "intermedio",
+        "intro",
         { start: "15:20", end: "16:00" },
       ),
       session(
@@ -456,12 +456,12 @@ export const agenda = [
     label: local("Bloque 6", "Block 6"),
     sessions: [
       session(
-        "sara",
+        "b4-gonzalo",
         "bisa",
-        "No estaba lista, pero dije que sí: de estudiante a Solution Architect en FOX",
-        ["Sara Salazar Paredes"],
+        "RAG sin quebrar tus finanzas: Búsqueda vectorial a escala con Amazon S3 Vectors y Bedrock Knowledge",
+        ["Gonzalo Alfaro"],
         "charla",
-        "intro",
+        "intermedio",
         { start: "17:00", end: "17:40" },
       ),
       session(
@@ -499,8 +499,8 @@ export const agenda = [
     time: { start: "16:50", end: "17:30" },
     label: local("Bloque 7", "Block 7"),
     note: local(
-      "Auditorio BISA: charla de Sara hasta las 17:40; luego sound check.",
-      "BISA Auditorium: Sara's talk until 17:40, then sound check.",
+      "Auditorio BISA: charla de Gonzalo hasta las 17:40; luego sound check.",
+      "BISA Auditorium: Gonzalo's talk until 17:40, then sound check.",
     ),
     sessions: [
       session(

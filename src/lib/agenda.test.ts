@@ -49,6 +49,12 @@ describe("validateAgenda", () => {
         ? resumedBlock.sessions.find((session) => session.id === "b5-heberht")
         : undefined,
     ).toMatchObject({ trackId: "bisa", time: { start: "14:30", end: "15:10" } });
+    expect(
+      agenda.find((block) => block.id === "bloque-4")?.sessions?.find((session) => session.id === "sara"),
+    ).toMatchObject({ trackId: "bisa", time: { start: "15:20", end: "16:00" } });
+    expect(
+      agenda.find((block) => block.id === "bloque-6")?.sessions?.find((session) => session.id === "b4-gonzalo"),
+    ).toMatchObject({ trackId: "bisa", time: { start: "17:00", end: "17:40" } });
     expect(agenda.at(-1)?.time.end).toBe("19:10");
   });
 

@@ -6,7 +6,12 @@ import { agenda } from "@/content/agenda";
 import { event, eventEndISO, eventStartISO } from "@/content/event";
 import { localePath, type Locale } from "@/lib/i18n";
 
-function currentBisaSession(now: number): string | null {
+type BisaStatus =
+  | { phase: "live"; title: string }
+  | { phase: "next"; title: string; start: string };
+
+function bisaStatus(now: number): BisaStatus | null {
+  let next: BisaStatus | null = null;
   for (const block of agenda) {
     if (block.kind !== "parallel") continue;
     const session = block.sessions.find((item) => item.trackId === "bisa");
@@ -14,9 +19,12 @@ function currentBisaSession(now: number): string | null {
     const time = session.time ?? block.time;
     const start = new Date(`${event.dateISO}T${time.start}:00${event.utcOffset}`).getTime();
     const end = new Date(`${event.dateISO}T${time.end}:00${event.utcOffset}`).getTime();
-    if (now >= start && now < end) return session.title;
+    if (now >= start && now < end) return { phase: "live", title: session.title };
+    if (now < start && next === null) {
+      next = { phase: "next", title: session.title, start: time.start };
+    }
   }
-  return null;
+  return next;
 }
 
 export function LiveNow({ locale }: { locale: Locale }) {
@@ -37,7 +45,8 @@ export function LiveNow({ locale }: { locale: Locale }) {
     return null;
   }
 
-  const title = currentBisaSession(now);
+  const status = bisaStatus(now);
+  if (!status) return null;
 
   return (
     <a
@@ -45,15 +54,22 @@ export function LiveNow({ locale }: { locale: Locale }) {
       className="border-green mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 border bg-green/10 px-5 py-4 text-white transition-colors hover:bg-green/20"
     >
       <span className="font-display text-small tracking-mono-caps text-green flex items-center gap-2 uppercase">
-        <span className="bg-green size-2 rounded-full" aria-hidden="true" />
-        {locale === "es" ? "En vivo ahora" : "Live now"}
+        <span
+          className={`size-2 rounded-full ${status.phase === "live" ? "bg-green motion-safe:animate-pulse" : "border border-green"}`}
+          aria-hidden="true"
+        />
+        {status.phase === "live"
+          ? locale === "es"
+            ? "Escenario principal · En vivo ahora"
+            : "Mainstage · Live now"
+          : locale === "es"
+            ? "Próximo en escenario principal"
+            : "Up next on mainstage"}
       </span>
       <span className="text-small">
-        {title
-          ? `${title} · BISA`
-          : locale === "es"
-            ? "El evento está en marcha · Ver agenda actualizada ↗"
-            : "The event is underway · See the updated programme ↗"}
+        {status.phase === "live"
+          ? status.title
+          : `${status.start} · ${status.title}`}
       </span>
     </a>
   );
