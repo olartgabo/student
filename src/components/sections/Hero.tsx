@@ -2,7 +2,7 @@ import { PixelIcon } from "@/components/brand/PixelIcon";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { event, eventDateLabel, organizerGroupsLabel } from "@/content/event";
+import { event, organizerGroupsLabel } from "@/content/event";
 import { localePath, type Locale } from "@/lib/i18n";
 
 import { Countdown } from "./Countdown";
@@ -26,7 +26,8 @@ const copy = {
   es: {
     community: "Comunidad",
     today: "¡El evento es hoy!",
-    registered: "1010+ personas registradas",
+    registered: "personas registradas",
+    todayButton: "Hoy",
     app: "Abrir la app del evento",
     agenda: "Ver la agenda",
     directions: "Cómo llegar · Google Maps",
@@ -34,7 +35,8 @@ const copy = {
   en: {
     community: "Community",
     today: "Today is the day!",
-    registered: "1010+ people registered",
+    registered: "people registered",
+    todayButton: "Today",
     app: "Open the event app",
     agenda: "See the agenda",
     directions: "Get directions · Google Maps",
@@ -83,21 +85,10 @@ function CommunityLinks({ locale, className }: { locale: Locale; className?: str
   );
 }
 
-function MetaBox({
-  icon,
-  children,
-}: {
-  icon: "calendar" | "pin";
-  children: React.ReactNode;
-}) {
+function MetaBox({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-4 border border-slate-600 px-5 py-4">
-      <PixelIcon
-        name={icon}
-        className={
-          icon === "pin" ? "text-sky size-10 shrink-0" : "text-sky size-6 shrink-0"
-        }
-      />
+      <PixelIcon name="pin" className="text-sky size-10 shrink-0" />
       <div className="font-display text-small tracking-mono-caps text-white uppercase">
         {children}
       </div>
@@ -107,7 +98,6 @@ function MetaBox({
 
 export function Hero({ locale }: { locale: Locale }) {
   const t = copy[locale];
-  const date = eventDateLabel[locale];
 
   return (
     <header
@@ -159,7 +149,17 @@ export function Hero({ locale }: { locale: Locale }) {
                   />
                   {t.today}
                 </p>
-                <p className="mt-2 text-white">{t.registered}</p>
+                <p className="mt-5 text-white">
+                  <span
+                    data-hero-count
+                    className="font-display text-orange block origin-left text-[clamp(3.5rem,10vw,6rem)] leading-none font-bold tracking-tight"
+                  >
+                    1010+
+                  </span>
+                  <span className="text-body-lg mt-2 block font-medium sm:text-2xl">
+                    {t.registered}
+                  </span>
+                </p>
               </div>
               <Button href="https://app.studentcommunity.day" className="shrink-0">
                 {t.app} <span aria-hidden>↗</span>
@@ -167,17 +167,26 @@ export function Hero({ locale }: { locale: Locale }) {
             </div>
 
             <div data-hero-step className="mt-5 grid gap-4">
-              <MetaBox icon="calendar">
-                <span className="text-display-md text-sky mr-2">{date.day}</span>
-                {date.month} {date.year}
-              </MetaBox>
+              <a
+                href={localePath(locale, "/agenda")}
+                aria-label={`${t.todayButton} — ${t.agenda}`}
+                className="group border-orange bg-orange text-navy-900 flex items-center justify-between gap-4 rounded-sm border px-6 py-5 transition-colors hover:bg-orange-700 motion-safe:transition-[background-color,transform] motion-safe:hover:-translate-y-1"
+              >
+                <span
+                  data-hero-today
+                  className="font-display text-4xl font-bold uppercase sm:text-5xl"
+                >
+                  {t.todayButton}
+                </span>
+                <PixelIcon name="calendar" className="size-10 shrink-0" />
+              </a>
               <a
                 href={event.venue.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors hover:bg-white/5"
               >
-                <MetaBox icon="pin">
+                <MetaBox>
                   {event.venue.shortName} · {event.venue.city}
                   <span className="block text-slate-200">{event.venue.country}</span>
                   <span className="text-sky mt-2 block">{t.directions} ↗</span>

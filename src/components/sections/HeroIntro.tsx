@@ -18,13 +18,35 @@ export function HeroIntro() {
     });
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.to("[data-hero-step]", {
-        opacity: 1,
-        y: 0,
+      const entrance = gsap.timeline();
+
+      entrance.from("[data-hero-step]", {
+        opacity: 0,
+        y: 24,
         duration: 0.6,
         stagger: 0.08,
         ease: "power2.out",
       });
+
+      entrance.from(
+        "[data-hero-count]",
+        {
+          scale: 0.85,
+          duration: 0.7,
+          ease: "back.out(1.4)",
+        },
+        0.6,
+      );
+
+      entrance.from(
+        "[data-hero-today]",
+        {
+          x: -12,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        0.8,
+      );
     });
 
     return () => mm.revert();
