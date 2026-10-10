@@ -8,6 +8,7 @@ import { localePath, type Locale } from "@/lib/i18n";
 import { Countdown } from "./Countdown";
 import { HeroField } from "./HeroField";
 import { HeroIntro } from "./HeroIntro";
+import { LiveNow } from "./LiveNow";
 
 const communityLinks = [
   {
@@ -134,6 +135,8 @@ export function Hero({ locale }: { locale: Locale }) {
             <p data-hero-step className="text-body-lg mt-6 max-w-xl text-slate-200">
               {event.tagline[locale]}
             </p>
+
+            <LiveNow locale={locale} />
           </div>
 
           <div className="min-w-0">

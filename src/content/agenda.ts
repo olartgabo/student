@@ -228,7 +228,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-2",
-    time: { start: "11:50", end: "12:30" },
+    time: { start: "12:30", end: "13:10" },
     label: local("Bloque 2", "Block 2"),
     sessions: [
       session(
@@ -270,7 +270,7 @@ export const agenda = [
         ["Carlos Chicata"],
         "charla",
         "intermedio",
-        { start: "11:50", end: "12:30" },
+        { start: "12:30", end: "13:10" },
       ),
       session(
         "v4",
@@ -279,14 +279,14 @@ export const agenda = [
         ["Mohammed Firdous Araoye"],
         "charla",
         "intro",
-        { start: "12:00", end: "12:40" },
+        { start: "12:40", end: "13:20" },
       ),
     ],
   },
   {
     kind: "parallel",
     id: "bloque-3",
-    time: { start: "12:40", end: "13:20" },
+    time: { start: "13:20", end: "14:00" },
     label: local("Bloque 3", "Block 3"),
     sessions: [
       session(
@@ -328,7 +328,7 @@ export const agenda = [
         ["Jean Reyes"],
         "charla",
         "intermedio",
-        { start: "12:35", end: "13:15" },
+        { start: "13:15", end: "13:55" },
       ),
       session(
         "v8",
@@ -337,14 +337,14 @@ export const agenda = [
         ["Daniel Clement"],
         "charla",
         "intermedio",
-        { start: "12:50", end: "13:10" },
+        { start: "13:30", end: "13:50" },
       ),
     ],
   },
   {
     kind: "plenary",
     id: "food-trucks",
-    time: { start: "13:20", end: "14:20" },
+    time: { start: "14:00", end: "15:00" },
     subtype: "break",
     title: local("Food trucks + Community Expo", "Food trucks + Community Expo"),
     summary: local(
@@ -359,14 +359,14 @@ export const agenda = [
         ["Abel Archila"],
         "charla",
         "intermedio",
-        { start: "13:20", end: "14:00" },
+        { start: "14:00", end: "14:40" },
       ),
     ],
   },
   {
     kind: "parallel",
     id: "bloque-4",
-    time: { start: "14:20", end: "15:00" },
+    time: { start: "15:00", end: "15:40" },
     label: local("Bloque 4", "Block 4"),
     sessions: [
       session(
@@ -400,14 +400,14 @@ export const agenda = [
         ["Juan Manuel Hoyos"],
         "lightning",
         "intro",
-        { start: "14:05", end: "14:25" },
+        { start: "14:45", end: "15:05" },
       ),
     ],
   },
   {
     kind: "parallel",
     id: "bloque-5",
-    time: { start: "15:10", end: "15:50" },
+    time: { start: "15:50", end: "16:30" },
     label: local("Bloque 5", "Block 5"),
     sessions: [
       session(
@@ -439,7 +439,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-6",
-    time: { start: "16:00", end: "16:40" },
+    time: { start: "16:40", end: "17:20" },
     label: local("Bloque 6", "Block 6"),
     sessions: [
       session(
@@ -471,7 +471,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "break-2",
-    time: { start: "16:40", end: "16:50" },
+    time: { start: "17:20", end: "17:30" },
     subtype: "break",
     title: local("Community Break"),
     summary: local(
@@ -482,7 +482,7 @@ export const agenda = [
   {
     kind: "parallel",
     id: "bloque-7",
-    time: { start: "16:50", end: "17:30" },
+    time: { start: "17:30", end: "18:10" },
     label: local("Bloque 7", "Block 7"),
     note: local(
       "Auditorio BISA cerrado por sound check.",
@@ -510,7 +510,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "cultural",
-    time: { start: "17:30", end: "17:50" },
+    time: { start: "18:10", end: "18:30" },
     subtype: "keynote",
     title: local("Keynote & Acto Cultural", "Keynote & Cultural Act"),
     summary: local(
@@ -521,7 +521,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "closing",
-    time: { start: "17:50", end: "18:05" },
+    time: { start: "18:30", end: "18:45" },
     subtype: "closing",
     title: local(
       "Cierre — Closing Session + Community Recognition",
@@ -535,7 +535,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "community-call",
-    time: { start: "18:05", end: "18:20" },
+    time: { start: "18:45", end: "19:00" },
     subtype: "networking",
     title: local(
       "Networking — Community Call + Networking",
@@ -556,15 +556,15 @@ export const dayRhythm = [
     time: "11:00",
     label: local("Sesiones presenciales + híbridas", "In-person + hybrid sessions"),
   },
-  { code: "04", time: "13:20", label: local("Food trucks + Expo", "Food trucks + Expo") },
+  { code: "04", time: "14:00", label: local("Food trucks + Expo", "Food trucks + Expo") },
   {
     code: "05",
-    time: "16:40",
+    time: "17:20",
     label: local("Transición cultural", "Cultural transition"),
   },
   {
     code: "06",
-    time: "17:30",
+    time: "18:10",
     label: local("Keynote, acto cultural + cierre", "Keynote, cultural act + closing"),
   },
 ] as const;

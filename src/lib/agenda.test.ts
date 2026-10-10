@@ -30,11 +30,19 @@ describe("validateAgenda", () => {
     });
   });
 
-  it("goes straight from the morning blocks into lunch at 13:20", () => {
+  it("starts Silvana's BISA talk at 12:30 and moves the remaining programme", () => {
+    const silvanaBlock = agenda.find((block) => block.id === "bloque-2");
+    expect(silvanaBlock?.time).toEqual({ start: "12:30", end: "13:10" });
+    expect(
+      silvanaBlock?.kind === "parallel"
+        ? silvanaBlock.sessions.find((session) => session.id === "b2-silvana")?.speakers
+        : undefined,
+    ).toContain("Silvana Gutierrez");
     expect(agenda.find((block) => block.id === "food-trucks")?.time).toEqual({
-      start: "13:20",
-      end: "14:20",
+      start: "14:00",
+      end: "15:00",
     });
+    expect(agenda.at(-1)?.time.end).toBe("19:00");
   });
 
   it("rejects two sessions in the same track within one block", () => {
