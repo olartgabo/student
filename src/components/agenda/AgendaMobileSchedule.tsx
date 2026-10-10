@@ -13,10 +13,13 @@ export function AgendaMobileSchedule({
   rows,
   tracks,
   locale,
+  hideEmptyBlocks = false,
 }: {
   rows: readonly AgendaRow[];
   tracks: readonly AgendaTrack[];
   locale: Locale;
+  /** Drops parallel blocks with nothing to show for these tracks. */
+  hideEmptyBlocks?: boolean;
 }) {
   return (
     <ol className="space-y-6">
@@ -53,6 +56,8 @@ export function AgendaMobileSchedule({
         // A room showing a concurrent talk keeps that talk in place of the
         // plenary, just as the filtered desktop table does.
         const showPlenary = row.kind === "plenary" && entries.length < tracks.length;
+        if (hideEmptyBlocks && row.kind === "parallel" && entries.length === 0)
+          return null;
 
         return (
           <li key={row.block.id} className="min-w-0">

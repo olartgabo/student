@@ -186,4 +186,35 @@ describe("AgendaTable", () => {
     expect(all).toContain(">BISA<");
     expect(gessell).not.toContain("Building Your Career Before Graduation");
   });
+
+  it("leaves virtual talks out of the mobile all-rooms list until filtered", () => {
+    const programme = deriveAgendaGrid(agenda, agendaTracks);
+    const mobile = (html: string) => html.slice(0, html.indexOf("<table"));
+    const all = mobile(
+      renderToStaticMarkup(
+        <AgendaTable
+          rows={programme}
+          tracks={agendaTracks}
+          activeTrack={null}
+          locale="es"
+        />,
+      ),
+    );
+    const a2 = mobile(
+      renderToStaticMarkup(
+        <AgendaTable
+          rows={programme}
+          tracks={agendaTracks}
+          activeTrack="a2"
+          locale="es"
+        />,
+      ),
+    );
+
+    expect(all).toContain("Monitorea como un Pro");
+    expect(all).not.toContain("Securing Serverless Enterprises");
+    expect(all).not.toContain("Sesiones híbridas");
+    expect(all).toContain("Elegí esas salas en el filtro");
+    expect(a2).toContain("Securing Serverless Enterprises");
+  });
 });

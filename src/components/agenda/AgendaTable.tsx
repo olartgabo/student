@@ -22,6 +22,8 @@ const copy = {
     scroll: "Desplazá la tabla para ver todas las salas.",
     previous: "Ver salas anteriores",
     next: "Ver más salas",
+    virtualHidden:
+      "Las charlas virtuales de A1 y A2 no se muestran aquí. Elegí esas salas en el filtro para verlas.",
   },
   en: {
     caption: `Full programme for ${eventDateLabel.en.long}. Columns are rooms; rows are time blocks.`,
@@ -30,6 +32,8 @@ const copy = {
     scroll: "Scroll the table to see every room.",
     previous: "See previous rooms",
     next: "See more rooms",
+    virtualHidden:
+      "Virtual talks in A1 and A2 are not listed here. Pick those rooms in the filter to see them.",
   },
 } as const;
 
@@ -114,7 +118,21 @@ export function AgendaTable({
   return (
     <div>
       <div className="md:hidden print:hidden">
-        <AgendaMobileSchedule rows={rows} tracks={visibleTracks} locale={locale} />
+        {activeTrack === null ? (
+          // On phones the all-rooms list only shows the in-person rooms; virtual
+          // talks stay one filter tap away so the first glance is not crowded.
+          <>
+            <p className="text-small mb-4 text-slate-200">{t.virtualHidden}</p>
+            <AgendaMobileSchedule
+              rows={rows}
+              tracks={tracks.filter((track) => track.kind !== "virtual")}
+              locale={locale}
+              hideEmptyBlocks
+            />
+          </>
+        ) : (
+          <AgendaMobileSchedule rows={rows} tracks={visibleTracks} locale={locale} />
+        )}
       </div>
       {activeTrack === null && (canScrollLeft || canScrollRight) ? (
         <div className="agenda-scroll-controls mb-3 hidden items-center justify-between gap-3 md:flex print:hidden">

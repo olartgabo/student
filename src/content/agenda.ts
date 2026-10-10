@@ -54,7 +54,7 @@ export const agendaTracks = [
   },
   {
     id: "a1",
-    kind: "room",
+    kind: "virtual",
     name: local("Arquitectura 1 · Híbrido español", "Architecture 1 · Hybrid Spanish"),
     shortName: local("A1 · Híbrido ES", "A1 · Hybrid ES"),
     code: "05",
@@ -66,7 +66,7 @@ export const agendaTracks = [
   },
   {
     id: "a2",
-    kind: "room",
+    kind: "virtual",
     name: local("Arquitectura 2 · Híbrido inglés", "Architecture 2 · Hybrid English"),
     shortName: local("A2 · Híbrido EN", "A2 · Hybrid EN"),
     code: "06",
