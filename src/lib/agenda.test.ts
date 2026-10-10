@@ -11,6 +11,32 @@ describe("validateAgenda", () => {
     expect(validateAgenda(agenda, agendaTracks)).toEqual([]);
   });
 
+  it("places a fifteen-minute breakfast between the welcome and first sessions", () => {
+    const openingIndex = agenda.findIndex((block) => block.id === "opening");
+    const opening = agenda[openingIndex];
+    const breakfast = agenda[openingIndex + 1];
+    const firstSessions = agenda[openingIndex + 2];
+
+    expect(opening?.time.end).toBe("09:15");
+    expect(breakfast).toMatchObject({
+      id: "breakfast",
+      kind: "plenary",
+      title: { es: "Desayuno", en: "Breakfast" },
+      time: { start: "09:15", end: "09:30" },
+    });
+    expect(firstSessions).toMatchObject({
+      id: "bloque-1",
+      time: { start: "09:30", end: "10:10" },
+    });
+  });
+
+  it("starts the morning Community Break at 11:15", () => {
+    expect(agenda.find((block) => block.id === "break-1")?.time).toEqual({
+      start: "11:15",
+      end: "11:30",
+    });
+  });
+
   it("rejects two sessions in the same track within one block", () => {
     const blocks = [
       {

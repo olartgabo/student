@@ -126,7 +126,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "opening",
-    time: { start: "09:00", end: "09:30" },
+    time: { start: "09:00", end: "09:15" },
     subtype: "opening",
     title: local(
       "Apertura — Opening AWS Student Community Day Cochabamba 2026",
@@ -136,6 +136,13 @@ export const agenda = [
       "Bienvenida, comunidades, sponsors, tracks y espacios.",
       "Welcome, communities, sponsors, tracks and spaces.",
     ),
+  },
+  {
+    kind: "plenary",
+    id: "breakfast",
+    time: { start: "09:15", end: "09:30" },
+    subtype: "break",
+    title: local("Desayuno", "Breakfast"),
   },
   {
     kind: "parallel",
@@ -236,7 +243,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "break-1",
-    time: { start: "11:00", end: "11:30" },
+    time: { start: "11:15", end: "11:30" },
     subtype: "break",
     title: local("Community Break"),
     summary: local(

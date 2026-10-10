@@ -30,6 +30,9 @@ const copy = {
     reserve: "Reserva tu lugar",
     admission: "Entrada gratuita · cupos limitados",
     register: "Registrarme en Luma",
+    today: "¡El evento es hoy!",
+    registered: "1010+ personas registradas",
+    app: "Abrir la app del evento",
     agenda: "Ver la agenda",
   },
   en: {
@@ -38,6 +41,9 @@ const copy = {
     reserve: "Save your spot",
     admission: "Free admission · limited seats",
     register: "Register on Luma",
+    today: "Today is the day!",
+    registered: "1010+ people registered",
+    app: "Open the event app",
     agenda: "See the agenda",
   },
 } as const;
@@ -127,13 +133,35 @@ export function Hero({ locale }: { locale: Locale }) {
               Community
             </span>
             <span data-hero-step className="block">
-              Day Bolivia
+              Day
+            </span>
+            <span data-hero-step className="text-display-md mt-3 block">
+              Cochabamba Bolivia
             </span>
           </h1>
 
           <p data-hero-step className="text-body-lg mt-6 max-w-xl text-slate-200">
             {event.tagline[locale]}
           </p>
+
+          <div
+            data-hero-step
+            className="border-orange mt-6 flex flex-col gap-4 border bg-slate-800/90 p-5 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div>
+              <p className="font-display text-orange flex items-center gap-3 uppercase">
+                <span
+                  aria-hidden
+                  className="bg-orange size-3 shrink-0 rounded-full motion-safe:animate-pulse"
+                />
+                {t.today}
+              </p>
+              <p className="mt-2 text-white">{t.registered}</p>
+            </div>
+            <Button href="https://app.studentcommunity.day" className="shrink-0">
+              {t.app} <span aria-hidden>↗</span>
+            </Button>
+          </div>
 
           <div data-hero-step className="mt-10 grid gap-px sm:grid-cols-2 sm:gap-4">
             <MetaBox icon="calendar">
