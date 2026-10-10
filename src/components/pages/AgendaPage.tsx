@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { AgendaMap } from "@/components/agenda/AgendaMap";
 import { AgendaTimetable } from "@/components/agenda/AgendaTimetable";
 import { Container } from "@/components/layout/Container";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -67,6 +68,7 @@ export function AgendaPage({ locale }: { locale: Locale }) {
               <Button href={speakerCta.href} variant="secondary">
                 {speakerCta.label[locale]} <span aria-hidden>↗</span>
               </Button>
+              <AgendaMap locale={locale} />
             </div>
           </Container>
         </div>
