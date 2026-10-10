@@ -28,25 +28,6 @@ export function HeroIntro() {
         ease: "power2.out",
       });
 
-      entrance.from(
-        "[data-hero-count]",
-        {
-          scale: 0.85,
-          duration: 0.7,
-          ease: "back.out(1.4)",
-        },
-        0.6,
-      );
-
-      entrance.from(
-        "[data-hero-today]",
-        {
-          x: -12,
-          duration: 0.5,
-          ease: "power2.out",
-        },
-        0.8,
-      );
     });
 
     return () => mm.revert();
