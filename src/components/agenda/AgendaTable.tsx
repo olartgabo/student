@@ -10,6 +10,7 @@ import { formatRange } from "@/lib/agenda";
 import type { Locale } from "@/lib/i18n";
 import { NO_SESSION } from "@/lib/tba";
 
+import { AgendaMobileSchedule } from "./AgendaMobileSchedule";
 import { PlenaryRow } from "./PlenaryRow";
 import { SessionCell } from "./SessionCell";
 
@@ -87,7 +88,11 @@ export function AgendaTable({
           className="min-w-0 border-t border-l border-slate-600 p-3 align-top [overflow-wrap:anywhere]"
         >
           {session ? (
-            <SessionCell session={session} time={session.time ?? fallback} locale={locale} />
+            <SessionCell
+              session={session}
+              time={session.time ?? fallback}
+              locale={locale}
+            />
           ) : (
             <EmptyCell locale={locale} />
           )}
@@ -108,8 +113,11 @@ export function AgendaTable({
 
   return (
     <div>
+      <div className="md:hidden print:hidden">
+        <AgendaMobileSchedule rows={rows} tracks={visibleTracks} locale={locale} />
+      </div>
       {activeTrack === null && (canScrollLeft || canScrollRight) ? (
-        <div className="agenda-scroll-controls mb-3 flex items-center justify-between gap-3">
+        <div className="agenda-scroll-controls mb-3 hidden items-center justify-between gap-3 md:flex print:hidden">
           <p className="text-small text-slate-200">{t.scroll}</p>
           <div className="flex shrink-0 gap-2">
             <button
@@ -135,7 +143,7 @@ export function AgendaTable({
       ) : null}
       <div
         ref={scrollRef}
-        className="agenda-grid w-full min-w-0 overflow-x-auto overscroll-x-contain border border-slate-600"
+        className="agenda-grid hidden w-full min-w-0 overflow-x-auto overscroll-x-contain border border-slate-600 md:block print:block"
         style={{ scrollbarGutter: "stable" }}
       >
         <table

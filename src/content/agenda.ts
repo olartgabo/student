@@ -43,8 +43,8 @@ export const agendaTracks = [
   {
     id: "l22",
     kind: "room",
-    name: local("Laboratorio 22", "Lab 22"),
-    shortName: local("L22"),
+    name: local("Diseño 2", "Design 2"),
+    shortName: local("D2"),
     code: "04",
     accent: "green",
     room: "PC Lab",

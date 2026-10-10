@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { AgendaMap } from "@/components/agenda/AgendaMap";
 import { AgendaTimetable } from "@/components/agenda/AgendaTimetable";
 import { Container } from "@/components/layout/Container";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -55,23 +56,28 @@ export function AgendaPage({ locale }: { locale: Locale }) {
     <>
       <SiteHeader locale={locale} />
       <main id="contenido" className="pt-18">
-        <div className="grid-motif border-b border-slate-600 py-16 md:py-20">
-          <Container>
+        <div className="grid-motif border-b border-slate-600 py-10 sm:py-16 md:py-20">
+          <Container className="max-sm:px-4">
             <Eyebrow>Agenda</Eyebrow>
             <h1 className="font-display text-display-lg mt-4 text-white">{t.title}</h1>
             <p className="text-body-lg mt-4 max-w-2xl text-slate-200">{t.intro}</p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button href={event.registrationUrl}>
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
+              <Button href={event.registrationUrl} className="w-full sm:w-auto">
                 {t.register} <span aria-hidden>↗</span>
               </Button>
-              <Button href={speakerCta.href} variant="secondary">
+              <Button
+                href={speakerCta.href}
+                variant="secondary"
+                className="w-full sm:w-auto"
+              >
                 {speakerCta.label[locale]} <span aria-hidden>↗</span>
               </Button>
+              <AgendaMap locale={locale} />
             </div>
           </Container>
         </div>
 
-        <div className="mx-auto w-full max-w-[100rem] px-4 py-12 sm:px-6 md:py-16">
+        <div className="mx-auto w-full max-w-[100rem] min-w-0 px-4 py-8 sm:px-6 md:py-16">
           <AgendaTimetable locale={locale} />
         </div>
       </main>
