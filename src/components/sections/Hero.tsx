@@ -3,7 +3,6 @@ import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { event, eventDateLabel, organizerGroupsLabel } from "@/content/event";
-import { speakerCta } from "@/content/nav";
 import { localePath, type Locale } from "@/lib/i18n";
 
 import { Countdown } from "./Countdown";
@@ -93,7 +92,12 @@ function MetaBox({
 }) {
   return (
     <div className="flex items-center gap-4 border border-slate-600 px-5 py-4">
-      <PixelIcon name={icon} className="text-sky size-6 shrink-0" />
+      <PixelIcon
+        name={icon}
+        className={
+          icon === "pin" ? "text-sky size-10 shrink-0" : "text-sky size-6 shrink-0"
+        }
+      />
       <div className="font-display text-small tracking-mono-caps text-white uppercase">
         {children}
       </div>
@@ -181,12 +185,14 @@ export function Hero({ locale }: { locale: Locale }) {
               </a>
             </div>
 
-            <div data-hero-step className="mt-4 flex flex-wrap items-center gap-4">
-              <Button href={localePath(locale, "/agenda")} variant="secondary" size="lg">
+            <div data-hero-step className="mt-4">
+              <Button
+                href={localePath(locale, "/agenda")}
+                variant="secondary"
+                size="lg"
+                className="w-full"
+              >
                 {t.agenda}
-              </Button>
-              <Button href={speakerCta.href} variant="secondary" size="lg">
-                {speakerCta.label[locale]} <span aria-hidden>↗</span>
               </Button>
             </div>
 

@@ -6,8 +6,7 @@ import { useState } from "react";
 
 import { BrandLockup } from "@/components/brand/BrandLockup";
 import { Button } from "@/components/ui/Button";
-import { event } from "@/content/event";
-import { navLinks, speakerCta } from "@/content/nav";
+import { navLinks } from "@/content/nav";
 import { localePath, switchLocalePath, type Locale } from "@/lib/i18n";
 import { Container } from "./Container";
 
@@ -16,7 +15,8 @@ const copy = {
     skip: "Saltar al contenido",
     home: "Ir al inicio de Student Community Day Cochabamba Bolivia",
     nav: "Principal",
-    register: "Regístrate",
+    app: "Abrir la app",
+    agenda: "Ver la agenda",
     open: "Menú",
     close: "Cerrar",
   },
@@ -24,7 +24,8 @@ const copy = {
     skip: "Skip to content",
     home: "Go to the Student Community Day Cochabamba Bolivia home page",
     nav: "Main",
-    register: "Register",
+    app: "Open the app",
+    agenda: "See the agenda",
     open: "Menu",
     close: "Close",
   },
@@ -80,15 +81,19 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
           <div className="flex items-center gap-3">
             <Button
-              href={speakerCta.href}
+              href={localePath(locale, "/agenda")}
               variant="ghost"
               size="sm"
               className="max-xl:hidden"
             >
-              {speakerCta.shortLabel[locale]} <span aria-hidden>↗</span>
+              {t.agenda}
             </Button>
-            <Button href={event.registrationUrl} size="sm" className="max-sm:hidden">
-              {t.register}
+            <Button
+              href="https://app.studentcommunity.day"
+              size="sm"
+              className="max-sm:hidden"
+            >
+              {t.app}
             </Button>
             <Link
               href={switchLocalePath(pathname, other.locale)}
@@ -132,11 +137,11 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               </li>
             ))}
             <li className="flex flex-wrap gap-3 py-3">
-              <Button href={event.registrationUrl} size="sm">
-                {t.register}
+              <Button href="https://app.studentcommunity.day" size="sm">
+                {t.app}
               </Button>
-              <Button href={speakerCta.href} variant="secondary" size="sm">
-                {speakerCta.shortLabel[locale]} <span aria-hidden>↗</span>
+              <Button href={localePath(locale, "/agenda")} variant="secondary" size="sm">
+                {t.agenda}
               </Button>
             </li>
           </ul>
