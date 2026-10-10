@@ -14,7 +14,7 @@ import { Container } from "./Container";
 const copy = {
   es: {
     skip: "Saltar al contenido",
-    home: "Ir al inicio de Student Community Day Bolivia",
+    home: "Ir al inicio de Student Community Day Cochabamba Bolivia",
     nav: "Principal",
     register: "Regístrate",
     open: "Menú",
@@ -22,7 +22,7 @@ const copy = {
   },
   en: {
     skip: "Skip to content",
-    home: "Go to the Student Community Day Bolivia home page",
+    home: "Go to the Student Community Day Cochabamba Bolivia home page",
     nav: "Main",
     register: "Register",
     open: "Menu",

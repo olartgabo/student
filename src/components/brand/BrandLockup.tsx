@@ -12,7 +12,14 @@ export function BrandLockup({
   compactOnMobile = false,
   size = "md",
 }: BrandLockupProps) {
-  const label = `${event.name} ${event.venue.country}`;
+  const label = (
+    <>
+      <span className="block">{event.name}</span>
+      <span className="block">
+        {event.venue.city} {event.venue.country}
+      </span>
+    </>
+  );
 
   return (
     <span className={cn("flex items-center gap-2.5", className)}>
@@ -35,8 +42,8 @@ export function BrandLockup({
       >
         {compactOnMobile ? (
           <>
-            <span className="sm:hidden">SCD Bolivia</span>
-            <span className="hidden sm:inline">{label}</span>
+            <span className="sm:hidden">SCD Cochabamba Bolivia</span>
+            <span className="hidden sm:block">{label}</span>
           </>
         ) : (
           label

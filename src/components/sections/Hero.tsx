@@ -26,25 +26,19 @@ const communityLinks = [
 const copy = {
   es: {
     community: "Comunidad",
-    lumaEyebrow: "Luma // inscripciones abiertas",
-    reserve: "Reserva tu lugar",
-    admission: "Entrada gratuita · cupos limitados",
-    register: "Registrarme en Luma",
     today: "¡El evento es hoy!",
     registered: "1010+ personas registradas",
     app: "Abrir la app del evento",
     agenda: "Ver la agenda",
+    directions: "Cómo llegar · Google Maps",
   },
   en: {
     community: "Community",
-    lumaEyebrow: "Luma // registration open",
-    reserve: "Save your spot",
-    admission: "Free admission · limited seats",
-    register: "Register on Luma",
     today: "Today is the day!",
     registered: "1010+ people registered",
     app: "Open the event app",
     agenda: "See the agenda",
+    directions: "Get directions · Google Maps",
   },
 } as const;
 
@@ -120,93 +114,85 @@ export function Hero({ locale }: { locale: Locale }) {
       <HeroField className="pointer-events-none absolute inset-0 -z-10 h-full w-full" />
 
       <Container className="relative flex min-h-svh flex-col justify-center py-28">
-        <div className="max-w-3xl">
-          <div data-hero-step>
-            <Eyebrow>AWS Student Builder Groups — {organizerGroupsLabel(locale)}</Eyebrow>
-          </div>
-
-          <h1 className="font-display text-display-xl mt-6 uppercase">
-            <span data-hero-step className="block">
-              Student
-            </span>
-            <span data-hero-step className="text-sky block">
-              Community
-            </span>
-            <span data-hero-step className="block">
-              Day
-            </span>
-            <span data-hero-step className="text-display-md mt-3 block">
-              Cochabamba Bolivia
-            </span>
-          </h1>
-
-          <p data-hero-step className="text-body-lg mt-6 max-w-xl text-slate-200">
-            {event.tagline[locale]}
-          </p>
-
-          <div
-            data-hero-step
-            className="border-orange mt-6 flex flex-col gap-4 border bg-slate-800/90 p-5 sm:flex-row sm:items-center sm:justify-between"
-          >
-            <div>
-              <p className="font-display text-orange flex items-center gap-3 uppercase">
-                <span
-                  aria-hidden
-                  className="bg-orange size-3 shrink-0 rounded-full motion-safe:animate-pulse"
-                />
-                {t.today}
-              </p>
-              <p className="mt-2 text-white">{t.registered}</p>
+        <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+          <div className="min-w-0">
+            <div data-hero-step>
+              <Eyebrow>
+                AWS Student Builder Groups — {organizerGroupsLabel(locale)}
+              </Eyebrow>
             </div>
-            <Button href="https://app.studentcommunity.day" className="shrink-0">
-              {t.app} <span aria-hidden>↗</span>
-            </Button>
+
+            <h1 className="font-display text-display-xl mt-6 uppercase lg:text-[clamp(3rem,5vw,4.75rem)]">
+              <span data-hero-step className="block">
+                Student
+              </span>
+              <span data-hero-step className="text-sky block">
+                Community
+              </span>
+              <span data-hero-step className="block">
+                Day
+              </span>
+              <span data-hero-step className="text-display-md mt-3 block">
+                Cochabamba Bolivia
+              </span>
+            </h1>
+
+            <p data-hero-step className="text-body-lg mt-6 max-w-xl text-slate-200">
+              {event.tagline[locale]}
+            </p>
           </div>
 
-          <div data-hero-step className="mt-10 grid gap-px sm:grid-cols-2 sm:gap-4">
-            <MetaBox icon="calendar">
-              <span className="text-display-md text-sky mr-2">{date.day}</span>
-              {date.month} {date.year}
-            </MetaBox>
-            <MetaBox icon="pin">
-              {event.venue.shortName} · {event.venue.city}
-              <span className="block text-slate-200">{event.venue.country}</span>
-            </MetaBox>
-          </div>
-
-          <div
-            data-hero-step
-            className="border-sky shadow-card mt-10 border bg-slate-800/90 p-5 sm:p-6"
-          >
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <div
+              data-hero-step
+              className="border-orange flex flex-col gap-5 border bg-slate-800/90 p-6"
+            >
               <div>
-                <p className="font-display text-small tracking-mono-caps text-sky uppercase">
-                  {t.lumaEyebrow}
+                <p className="font-display text-orange flex items-center gap-3 uppercase">
+                  <span
+                    aria-hidden
+                    className="bg-orange size-3 shrink-0 rounded-full motion-safe:animate-pulse"
+                  />
+                  {t.today}
                 </p>
-                <p className="font-display text-display-md mt-2 uppercase">{t.reserve}</p>
-                <p className="mt-1 text-slate-200">{t.admission}</p>
+                <p className="mt-2 text-white">{t.registered}</p>
               </div>
-              <Button
-                href={event.registrationUrl}
-                size="lg"
-                className="w-full shrink-0 sm:w-auto"
-              >
-                {t.register} <span aria-hidden>↗</span>
+              <Button href="https://app.studentcommunity.day" className="shrink-0">
+                {t.app} <span aria-hidden>↗</span>
               </Button>
             </div>
-          </div>
 
-          <div data-hero-step className="mt-4 flex flex-wrap items-center gap-4">
-            <Button href={localePath(locale, "/agenda")} variant="secondary" size="lg">
-              {t.agenda}
-            </Button>
-            <Button href={speakerCta.href} variant="secondary" size="lg">
-              {speakerCta.label[locale]} <span aria-hidden>↗</span>
-            </Button>
-          </div>
+            <div data-hero-step className="mt-5 grid gap-4">
+              <MetaBox icon="calendar">
+                <span className="text-display-md text-sky mr-2">{date.day}</span>
+                {date.month} {date.year}
+              </MetaBox>
+              <a
+                href={event.venue.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:bg-white/5"
+              >
+                <MetaBox icon="pin">
+                  {event.venue.shortName} · {event.venue.city}
+                  <span className="block text-slate-200">{event.venue.country}</span>
+                  <span className="text-sky mt-2 block">{t.directions} ↗</span>
+                </MetaBox>
+              </a>
+            </div>
 
-          <div data-hero-step className="mt-10">
-            <Countdown locale={locale} />
+            <div data-hero-step className="mt-4 flex flex-wrap items-center gap-4">
+              <Button href={localePath(locale, "/agenda")} variant="secondary" size="lg">
+                {t.agenda}
+              </Button>
+              <Button href={speakerCta.href} variant="secondary" size="lg">
+                {speakerCta.label[locale]} <span aria-hidden>↗</span>
+              </Button>
+            </div>
+
+            <div data-hero-step className="mt-10">
+              <Countdown locale={locale} />
+            </div>
           </div>
         </div>
       </Container>
