@@ -299,6 +299,10 @@ export const agenda = [
     id: "bloque-3",
     time: { start: "13:30", end: "14:10" },
     label: local("Bloque 3", "Block 3"),
+    note: local(
+      "Auditorio BISA: Heberht comienza a las 14:30.",
+      "BISA Auditorium: Heberht starts at 14:30.",
+    ),
     sessions: [
       session(
         "b5-heberht",
@@ -307,6 +311,7 @@ export const agenda = [
         ["Heberht Castellon"],
         "charla",
         "intermedio",
+        { start: "14:30", end: "15:10" },
       ),
       session(
         "b3-kaya",
@@ -382,6 +387,7 @@ export const agenda = [
         ["Gonzalo Alfaro"],
         "charla",
         "intermedio",
+        { start: "15:20", end: "16:00" },
       ),
       session(
         "b4-catriel",
@@ -423,6 +429,7 @@ export const agenda = [
         ["Carlos Isaac Jaldin Benavides"],
         "demo",
         "intermedio",
+        { start: "16:10", end: "16:50" },
       ),
       session(
         "b3-mauricio",
@@ -455,6 +462,7 @@ export const agenda = [
         ["Sara Salazar Paredes"],
         "charla",
         "intro",
+        { start: "17:00", end: "17:40" },
       ),
       session(
         "b6-adrian",
@@ -481,8 +489,8 @@ export const agenda = [
     subtype: "break",
     title: local("Community Break"),
     summary: local(
-      "Pausa y preparación para la transición cultural.",
-      "Break and preparation for the cultural transition.",
+      "Pausa en las demás salas. BISA continúa hasta las 16:50.",
+      "Break in the other rooms. BISA continues until 16:50.",
     ),
   },
   {
@@ -491,8 +499,8 @@ export const agenda = [
     time: { start: "16:50", end: "17:30" },
     label: local("Bloque 7", "Block 7"),
     note: local(
-      "Auditorio BISA cerrado por sound check.",
-      "BISA Auditorium closed for sound check.",
+      "Auditorio BISA: charla de Sara hasta las 17:40; luego sound check.",
+      "BISA Auditorium: Sara's talk until 17:40, then sound check.",
     ),
     sessions: [
       session(
@@ -516,7 +524,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "cultural",
-    time: { start: "17:30", end: "17:50" },
+    time: { start: "18:20", end: "18:40" },
     subtype: "keynote",
     title: local("Keynote & Acto Cultural", "Keynote & Cultural Act"),
     summary: local(
@@ -527,7 +535,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "closing",
-    time: { start: "17:50", end: "18:05" },
+    time: { start: "18:40", end: "18:55" },
     subtype: "closing",
     title: local(
       "Cierre — Closing Session + Community Recognition",
@@ -541,7 +549,7 @@ export const agenda = [
   {
     kind: "plenary",
     id: "community-call",
-    time: { start: "18:05", end: "18:20" },
+    time: { start: "18:55", end: "19:10" },
     subtype: "networking",
     title: local(
       "Networking — Community Call + Networking",
@@ -570,7 +578,7 @@ export const dayRhythm = [
   },
   {
     code: "06",
-    time: "17:30",
+    time: "18:20",
     label: local("Keynote, acto cultural + cierre", "Keynote, cultural act + closing"),
   },
 ] as const;

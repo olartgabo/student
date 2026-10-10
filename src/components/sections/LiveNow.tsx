@@ -7,15 +7,16 @@ import { event, eventEndISO, eventStartISO } from "@/content/event";
 import { localePath, type Locale } from "@/lib/i18n";
 
 function currentBisaSession(now: number): string | null {
-  const block = agenda.find(({ time }) => {
+  for (const block of agenda) {
+    if (block.kind !== "parallel") continue;
+    const session = block.sessions.find((item) => item.trackId === "bisa");
+    if (session?.status !== "confirmed") continue;
+    const time = session.time ?? block.time;
     const start = new Date(`${event.dateISO}T${time.start}:00${event.utcOffset}`).getTime();
     const end = new Date(`${event.dateISO}T${time.end}:00${event.utcOffset}`).getTime();
-    return now >= start && now < end;
-  });
-
-  if (block?.kind !== "parallel") return null;
-  const session = block.sessions.find((item) => item.trackId === "bisa");
-  return session?.status === "confirmed" ? session.title : null;
+    if (now >= start && now < end) return session.title;
+  }
+  return null;
 }
 
 export function LiveNow({ locale }: { locale: Locale }) {
